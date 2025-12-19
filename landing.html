@@ -2353,6 +2353,7 @@
 
             <!-- Stage 5: Final gateway -->
             <div class="deploy-stage hidden" id="deploy-stage-5">
+                <audio id="day0-audio" src="day0.mp3" preload="auto"></audio>
                 <div class="deploy-gateway">
                     <div class="deploy-gateway-warning">THIS ACTION IS IRREVERSIBLE</div>
                     <button class="deploy-gateway-btn" id="deploy-enter-btn">ENTER HEADQUARTERS</button>
@@ -3114,6 +3115,12 @@
                     playReverseReverb();
                     continuePrompt.classList.add('hidden');
                     populateDeployLoggedData();
+                    // Play day0 audio
+                    const day0Audio = document.getElementById('day0-audio');
+                    if (day0Audio) {
+                        day0Audio.volume = 0.7;
+                        day0Audio.play().catch(e => console.log('Audio autoplay blocked'));
+                    }
                     break;
             }
         }
