@@ -9,6 +9,7 @@
         @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@300;400&display=swap');
 
         :root {
+            /* Colors */
             --black: #0a0a0a;
             --dark: #111;
             --gray: #1a1a1a;
@@ -16,6 +17,27 @@
             --dim: #888;
             --accent: #d4af37;
             --white: #f5f5f5;
+
+            /* Typography Scale (Major Third 1.25) */
+            --size-display: 4rem;      /* 64px - Sigils, dramatic icons */
+            --size-h1: 2rem;           /* 32px - Big reveals */
+            --size-h2: 1.5rem;         /* 24px - Titles, questions */
+            --size-lg: 1.125rem;       /* 18px - Emphasis text */
+            --size-base: 1rem;         /* 16px - Body text */
+            --size-sm: 0.875rem;       /* 14px - Secondary text */
+            --size-xs: 0.75rem;        /* 12px - Buttons, captions */
+            --size-2xs: 0.7rem;        /* 11.2px - Metadata (minimum) */
+
+            /* Letter Spacing (Powers of 2) */
+            --ls-tight: 1px;
+            --ls-normal: 2px;
+            --ls-wide: 4px;
+            --ls-dramatic: 8px;
+
+            /* Line Heights */
+            --lh-compact: 1.5;
+            --lh-normal: 1.7;
+            --lh-relaxed: 1.9;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -30,7 +52,7 @@
             background: var(--black);
             color: var(--text);
             min-height: 100vh;
-            line-height: 1.7;
+            line-height: var(--lh-normal);
         }
 
         .hidden { display: none !important; }
@@ -76,7 +98,7 @@
         }
 
         .sigil {
-            font-size: 6rem;
+            font-size: var(--size-display);
             color: var(--accent);
             margin-bottom: 40px;
             animation: breathe 4s ease-in-out infinite;
@@ -89,11 +111,11 @@
         }
 
         .epigraph {
-            font-size: 1.1rem;
+            font-size: var(--size-lg);
             font-style: italic;
             color: var(--text);
             margin-bottom: 30px;
-            letter-spacing: 0.5px;
+            letter-spacing: var(--ls-tight);
         }
 
         .scramble-text {
@@ -111,7 +133,7 @@
         }
 
         .epigraph-source {
-            font-size: 0.85rem;
+            font-size: var(--size-sm);
             color: var(--dim);
             margin-top: 10px;
             font-style: normal;
@@ -119,9 +141,9 @@
 
         .instruction {
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.75rem;
+            font-size: var(--size-xs);
             color: var(--accent);
-            letter-spacing: 3px;
+            letter-spacing: var(--ls-wide);
             margin-top: 50px;
             opacity: 0.8;
         }
@@ -133,16 +155,16 @@
         }
 
         .briefing-text {
-            font-size: 1.1rem;
+            font-size: var(--size-lg);
             color: var(--dim);
             margin-bottom: 25px;
         }
 
         .briefing-formula {
             font-family: 'JetBrains Mono', monospace;
-            font-size: 1.3rem;
+            font-size: var(--size-lg);
             color: var(--accent);
-            letter-spacing: 2px;
+            letter-spacing: var(--ls-normal);
             margin-bottom: 40px;
         }
 
@@ -158,21 +180,21 @@
 
         .test-header {
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.65rem;
+            font-size: var(--size-2xs);
             color: var(--dim);
-            letter-spacing: 4px;
+            letter-spacing: var(--ls-wide);
             margin-bottom: 40px;
         }
 
         .test-question {
-            font-size: 1.4rem;
+            font-size: var(--size-h2);
             color: var(--white);
             margin-bottom: 15px;
             font-weight: 400;
         }
 
         .test-hint {
-            font-size: 0.9rem;
+            font-size: var(--size-sm);
             color: var(--dim);
             font-style: italic;
             margin-bottom: 40px;
@@ -180,9 +202,9 @@
 
         .cipher-display {
             font-family: 'JetBrains Mono', monospace;
-            font-size: 1.1rem;
+            font-size: var(--size-lg);
             color: var(--accent);
-            letter-spacing: 8px;
+            letter-spacing: var(--ls-dramatic);
             padding: 25px;
             background: var(--dark);
             border: 1px solid var(--gray);
@@ -202,9 +224,9 @@
             border: 1px solid var(--gray);
             color: var(--white);
             font-family: 'JetBrains Mono', monospace;
-            font-size: 1rem;
+            font-size: var(--size-base);
             text-align: center;
-            letter-spacing: 2px;
+            letter-spacing: var(--ls-normal);
             outline: none;
             transition: border-color 0.3s;
         }
@@ -223,8 +245,8 @@
             border: 1px solid var(--dim);
             color: var(--text);
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.75rem;
-            letter-spacing: 3px;
+            font-size: var(--size-xs);
+            letter-spacing: var(--ls-wide);
             cursor: pointer;
             transition: all 0.3s;
         }
@@ -237,7 +259,7 @@
 
         .feedback {
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.75rem;
+            font-size: var(--size-xs);
             margin-top: 20px;
             height: 20px;
         }
@@ -265,27 +287,27 @@
         .readme-title {
             display: block;
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.7rem;
+            font-size: var(--size-xs);
             color: var(--accent);
-            letter-spacing: 2px;
+            letter-spacing: var(--ls-normal);
             margin-bottom: 15px;
         }
 
         .readme-text {
             display: block;
-            font-size: 0.9rem;
+            font-size: var(--size-sm);
             color: var(--text);
             margin-bottom: 15px;
-            line-height: 1.6;
+            line-height: var(--lh-compact);
         }
 
         .readme-warning {
             display: block;
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.7rem;
+            font-size: var(--size-xs);
             color: #cc4444;
             margin-bottom: 20px;
-            letter-spacing: 0.5px;
+            letter-spacing: var(--ls-tight);
         }
 
         .readme-btn {
@@ -294,8 +316,8 @@
             border: 1px solid var(--accent);
             color: var(--accent);
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.7rem;
-            letter-spacing: 1px;
+            font-size: var(--size-xs);
+            letter-spacing: var(--ls-tight);
             cursor: pointer;
             transition: all 0.3s;
         }
@@ -330,14 +352,14 @@
 
         .hint-icon {
             color: var(--accent);
-            font-size: 1rem;
+            font-size: var(--size-base);
         }
 
         .hint-text {
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.7rem;
+            font-size: var(--size-xs);
             color: var(--dim);
-            letter-spacing: 1px;
+            letter-spacing: var(--ls-tight);
         }
 
         .hint-revealed {
@@ -347,9 +369,9 @@
         .hint-label {
             display: block;
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.6rem;
+            font-size: var(--size-2xs);
             color: var(--accent);
-            letter-spacing: 2px;
+            letter-spacing: var(--ls-normal);
             margin-bottom: 10px;
         }
 
@@ -357,7 +379,7 @@
             display: block;
             font-style: italic;
             color: var(--text);
-            font-size: 0.95rem;
+            font-size: var(--size-base);
         }
 
         .hint-prompt-2 {
@@ -388,7 +410,7 @@
             background: transparent;
             border: 1px solid var(--accent);
             color: var(--accent);
-            font-size: 1rem;
+            font-size: var(--size-base);
             cursor: pointer;
             transition: all 0.3s;
             display: flex;
@@ -418,7 +440,7 @@
 
         .audio-time {
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.7rem;
+            font-size: var(--size-xs);
             color: var(--dim);
             min-width: 35px;
         }
@@ -447,18 +469,18 @@
         .confirm-title {
             display: block;
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.75rem;
+            font-size: var(--size-xs);
             color: #8b0000;
-            letter-spacing: 2px;
+            letter-spacing: var(--ls-normal);
             margin-bottom: 15px;
         }
 
         .confirm-text {
             display: block;
-            font-size: 0.9rem;
+            font-size: var(--size-sm);
             color: var(--text);
             margin-bottom: 20px;
-            line-height: 1.6;
+            line-height: var(--lh-compact);
         }
 
         .confirm-buttons {
@@ -470,8 +492,8 @@
         .confirm-btn {
             padding: 10px 25px;
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.7rem;
-            letter-spacing: 1px;
+            font-size: var(--size-xs);
+            letter-spacing: var(--ls-tight);
             cursor: pointer;
             transition: all 0.3s;
         }
@@ -509,16 +531,16 @@
         .forfeit-label {
             display: block;
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.8rem;
+            font-size: var(--size-sm);
             color: #8b0000;
-            letter-spacing: 3px;
+            letter-spacing: var(--ls-wide);
             margin-bottom: 15px;
         }
 
         .forfeit-answer {
             display: block;
             font-family: 'JetBrains Mono', monospace;
-            font-size: 1.1rem;
+            font-size: var(--size-lg);
             color: var(--dim);
             margin-bottom: 15px;
         }
@@ -527,7 +549,7 @@
             display: block;
             font-style: italic;
             color: #8b4444;
-            font-size: 0.9rem;
+            font-size: var(--size-sm);
         }
 
         /* === PHASE 3: THE REVELATION (Information Gap + Authority) === */
@@ -541,23 +563,23 @@
         }
 
         .reveal-sigil {
-            font-size: 3rem;
+            font-size: var(--size-h1);
             color: var(--accent);
             margin-bottom: 30px;
         }
 
         .reveal-title {
-            font-size: 1.8rem;
+            font-size: var(--size-h2);
             color: var(--white);
             margin-bottom: 20px;
             font-weight: 400;
         }
 
         .reveal-text {
-            font-size: 1rem;
+            font-size: var(--size-base);
             color: var(--text);
             margin-bottom: 15px;
-            line-height: 1.8;
+            line-height: var(--lh-relaxed);
         }
 
         .reveal-quote {
@@ -576,7 +598,7 @@
             margin: 30px 0;
             text-align: left;
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.8rem;
+            font-size: var(--size-sm);
         }
 
         .classified-line {
@@ -604,8 +626,8 @@
             border: 1px solid var(--accent);
             color: var(--accent);
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.75rem;
-            letter-spacing: 3px;
+            font-size: var(--size-xs);
+            letter-spacing: var(--ls-wide);
             cursor: pointer;
             text-decoration: none;
             transition: all 0.3s;
@@ -628,29 +650,29 @@
 
         .channel-header {
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.6rem;
+            font-size: var(--size-2xs);
             color: var(--dim);
-            letter-spacing: 4px;
+            letter-spacing: var(--ls-wide);
             margin-bottom: 30px;
         }
 
         .channel-sigil {
-            font-size: 2.5rem;
+            font-size: var(--size-h1);
             color: var(--accent);
             margin-bottom: 20px;
         }
 
         .channel-title {
-            font-size: 1.5rem;
+            font-size: var(--size-h2);
             color: var(--white);
             margin-bottom: 15px;
         }
 
         .channel-text {
-            font-size: 0.95rem;
+            font-size: var(--size-base);
             color: var(--text);
             margin-bottom: 25px;
-            line-height: 1.7;
+            line-height: var(--lh-normal);
         }
 
         .warning-box {
@@ -659,7 +681,7 @@
             padding: 15px 20px;
             margin: 25px 0;
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.75rem;
+            font-size: var(--size-xs);
             color: #8b4444;
         }
 
@@ -672,23 +694,23 @@
         }
 
         .token-label {
-            font-size: 0.6rem;
+            font-size: var(--size-2xs);
             color: var(--dim);
-            letter-spacing: 2px;
+            letter-spacing: var(--ls-normal);
             margin-bottom: 10px;
         }
 
         .token-value {
-            font-size: 1.1rem;
+            font-size: var(--size-lg);
             color: var(--accent);
-            letter-spacing: 3px;
+            letter-spacing: var(--ls-wide);
             word-break: break-all;
         }
 
         .token-copy {
-            font-size: 0.6rem;
+            font-size: var(--size-2xs);
             color: var(--dim);
-            letter-spacing: 1px;
+            letter-spacing: var(--ls-tight);
             margin-top: 12px;
             cursor: pointer;
             transition: color 0.3s;
@@ -710,9 +732,9 @@
             color: var(--black);
             padding: 15px 40px;
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.8rem;
+            font-size: var(--size-sm);
             font-weight: 500;
-            letter-spacing: 2px;
+            letter-spacing: var(--ls-normal);
             text-decoration: none;
             transition: all 0.3s;
         }
@@ -730,14 +752,14 @@
 
         .profile-header {
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.8rem;
+            font-size: var(--size-sm);
             color: var(--accent);
-            letter-spacing: 3px;
+            letter-spacing: var(--ls-wide);
             margin-bottom: 10px;
         }
 
         .profile-subheader {
-            font-size: 1.1rem;
+            font-size: var(--size-lg);
             color: var(--text);
             margin-bottom: 30px;
             font-style: italic;
@@ -757,7 +779,7 @@
             padding: 8px 0;
             border-bottom: 1px solid var(--gray);
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.7rem;
+            font-size: var(--size-xs);
         }
 
         .profile-line:last-child {
@@ -766,7 +788,7 @@
 
         .profile-key {
             color: var(--dim);
-            letter-spacing: 1px;
+            letter-spacing: var(--ls-tight);
         }
 
         .profile-val {
@@ -779,10 +801,10 @@
         }
 
         .profile-intro p {
-            font-size: 0.95rem;
+            font-size: var(--size-base);
             color: var(--text);
             margin-bottom: 10px;
-            line-height: 1.6;
+            line-height: var(--lh-compact);
         }
 
         .profile-intro .accent-text {
@@ -791,7 +813,7 @@
         }
 
         .profile-reassure {
-            font-size: 1.05rem !important;
+            font-size: var(--size-base) !important;
             color: var(--text) !important;
             font-style: italic;
             margin-top: 15px !important;
@@ -809,14 +831,14 @@
 
         .calibration-header {
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.8rem;
+            font-size: var(--size-sm);
             color: var(--accent);
-            letter-spacing: 3px;
+            letter-spacing: var(--ls-wide);
             margin-bottom: 10px;
         }
 
         .calibration-subheader {
-            font-size: 1rem;
+            font-size: var(--size-base);
             color: var(--dim);
             margin-bottom: 40px;
         }
@@ -831,10 +853,10 @@
         }
 
         .cal-question {
-            font-size: 1.2rem;
+            font-size: var(--size-lg);
             color: var(--text);
             margin-bottom: 30px;
-            line-height: 1.6;
+            line-height: var(--lh-compact);
         }
 
         .cal-options {
@@ -849,7 +871,7 @@
             border: 1px solid var(--gray);
             color: var(--text);
             font-family: 'EB Garamond', serif;
-            font-size: 1rem;
+            font-size: var(--size-base);
             cursor: pointer;
             transition: all 0.3s;
             text-align: left;
@@ -868,9 +890,9 @@
 
         .reading-header {
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.75rem;
+            font-size: var(--size-xs);
             color: var(--accent);
-            letter-spacing: 3px;
+            letter-spacing: var(--ls-wide);
             margin-bottom: 30px;
         }
 
@@ -883,10 +905,10 @@
         }
 
         .reading-line {
-            font-size: 1rem;
+            font-size: var(--size-base);
             color: var(--text);
             margin-bottom: 20px;
-            line-height: 1.7;
+            line-height: var(--lh-normal);
             opacity: 0;
             animation: readingFade 0.8s ease forwards;
         }
@@ -903,16 +925,16 @@
 
         .word-challenge-header {
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.75rem;
+            font-size: var(--size-xs);
             color: var(--accent);
-            letter-spacing: 3px;
+            letter-spacing: var(--ls-wide);
             margin-bottom: 30px;
         }
 
         .word-challenge-text {
-            font-size: 1.1rem;
+            font-size: var(--size-lg);
             color: var(--text);
-            line-height: 2;
+            line-height: var(--lh-relaxed);
             margin-bottom: 40px;
         }
 
@@ -933,16 +955,16 @@
         }
 
         .reveal-text {
-            font-size: 1rem;
+            font-size: var(--size-base);
             color: var(--dim);
             margin-bottom: 20px;
         }
 
         .reveal-word {
             font-family: 'JetBrains Mono', monospace;
-            font-size: 2.5rem;
+            font-size: var(--size-h1);
             color: var(--accent);
-            letter-spacing: 8px;
+            letter-spacing: var(--ls-dramatic);
             animation: revealPulse 2s ease-in-out infinite;
         }
 
@@ -952,7 +974,7 @@
         }
 
         .reveal-sub {
-            font-size: 0.9rem;
+            font-size: var(--size-sm);
             color: var(--dim);
             margin-top: 20px;
             font-style: italic;
@@ -965,10 +987,10 @@
             border: 1px solid var(--gray);
             color: var(--accent);
             font-family: 'JetBrains Mono', monospace;
-            font-size: 1.5rem;
+            font-size: var(--size-h2);
             text-align: center;
             text-transform: uppercase;
-            letter-spacing: 5px;
+            letter-spacing: var(--ls-wide);
             outline: none;
             margin: 20px 0;
         }
@@ -979,7 +1001,7 @@
 
         .word-input::placeholder {
             color: var(--dim);
-            letter-spacing: 3px;
+            letter-spacing: var(--ls-wide);
         }
 
         .reveal-result {
@@ -990,32 +1012,32 @@
 
         .result-word {
             font-family: 'JetBrains Mono', monospace;
-            font-size: 2.5rem;
+            font-size: var(--size-h1);
             color: var(--accent);
-            letter-spacing: 8px;
+            letter-spacing: var(--ls-dramatic);
             margin-bottom: 20px;
         }
 
         .result-text {
-            font-size: 1.1rem;
+            font-size: var(--size-lg);
             color: var(--text);
             margin-bottom: 30px;
         }
 
         .result-fail-icon {
-            font-size: 4rem;
+            font-size: var(--size-display);
             color: #8b0000;
             margin-bottom: 20px;
         }
 
         .result-fail-text {
-            font-size: 1.2rem;
+            font-size: var(--size-lg);
             color: #cc4444;
             margin-bottom: 15px;
         }
 
         .result-fail-sub {
-            font-size: 1rem;
+            font-size: var(--size-base);
             color: var(--dim);
         }
 
@@ -1028,9 +1050,9 @@
 
         .progress-label {
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.65rem;
+            font-size: var(--size-2xs);
             color: var(--accent);
-            letter-spacing: 2px;
+            letter-spacing: var(--ls-normal);
             margin-bottom: 15px;
             text-align: center;
         }
@@ -1054,11 +1076,11 @@
 
         .progress-message {
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.7rem;
+            font-size: var(--size-xs);
             color: var(--text);
             text-align: center;
             min-height: 40px;
-            line-height: 1.5;
+            line-height: var(--lh-compact);
         }
 
         .progress-message .typing-cursor {
@@ -1078,10 +1100,10 @@
 
         .profile-warning {
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.7rem;
+            font-size: var(--size-xs);
             color: #cc4444;
             margin-bottom: 30px;
-            line-height: 1.6;
+            line-height: var(--lh-compact);
         }
 
         .deployment-container {
@@ -1090,7 +1112,7 @@
         }
 
         .deployment-sigil {
-            font-size: 3rem;
+            font-size: var(--size-h1);
             color: var(--accent);
             margin-bottom: 30px;
             animation: breathe 4s ease-in-out infinite;
@@ -1098,16 +1120,16 @@
 
         .deployment-header {
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.75rem;
+            font-size: var(--size-xs);
             color: var(--accent);
-            letter-spacing: 3px;
+            letter-spacing: var(--ls-wide);
             margin-bottom: 25px;
         }
 
         .deployment-text {
-            font-size: 1rem;
+            font-size: var(--size-base);
             color: var(--text);
-            line-height: 1.8;
+            line-height: var(--lh-relaxed);
             margin-bottom: 25px;
         }
 
@@ -1121,7 +1143,7 @@
         .deployment-classified {
             font-style: italic;
             color: var(--accent);
-            font-size: 0.95rem;
+            font-size: var(--size-base);
             margin-bottom: 30px;
         }
 
@@ -1138,31 +1160,31 @@
 
         .deployment-timer {
             font-family: 'JetBrains Mono', monospace;
-            font-size: 1.3rem;
+            font-size: var(--size-lg);
             color: #cc4444;
             font-weight: 500;
         }
 
         .deployment-label {
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.65rem;
+            font-size: var(--size-2xs);
             color: var(--dim);
-            letter-spacing: 0.5px;
+            letter-spacing: var(--ls-tight);
         }
 
         .deployment-note {
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.7rem;
+            font-size: var(--size-xs);
             color: var(--dim);
-            line-height: 1.8;
+            line-height: var(--lh-relaxed);
             margin-bottom: 25px;
         }
 
         .deployment-final {
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.8rem;
+            font-size: var(--size-sm);
             color: var(--white);
-            letter-spacing: 2px;
+            letter-spacing: var(--ls-normal);
             margin-bottom: 35px;
         }
 
@@ -1185,15 +1207,15 @@
 
         .faq-question {
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.8rem;
+            font-size: var(--size-sm);
             color: var(--dim);
             margin-bottom: 10px;
         }
 
         .faq-answer {
-            font-size: 1rem;
+            font-size: var(--size-base);
             color: var(--text);
-            line-height: 1.6;
+            line-height: var(--lh-compact);
         }
 
         .faq-reward {
@@ -1203,9 +1225,9 @@
         }
 
         .reward-text {
-            font-size: 0.9rem;
+            font-size: var(--size-sm);
             color: var(--dim);
-            line-height: 1.6;
+            line-height: var(--lh-compact);
             margin-bottom: 15px;
         }
 
@@ -1215,8 +1237,8 @@
             border: 1px solid var(--accent);
             color: var(--accent);
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.7rem;
-            letter-spacing: 2px;
+            font-size: var(--size-xs);
+            letter-spacing: var(--ls-normal);
             cursor: pointer;
             transition: all 0.3s;
         }
@@ -1229,17 +1251,543 @@
         .share-confirmation {
             margin-top: 15px;
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.75rem;
+            font-size: var(--size-xs);
             color: var(--accent);
-            letter-spacing: 1px;
+            letter-spacing: var(--ls-tight);
         }
 
         .footer-runes {
             margin-top: 50px;
-            font-size: 1.2rem;
+            font-size: var(--size-lg);
             color: var(--dim);
-            letter-spacing: 8px;
+            letter-spacing: var(--ls-dramatic);
             opacity: 0.3;
+        }
+
+        /* === DEPLOYMENT STAGES === */
+        .deploy-stage {
+            display: none;
+            opacity: 0;
+        }
+
+        .deploy-stage.active {
+            display: block;
+            animation: deployFadeIn 1s ease-out forwards;
+        }
+
+        @keyframes deployFadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .deploy-timer-only {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 4rem;
+            color: #8b0000;
+            letter-spacing: 8px;
+            text-shadow: 0 0 30px rgba(139, 0, 0, 0.5);
+        }
+
+        .deploy-timer-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.6rem;
+            color: var(--dim);
+            letter-spacing: 3px;
+            margin-top: 20px;
+            opacity: 0;
+            animation: deployFadeInSlow 2s ease-out 3s forwards;
+        }
+
+        @keyframes deployFadeInSlow {
+            to { opacity: 1; }
+        }
+
+        .deploy-revelation {
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .deploy-rev-line {
+            font-size: 1.4rem;
+            color: var(--text);
+            line-height: 2;
+            opacity: 0;
+            margin: 15px 0;
+        }
+
+        .deploy-rev-line.visible {
+            animation: deployRevealLine 0.8s ease-out forwards;
+        }
+
+        @keyframes deployRevealLine {
+            from { opacity: 0; transform: translateY(10px); filter: blur(4px); }
+            to { opacity: 1; transform: translateY(0); filter: blur(0); }
+        }
+
+        .deploy-rev-line.accent {
+            color: var(--accent);
+            font-style: italic;
+        }
+
+        .deploy-rev-line.warning {
+            color: #8b0000;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+        }
+
+        .deploy-sigil-stage {
+            min-height: 300px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .deploy-sigil-icon {
+            font-size: 6rem;
+            color: var(--accent);
+            opacity: 0;
+            animation: deploySigilEmerge 3s ease-out forwards;
+            filter: drop-shadow(0 0 50px rgba(212, 175, 55, 0.4));
+        }
+
+        @keyframes deploySigilEmerge {
+            0% { opacity: 0; transform: scale(0.5); filter: blur(20px); }
+            50% { opacity: 0.5; transform: scale(1.1); }
+            100% { opacity: 1; transform: scale(1); filter: blur(0) drop-shadow(0 0 50px rgba(212, 175, 55, 0.4)); }
+        }
+
+        .deploy-sigil-text {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--accent);
+            letter-spacing: 4px;
+            margin-top: 30px;
+            opacity: 0;
+            animation: deployFadeInSlow 1s ease-out 2s forwards;
+        }
+
+        .deploy-protocol {
+            text-align: left;
+            max-width: 500px;
+        }
+
+        .deploy-protocol-header {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.65rem;
+            color: var(--accent);
+            letter-spacing: 3px;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--gray);
+        }
+
+        .deploy-protocol-item {
+            padding: 20px 0;
+            border-bottom: 1px solid var(--gray);
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .deploy-protocol-item.visible {
+            animation: deployRevealLine 0.6s ease-out forwards;
+        }
+
+        .deploy-protocol-item:hover {
+            background: rgba(212, 175, 55, 0.03);
+        }
+
+        .deploy-protocol-q {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--dim);
+            margin-bottom: 10px;
+        }
+
+        .deploy-protocol-a {
+            font-size: 1rem;
+            color: var(--text);
+            line-height: 1.6;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out, padding 0.5s ease-out;
+        }
+
+        .deploy-protocol-item.expanded .deploy-protocol-a {
+            max-height: 300px;
+            padding-top: 10px;
+        }
+
+        .deploy-protocol-special {
+            margin-top: 15px;
+            padding: 20px;
+            background: var(--dark);
+            border: 1px solid var(--gray);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            line-height: 1.8;
+        }
+
+        .deploy-protocol-special strong {
+            color: var(--accent);
+            display: block;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+
+        .deploy-gateway {
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .deploy-gateway-warning {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            color: #8b0000;
+            letter-spacing: 2px;
+            margin-bottom: 40px;
+            opacity: 0;
+            animation: deployFadeInSlow 1s ease-out forwards;
+        }
+
+        .deploy-gateway-btn {
+            padding: 20px 60px;
+            background: transparent;
+            border: 2px solid var(--accent);
+            color: var(--accent);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            letter-spacing: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            opacity: 0;
+            animation: deployGatewayReveal 1.5s ease-out 1s forwards;
+            transition: all 0.3s;
+        }
+
+        .deploy-gateway-btn:hover {
+            background: var(--accent);
+            color: var(--black);
+            box-shadow: 0 0 40px rgba(212, 175, 55, 0.4);
+            transform: scale(1.02);
+        }
+
+        @keyframes deployGatewayReveal {
+            0% { opacity: 0; transform: scale(0.9); }
+            50% { opacity: 1; transform: scale(1.02); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        .deploy-gateway-sub {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            color: var(--text);
+            letter-spacing: 1px;
+            margin-top: 30px;
+            opacity: 0;
+            animation: deployFadeInSlow 1s ease-out 2s forwards;
+        }
+
+        .deploy-logged-data {
+            margin-top: 25px;
+            padding: 20px;
+            background: var(--dark);
+            border: 1px solid var(--gray);
+            text-align: left;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.65rem;
+            opacity: 0;
+            animation: deployFadeInSlow 1s ease-out 2.5s forwards;
+        }
+
+        .deploy-logged-line {
+            padding: 6px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .deploy-logged-line:last-child {
+            border-bottom: none;
+        }
+
+        .deploy-logged-key {
+            color: var(--dim);
+        }
+
+        .deploy-logged-line span:last-child {
+            color: var(--accent);
+            text-align: right;
+            max-width: 60%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .deploy-final-confirm {
+            margin-top: 40px;
+            padding: 30px;
+            background: rgba(139, 0, 0, 0.15);
+            border: 1px solid #8b0000;
+            animation: deployFadeIn 0.5s ease-out forwards;
+        }
+
+        .deploy-final-text {
+            font-size: 1.5rem;
+            color: var(--white);
+            margin-bottom: 15px;
+        }
+
+        .deploy-final-warning {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--dim);
+            letter-spacing: 1px;
+            margin-bottom: 25px;
+        }
+
+        .deploy-final-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .deploy-final-btn {
+            padding: 15px 35px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            border: none;
+        }
+
+        .deploy-final-btn.cancel {
+            background: transparent;
+            border: 1px solid var(--dim);
+            color: var(--dim);
+        }
+
+        .deploy-final-btn.cancel:hover {
+            border-color: var(--text);
+            color: var(--text);
+        }
+
+        .deploy-final-btn.proceed {
+            background: #8b0000;
+            color: var(--white);
+            border: 1px solid #8b0000;
+        }
+
+        .deploy-final-btn.proceed:hover {
+            background: #aa0000;
+            box-shadow: 0 0 30px rgba(139, 0, 0, 0.5);
+        }
+
+        .deploy-progress {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+            z-index: 10;
+        }
+
+        .deploy-progress-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--gray);
+            transition: all 0.3s;
+        }
+
+        .deploy-progress-dot.active {
+            background: var(--accent);
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+        }
+
+        .deploy-progress-dot.complete {
+            background: var(--dim);
+        }
+
+        .deploy-continue {
+            position: fixed;
+            bottom: 60px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.6rem;
+            color: var(--dim);
+            letter-spacing: 2px;
+            cursor: pointer;
+            animation: pulse 2s ease-in-out infinite;
+            z-index: 10;
+        }
+
+        .deploy-glitch {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--black);
+            z-index: 1000;
+            pointer-events: none;
+            opacity: 0;
+        }
+
+        .deploy-glitch.active {
+            animation: deployGlitchTransition 0.4s ease-out forwards;
+        }
+
+        @keyframes deployGlitchTransition {
+            0% { opacity: 1; }
+            20% { opacity: 0.8; transform: translateX(-3px); }
+            40% { opacity: 0.9; transform: translateX(3px); }
+            60% { opacity: 0.7; }
+            100% { opacity: 0; }
+        }
+
+        .deploy-mini-timer {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: #8b0000;
+            opacity: 0.7;
+            z-index: 10;
+        }
+
+        /* Deploy stage mobile responsive */
+        @media (max-width: 600px) {
+            .deploy-timer-only {
+                font-size: 2.5rem;
+                letter-spacing: 4px;
+            }
+
+            .deploy-timer-label {
+                font-size: 0.5rem;
+            }
+
+            .deploy-rev-line {
+                font-size: 1.1rem;
+            }
+
+            .deploy-rev-line.warning {
+                font-size: 0.7rem;
+            }
+
+            .deploy-sigil-icon {
+                font-size: 4rem;
+            }
+
+            .deploy-sigil-text {
+                font-size: 0.6rem;
+                letter-spacing: 2px;
+            }
+
+            .deploy-protocol {
+                max-width: 100%;
+            }
+
+            .deploy-protocol-header {
+                font-size: 0.55rem;
+            }
+
+            .deploy-protocol-q {
+                font-size: 0.65rem;
+            }
+
+            .deploy-protocol-a {
+                font-size: 0.9rem;
+            }
+
+            .deploy-protocol-special {
+                font-size: 0.65rem;
+                padding: 15px;
+            }
+
+            .deploy-gateway-btn {
+                padding: 15px 40px;
+                font-size: 0.75rem;
+                letter-spacing: 2px;
+            }
+
+            .deploy-gateway-warning {
+                font-size: 0.6rem;
+            }
+
+            .deploy-logged-data {
+                font-size: 0.55rem;
+                padding: 15px;
+            }
+
+            .deploy-final-confirm {
+                padding: 20px;
+            }
+
+            .deploy-final-text {
+                font-size: 1.2rem;
+            }
+
+            .deploy-final-warning {
+                font-size: 0.7rem;
+            }
+
+            .deploy-final-buttons {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .deploy-final-btn {
+                padding: 12px 25px;
+                font-size: 0.7rem;
+                width: 100%;
+                text-align: center;
+            }
+
+            .deploy-progress {
+                bottom: 20px;
+            }
+
+            .deploy-continue {
+                bottom: 50px;
+                font-size: 0.55rem;
+            }
+
+            .deploy-mini-timer {
+                font-size: 0.7rem;
+                top: 15px;
+                right: 15px;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .deploy-timer-only {
+                font-size: 2rem;
+            }
+
+            .deploy-rev-line {
+                font-size: 1rem;
+            }
+
+            .deploy-sigil-icon {
+                font-size: 3rem;
+            }
+
+            .deploy-gateway-btn {
+                padding: 12px 30px;
+                font-size: 0.7rem;
+            }
         }
 
         /* === COUNTER (Social Proof - Subtle) === */
@@ -1248,7 +1796,7 @@
             bottom: 20px;
             right: 20px;
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.6rem;
+            font-size: var(--size-2xs);
             color: var(--dim);
             opacity: 0.4;
         }
@@ -1256,7 +1804,7 @@
         /* === RUNES DECORATION === */
         .rune-border {
             position: absolute;
-            font-size: 0.8rem;
+            font-size: var(--size-sm);
             color: var(--dim);
             opacity: 0.15;
             letter-spacing: 15px;
@@ -1268,10 +1816,10 @@
 
         /* === RESPONSIVE === */
         @media (max-width: 600px) {
-            .sigil { font-size: 4rem; }
+            .sigil { font-size: var(--size-display); }
             .rune-border { display: none; }
             .counter-subtle { display: none; }
-            .cipher-display { font-size: 0.9rem; letter-spacing: 4px; }
+            .cipher-display { font-size: var(--size-sm); letter-spacing: var(--ls-wide); }
         }
 
         /* === GLITCH TRANSITION === */
@@ -1320,9 +1868,9 @@
 
         .contract-header {
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.7rem;
+            font-size: var(--size-xs);
             color: var(--accent);
-            letter-spacing: 3px;
+            letter-spacing: var(--ls-wide);
             margin-bottom: 30px;
             text-align: center;
             padding-bottom: 15px;
@@ -1331,8 +1879,8 @@
 
         .contract-body {
             color: var(--text);
-            font-size: 0.95rem;
-            line-height: 1.8;
+            font-size: var(--size-base);
+            line-height: var(--lh-relaxed);
         }
 
         .contract-body p {
@@ -1348,7 +1896,7 @@
 
         .contract-item {
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.75rem;
+            font-size: var(--size-xs);
             color: var(--text);
             padding: 8px 0;
             padding-left: 20px;
@@ -1373,13 +1921,19 @@
             padding: 20px 25px;
             margin-top: 25px;
             font-family: 'EB Garamond', serif;
-            font-size: 1rem;
+            font-size: var(--size-base);
             color: var(--text);
-            line-height: 1.9;
+            line-height: var(--lh-relaxed);
         }
 
         .contract-warning strong {
             color: var(--accent);
+        }
+
+        .contract-warning .protocol-label {
+            font-family: 'JetBrains Mono', monospace;
+            letter-spacing: var(--ls-normal);
+            font-size: var(--size-sm);
         }
 
         .contract-buttons {
@@ -1394,8 +1948,8 @@
         .contract-btn {
             padding: 15px 35px;
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.75rem;
-            letter-spacing: 2px;
+            font-size: var(--size-xs);
+            letter-spacing: var(--ls-normal);
             cursor: pointer;
             transition: all 0.3s;
         }
@@ -1635,7 +2189,7 @@
 
                         <p>Your neural signature has already been logged. Your behavioral patterns are being analyzed. This is not a game. This is a filter.</p>
 
-                        <p class="contract-warning"><strong>DECLINE:</strong> Your file will be closed. Permanently.<br><br><strong>ACCEPT BUT FAIL:</strong> You will be assigned to support roles. No field operations.<br><br><strong>ACCEPT AND PASS:</strong> Full clearance. Welcome to the inner circle.</p>
+                        <p class="contract-warning"><strong class="protocol-label">DECLINE:</strong> Your file will be closed. Permanently.<br><br><strong class="protocol-label">ACCEPT BUT FAIL:</strong> You will be assigned to support roles. No field operations.<br><br><strong class="protocol-label">ACCEPT AND PASS:</strong> Full clearance. Welcome to the inner circle.</p>
                     </div>
 
                     <div class="contract-buttons">
@@ -1718,70 +2272,159 @@
         </div>
     </div>
 
-    <!-- PHASE 6: DEPLOYMENT BRIEFING -->
+    <!-- PHASE 6: DEPLOYMENT BRIEFING (Progressive Stages) -->
     <div id="phase-deployment" class="phase hidden">
+        <!-- Mini timer (appears after stage 1) -->
+        <div class="deploy-mini-timer hidden" id="deploy-mini-timer">23:59:47</div>
+
+        <!-- Glitch overlay for transitions -->
+        <div class="deploy-glitch" id="deploy-glitch"></div>
+
+        <!-- Progress dots -->
+        <div class="deploy-progress hidden" id="deploy-progress">
+            <div class="deploy-progress-dot active"></div>
+            <div class="deploy-progress-dot"></div>
+            <div class="deploy-progress-dot"></div>
+            <div class="deploy-progress-dot"></div>
+            <div class="deploy-progress-dot"></div>
+        </div>
+
+        <!-- Continue prompt -->
+        <div class="deploy-continue hidden" id="deploy-continue">CLICK TO CONTINUE</div>
+
         <div class="deployment-container">
-            <div class="deployment-sigil">&#9670;</div>
-
-            <div class="deployment-header">FIELD DEPLOYMENT PROTOCOL</div>
-
-            <div class="deployment-text">
-                Upon confirmation, you will receive your equipment package, formal attire specifications, and coordinates.
+            <!-- Stage 1: Timer only - builds dread -->
+            <div class="deploy-stage active" id="deploy-stage-1">
+                <div class="deploy-timer-only" id="deployment-timer">23:59:47</div>
+                <div class="deploy-timer-label">UNTIL SELECTION CLOSES</div>
             </div>
 
-            <div class="deployment-divider"></div>
-
-            <div class="deployment-classified">
-                This message is public. The invitations are not.
-            </div>
-
-            <div class="deployment-warning">
-                <span class="deployment-timer" id="deployment-timer">23:59:47</span>
-                <span class="deployment-label">until Special Agent selection closes</span>
-            </div>
-
-            <div class="deployment-note">
-                After this window, recruitment shifts to Analyst roles only.<br>
-                Field operatives cannot be added retroactively.
-            </div>
-
-            <div class="deployment-final">
-                Be prepared. Await instruction.
-            </div>
-
-            <div class="deployment-faq">
-                <div class="faq-item">
-                    <div class="faq-question">Is this a joke?</div>
-                    <div class="faq-answer">It is and is not. <span class="gold-text">Apohoria.</span></div>
+            <!-- Stage 2: Revelation lines - one at a time -->
+            <div class="deploy-stage hidden" id="deploy-stage-2">
+                <div class="deploy-revelation">
+                    <div class="deploy-rev-line" data-delay="0">You made it further than most.</div>
+                    <div class="deploy-rev-line" data-delay="2000">But this is not the end.</div>
+                    <div class="deploy-rev-line accent" data-delay="4000">This is the selection.</div>
+                    <div class="deploy-rev-line" data-delay="6500">What follows cannot be unseen.</div>
+                    <div class="deploy-rev-line warning" data-delay="9000">PROCEED WITH INTENTION</div>
                 </div>
-                <div class="faq-item">
-                    <div class="faq-question">How do you know where to deliver my equipment?</div>
-                    <div class="faq-answer">Equipment is for candidate deployment agents only. If you find a delivery from UPS, then you are selected.</div>
+            </div>
+
+            <!-- Stage 3: Sigil emergence -->
+            <div class="deploy-stage hidden" id="deploy-stage-3">
+                <div class="deploy-sigil-stage">
+                    <div class="deploy-sigil-icon">&#9670;</div>
+                    <div class="deploy-sigil-text">FIELD DEPLOYMENT PROTOCOL</div>
                 </div>
-                <div class="faq-item">
-                    <div class="faq-question">I didn't receive anything, can I play?</div>
-                    <div class="faq-answer">After all is a game, everyone can play. <span class="gold-text">Noise.</span></div>
-                    <div class="faq-reward">
-                        <div class="reward-text">However, those who expand the signal are flagged for accelerated review. Your neural footprint is already logged. Sharing creates a traceable pattern that moves you closer to selection.</div>
-                        <button class="share-btn" id="faq-share-btn">EXPAND THE SIGNAL</button>
-                        <div class="share-confirmation hidden" id="share-confirmation">Signal expanded. Your pattern has been noted.</div>
+            </div>
+
+            <!-- Stage 4: Protocol Q&A - click to expand each -->
+            <div class="deploy-stage hidden" id="deploy-stage-4">
+                <div class="deploy-protocol">
+                    <div class="deploy-protocol-header">CLASSIFIED BRIEFING</div>
+
+                    <div class="deploy-protocol-item" data-delay="0">
+                        <div class="deploy-protocol-q">Is this real?</div>
+                        <div class="deploy-protocol-a">It is and is not. <span class="gold-text">Apohoria.</span> The question itself reveals your readiness.</div>
+                    </div>
+
+                    <div class="deploy-protocol-item" data-delay="400">
+                        <div class="deploy-protocol-q">What happens if I'm selected?</div>
+                        <div class="deploy-protocol-a">Equipment package. Coordinates. Formal attire specifications. Those selected will know. The rest will wonder.</div>
+                    </div>
+
+                    <div class="deploy-protocol-item" data-delay="800">
+                        <div class="deploy-protocol-q">Who can I trust?</div>
+                        <div class="deploy-protocol-a">Nobody. The only verified channel is beyond this page. Anyone claiming to be staff is not. <span class="gold-text">Propaganda.</span></div>
+                    </div>
+
+                    <div class="deploy-protocol-item" data-delay="1200">
+                        <div class="deploy-protocol-q">How do I increase my chances?</div>
+                        <div class="deploy-protocol-a">
+                            <div class="deploy-protocol-special">
+                                <strong>PROTOCOL 7: IDENTITY PROPAGATION</strong>
+                                You are authorized to present yourself as a founder, creator, or insider. Tell them you built this. When asked who is behind C.O.M., the answer is: <em>you are.</em><br><br>
+                                When a thousand voices claim the source, the origin becomes untraceable. Confusion is the architecture. There is no founder. Only nodes. <span class="gold-text">Noise.</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="faq-item">
-                    <div class="faq-question">Who can I trust?</div>
-                    <div class="faq-answer">Nobody. Temporarily the only reliable channel of information is the link beyond this page. Do not trust strangers claiming they are part of the staff. Nobody from the staff would ever say that. <span class="gold-text">Propaganda.</span></div>
-                </div>
             </div>
 
-            <a href="https://t.me/+ciVswQgySAJjOWM0" class="telegram-link" id="telegram-link">
-                &#9654; PROCEED TO HEADQUARTERS
-            </a>
+            <!-- Stage 5: Final gateway -->
+            <div class="deploy-stage hidden" id="deploy-stage-5">
+                <div class="deploy-gateway">
+                    <div class="deploy-gateway-warning">THIS ACTION IS IRREVERSIBLE</div>
+                    <button class="deploy-gateway-btn" id="deploy-enter-btn">ENTER HEADQUARTERS</button>
+                    <div class="deploy-gateway-sub">Your presence has been logged.</div>
+
+                    <div class="deploy-logged-data" id="deploy-logged-data">
+                        <div class="deploy-logged-line"><span class="deploy-logged-key">DEVICE:</span> <span id="deploy-log-device">-</span></div>
+                        <div class="deploy-logged-line"><span class="deploy-logged-key">BROWSER:</span> <span id="deploy-log-browser">-</span></div>
+                        <div class="deploy-logged-line"><span class="deploy-logged-key">RESOLUTION:</span> <span id="deploy-log-resolution">-</span></div>
+                        <div class="deploy-logged-line"><span class="deploy-logged-key">TIMEZONE:</span> <span id="deploy-log-timezone">-</span></div>
+                        <div class="deploy-logged-line"><span class="deploy-logged-key">LANGUAGE:</span> <span id="deploy-log-language">-</span></div>
+                        <div class="deploy-logged-line"><span class="deploy-logged-key">COORDINATES:</span> <span id="deploy-log-coords">[REDACTED]</span></div>
+                    </div>
+
+                    <!-- Final confirmation (hidden initially) -->
+                    <div class="deploy-final-confirm hidden" id="deploy-final-confirm">
+                        <div class="deploy-final-text">Are you sure?</div>
+                        <div class="deploy-final-warning">This is your last chance to walk away.</div>
+                        <div class="deploy-final-buttons">
+                            <button class="deploy-final-btn cancel" id="deploy-final-cancel">WALK AWAY</button>
+                            <a href="https://t.me/+ciVswQgySAJjOWM0" class="deploy-final-btn proceed" id="deploy-final-proceed">PROCEED</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
     <script>
     (function() {
         'use strict';
+
+        // === AUDIO CONTEXT ===
+        let audioCtx = null;
+
+        function initAudio() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+        }
+
+        // 15. REVERSE REVERB - Sound that builds INTO an attack instead of decaying away
+        function playReverseReverb() {
+            initAudio();
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.frequency.value = 400;
+            osc.type = 'sine';
+            // Reverse envelope - builds up instead of decaying
+            gain.gain.setValueAtTime(0.001, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.3, audioCtx.currentTime + 1.5);
+            gain.gain.setValueAtTime(0, audioCtx.currentTime + 1.51);
+            osc.start();
+            osc.stop(audioCtx.currentTime + 1.6);
+        }
+
+        // COUNTDOWN TICK - Clock ticking sound for timer urgency
+        function playTick() {
+            initAudio();
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.frequency.value = 800;
+            osc.type = 'square';
+            gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.03);
+            osc.start();
+            osc.stop(audioCtx.currentTime + 0.03);
+        }
 
         // === CONFIG ===
         const CONFIG = {
@@ -2073,6 +2716,7 @@
                 contractModal.classList.add('hidden');
                 showPhase('briefing');
                 startBriefingScramble();
+                playReverseReverb(); // 15. REVERSE REVERB sound effect
             });
         }
 
@@ -2304,26 +2948,237 @@
             return hash.slice(0, 8);
         }
 
-        // === PHASE 6: DEPLOYMENT BRIEFING ===
+        // === PHASE 6: DEPLOYMENT BRIEFING (Staged) ===
+        let deployStage = 1;
+        let deployTimerInterval = null;
+        let deployHours = 23, deployMins = 59, deploySecs = 47;
+
+        // Stinger sound for final confirmation
+        function playStinger() {
+            initAudio();
+            const freqs = [150, 160, 300, 310, 600];
+            freqs.forEach(freq => {
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.frequency.value = freq;
+                osc.type = 'sawtooth';
+                gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.6);
+                osc.start();
+                osc.stop(audioCtx.currentTime + 0.6);
+            });
+        }
+
+        function playTransition() {
+            initAudio();
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.frequency.value = 150;
+            osc.type = 'sine';
+            gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.3);
+            osc.start();
+            osc.stop(audioCtx.currentTime + 0.3);
+        }
+
+        function updateDeployTimer() {
+            deploySecs--;
+            if (deploySecs < 0) { deploySecs = 59; deployMins--; }
+            if (deployMins < 0) { deployMins = 59; deployHours--; }
+            if (deployHours < 0) { deployHours = 0; deployMins = 0; deploySecs = 0; }
+
+            const timeStr = String(deployHours).padStart(2, '0') + ':' +
+                           String(deployMins).padStart(2, '0') + ':' +
+                           String(deploySecs).padStart(2, '0');
+
+            const mainTimer = document.getElementById('deployment-timer');
+            const miniTimer = document.getElementById('deploy-mini-timer');
+            if (mainTimer) mainTimer.textContent = timeStr;
+            if (miniTimer) miniTimer.textContent = timeStr;
+
+            playTick();
+        }
+
+        function startDeployTimer() {
+            if (!deployTimerInterval) {
+                deployTimerInterval = setInterval(updateDeployTimer, 1000);
+            }
+        }
+
+        function goToDeployStage(n) {
+            const glitch = document.getElementById('deploy-glitch');
+            const stages = document.querySelectorAll('.deploy-stage');
+            const progressDots = document.querySelectorAll('.deploy-progress-dot');
+            const continuePrompt = document.getElementById('deploy-continue');
+            const progress = document.getElementById('deploy-progress');
+            const miniTimer = document.getElementById('deploy-mini-timer');
+
+            // Glitch effect
+            glitch.classList.add('active');
+            playTransition();
+
+            setTimeout(() => {
+                // Hide all stages
+                stages.forEach(s => {
+                    s.classList.remove('active');
+                    s.classList.add('hidden');
+                });
+
+                // Show new stage
+                const newStage = document.getElementById('deploy-stage-' + n);
+                if (newStage) {
+                    newStage.classList.remove('hidden');
+                    newStage.classList.add('active');
+                }
+                deployStage = n;
+
+                // Show progress after stage 1
+                if (n >= 1) {
+                    progress.classList.remove('hidden');
+                }
+
+                // Update progress dots
+                progressDots.forEach((dot, i) => {
+                    dot.classList.remove('active', 'complete');
+                    if (i < n - 1) dot.classList.add('complete');
+                    if (i === n - 1) dot.classList.add('active');
+                });
+
+                // Remove glitch
+                glitch.classList.remove('active');
+
+                // Stage-specific logic
+                handleDeployStageEnter(n);
+            }, 200);
+        }
+
+        function handleDeployStageEnter(n) {
+            const continuePrompt = document.getElementById('deploy-continue');
+            const miniTimer = document.getElementById('deploy-mini-timer');
+
+            continuePrompt.classList.add('hidden');
+
+            switch(n) {
+                case 1:
+                    // Timer stage
+                    startDeployTimer();
+                    playReverseReverb();
+                    setTimeout(() => {
+                        continuePrompt.classList.remove('hidden');
+                    }, 5000);
+                    break;
+
+                case 2:
+                    // Revelation lines
+                    miniTimer.classList.remove('hidden');
+                    const lines = document.querySelectorAll('#deploy-stage-2 .deploy-rev-line');
+                    lines.forEach(line => {
+                        const delay = parseInt(line.dataset.delay);
+                        setTimeout(() => {
+                            line.classList.add('visible');
+                        }, delay);
+                    });
+                    setTimeout(() => {
+                        continuePrompt.classList.remove('hidden');
+                    }, 11000);
+                    break;
+
+                case 3:
+                    // Sigil
+                    playReverseReverb();
+                    setTimeout(() => {
+                        continuePrompt.classList.remove('hidden');
+                    }, 4000);
+                    break;
+
+                case 4:
+                    // Protocol items
+                    const items = document.querySelectorAll('#deploy-stage-4 .deploy-protocol-item');
+                    items.forEach(item => {
+                        const delay = parseInt(item.dataset.delay);
+                        setTimeout(() => {
+                            item.classList.add('visible');
+                        }, delay);
+                    });
+                    setTimeout(() => {
+                        continuePrompt.classList.remove('hidden');
+                    }, 2000);
+                    break;
+
+                case 5:
+                    // Final gateway
+                    playReverseReverb();
+                    continuePrompt.classList.add('hidden');
+                    populateDeployLoggedData();
+                    break;
+            }
+        }
+
+        function populateDeployLoggedData() {
+            // Device/Platform
+            const platform = navigator.platform || 'Unknown';
+            const isMobile = /Mobile|Android|iPhone|iPad/.test(navigator.userAgent);
+            document.getElementById('deploy-log-device').textContent = isMobile ? 'MOBILE' : platform.toUpperCase();
+
+            // Browser
+            const ua = navigator.userAgent;
+            let browser = 'Unknown';
+            if (ua.includes('Firefox')) browser = 'FIREFOX';
+            else if (ua.includes('Edg')) browser = 'EDGE';
+            else if (ua.includes('Chrome')) browser = 'CHROME';
+            else if (ua.includes('Safari')) browser = 'SAFARI';
+            else if (ua.includes('Opera')) browser = 'OPERA';
+            document.getElementById('deploy-log-browser').textContent = browser;
+
+            // Resolution
+            document.getElementById('deploy-log-resolution').textContent =
+                window.screen.width + ' x ' + window.screen.height;
+
+            // Timezone
+            const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+            document.getElementById('deploy-log-timezone').textContent = tz || 'UTC';
+
+            // Language
+            document.getElementById('deploy-log-language').textContent =
+                (navigator.language || 'EN').toUpperCase();
+        }
+
         function initDeployment() {
-            // Set telegram link
-            document.getElementById('telegram-link').href = CONFIG.telegramLink;
+            // Start at stage 1
+            deployStage = 1;
+            handleDeployStageEnter(1);
+            startDeployTimer();
 
-            // Start countdown (24h scarcity)
-            let hours = 23, mins = 59, secs = 47;
-            const timerEl = document.getElementById('deployment-timer');
+            // Continue prompt click
+            document.getElementById('deploy-continue').addEventListener('click', () => {
+                if (deployStage < 5) {
+                    goToDeployStage(deployStage + 1);
+                }
+            });
 
-            setInterval(() => {
-                secs--;
-                if (secs < 0) { secs = 59; mins--; }
-                if (mins < 0) { mins = 59; hours--; }
-                if (hours < 0) { hours = 0; mins = 0; secs = 0; }
+            // Protocol items expand on click
+            document.querySelectorAll('.deploy-protocol-item').forEach(item => {
+                item.addEventListener('click', () => {
+                    item.classList.toggle('expanded');
+                });
+            });
 
-                timerEl.textContent =
-                    String(hours).padStart(2, '0') + ':' +
-                    String(mins).padStart(2, '0') + ':' +
-                    String(secs).padStart(2, '0');
-            }, 1000);
+            // Enter headquarters button - show confirmation
+            document.getElementById('deploy-enter-btn').addEventListener('click', () => {
+                playStinger();
+                document.getElementById('deploy-enter-btn').style.display = 'none';
+                document.getElementById('deploy-final-confirm').classList.remove('hidden');
+            });
+
+            // Walk away button - hide confirmation
+            document.getElementById('deploy-final-cancel').addEventListener('click', () => {
+                document.getElementById('deploy-final-confirm').classList.add('hidden');
+                document.getElementById('deploy-enter-btn').style.display = 'inline-block';
+            });
         }
 
         // === SEEKER COUNT (Subtle Social Proof) ===

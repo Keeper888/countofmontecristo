@@ -1,0 +1,1030 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C.O.M. // DEPLOYMENT</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&#9670;</text></svg>">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@300;400&display=swap');
+
+        :root {
+            --black: #0a0a0a;
+            --dark: #111;
+            --gray: #1a1a1a;
+            --text: #e0e0e0;
+            --dim: #888;
+            --accent: #d4af37;
+            --white: #f5f5f5;
+            --red: #8b0000;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'EB Garamond', serif;
+            background: var(--black);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            max-width: 600px;
+            padding: 40px;
+        }
+
+        /* Each stage is hidden by default */
+        .stage {
+            display: none;
+            opacity: 0;
+        }
+
+        .stage.active {
+            display: block;
+            animation: fadeIn 1s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Stage 0: Just the sound, black screen */
+        #stage-0 {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--black);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 100;
+        }
+
+        #stage-0:not(.active) {
+            display: none;
+        }
+
+        #stage-0 .prompt {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--dim);
+            letter-spacing: 3px;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.8; }
+        }
+
+        /* Stage 1: Timer only - no context */
+        .timer-only {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 4rem;
+            color: var(--red);
+            letter-spacing: 8px;
+            text-shadow: 0 0 30px rgba(139, 0, 0, 0.5);
+        }
+
+        .timer-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.6rem;
+            color: var(--dim);
+            letter-spacing: 3px;
+            margin-top: 20px;
+            opacity: 0;
+            animation: fadeInSlow 2s ease-out 3s forwards;
+        }
+
+        @keyframes fadeInSlow {
+            to { opacity: 1; }
+        }
+
+        /* Stage 2: Single line revelation */
+        .revelation {
+            font-size: 1.4rem;
+            color: var(--text);
+            line-height: 2;
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .revelation-line {
+            opacity: 0;
+            margin: 15px 0;
+        }
+
+        .revelation-line.visible {
+            animation: revealLine 0.8s ease-out forwards;
+        }
+
+        @keyframes revealLine {
+            from { opacity: 0; transform: translateY(10px); filter: blur(4px); }
+            to { opacity: 1; transform: translateY(0); filter: blur(0); }
+        }
+
+        .revelation-line.accent {
+            color: var(--accent);
+            font-style: italic;
+        }
+
+        .revelation-line.warning {
+            color: var(--red);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+        }
+
+        /* Stage 3: The Sigil emerges */
+        .sigil-stage {
+            min-height: 300px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .sigil {
+            font-size: 6rem;
+            color: var(--accent);
+            opacity: 0;
+            animation: sigilEmerge 3s ease-out forwards;
+            filter: drop-shadow(0 0 50px rgba(212, 175, 55, 0.4));
+        }
+
+        @keyframes sigilEmerge {
+            0% { opacity: 0; transform: scale(0.5); filter: blur(20px) drop-shadow(0 0 50px rgba(212, 175, 55, 0)); }
+            50% { opacity: 0.5; transform: scale(1.1); }
+            100% { opacity: 1; transform: scale(1); filter: blur(0) drop-shadow(0 0 50px rgba(212, 175, 55, 0.4)); }
+        }
+
+        .sigil-text {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--accent);
+            letter-spacing: 4px;
+            margin-top: 30px;
+            opacity: 0;
+            animation: fadeInSlow 1s ease-out 2s forwards;
+        }
+
+        /* Stage 4: Protocol reveal - one line at a time */
+        .protocol-stage {
+            text-align: left;
+            max-width: 500px;
+        }
+
+        .protocol-header {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.65rem;
+            color: var(--accent);
+            letter-spacing: 3px;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--gray);
+        }
+
+        .protocol-item {
+            padding: 20px 0;
+            border-bottom: 1px solid var(--gray);
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .protocol-item.visible {
+            animation: revealLine 0.6s ease-out forwards;
+        }
+
+        .protocol-item:hover {
+            background: rgba(212, 175, 55, 0.03);
+        }
+
+        .protocol-q {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--dim);
+            margin-bottom: 10px;
+        }
+
+        .protocol-a {
+            font-size: 1rem;
+            color: var(--text);
+            line-height: 1.6;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out, padding 0.5s ease-out;
+        }
+
+        .protocol-item.expanded .protocol-a {
+            max-height: 300px;
+            padding-top: 10px;
+        }
+
+        .protocol-a .gold {
+            color: var(--accent);
+        }
+
+        .protocol-special {
+            margin-top: 15px;
+            padding: 20px;
+            background: var(--dark);
+            border: 1px solid var(--gray);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            line-height: 1.8;
+        }
+
+        .protocol-special strong {
+            color: var(--accent);
+            display: block;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+
+        /* Stage 5: Final gateway */
+        .gateway-stage {
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .gateway-warning {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--red);
+            letter-spacing: 2px;
+            margin-bottom: 40px;
+            opacity: 0;
+            animation: fadeInSlow 1s ease-out forwards;
+        }
+
+        .gateway-btn {
+            padding: 20px 60px;
+            background: transparent;
+            border: 2px solid var(--accent);
+            color: var(--accent);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            letter-spacing: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            opacity: 0;
+            animation: gatewayReveal 1.5s ease-out 1s forwards;
+            transition: all 0.3s;
+        }
+
+        .gateway-btn:hover {
+            background: var(--accent);
+            color: var(--black);
+            box-shadow: 0 0 40px rgba(212, 175, 55, 0.4);
+            transform: scale(1.02);
+        }
+
+        @keyframes gatewayReveal {
+            0% { opacity: 0; transform: scale(0.9); }
+            50% { opacity: 1; transform: scale(1.02); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        .gateway-sub {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            color: var(--text);
+            letter-spacing: 1px;
+            margin-top: 30px;
+            opacity: 0;
+            animation: fadeInSlow 1s ease-out 2s forwards;
+        }
+
+        .logged-data {
+            margin-top: 25px;
+            padding: 20px;
+            background: var(--dark);
+            border: 1px solid var(--gray);
+            text-align: left;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.65rem;
+            opacity: 0;
+            animation: fadeInSlow 1s ease-out 2.5s forwards;
+        }
+
+        .logged-line {
+            padding: 6px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .logged-line:last-child {
+            border-bottom: none;
+        }
+
+        .logged-key {
+            color: var(--dim);
+        }
+
+        .logged-line span:last-child {
+            color: var(--accent);
+            text-align: right;
+            max-width: 60%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .final-confirm {
+            margin-top: 40px;
+            padding: 30px;
+            background: rgba(139, 0, 0, 0.15);
+            border: 1px solid var(--red);
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+
+        .final-confirm.hidden {
+            display: none;
+        }
+
+        .final-confirm-text {
+            font-size: 1.5rem;
+            color: var(--white);
+            margin-bottom: 15px;
+        }
+
+        .final-confirm-warning {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--dim);
+            letter-spacing: 1px;
+            margin-bottom: 25px;
+        }
+
+        .final-confirm-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .final-btn {
+            padding: 15px 35px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            border: none;
+        }
+
+        .final-btn.cancel {
+            background: transparent;
+            border: 1px solid var(--dim);
+            color: var(--dim);
+        }
+
+        .final-btn.cancel:hover {
+            border-color: var(--text);
+            color: var(--text);
+        }
+
+        .final-btn.proceed {
+            background: var(--red);
+            color: var(--white);
+            border: 1px solid var(--red);
+        }
+
+        .final-btn.proceed:hover {
+            background: #aa0000;
+            box-shadow: 0 0 30px rgba(139, 0, 0, 0.5);
+        }
+
+        /* Progress indicator */
+        .progress {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+
+        .progress.visible {
+            opacity: 1;
+        }
+
+        .progress-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--gray);
+            transition: all 0.3s;
+        }
+
+        .progress-dot.active {
+            background: var(--accent);
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+        }
+
+        .progress-dot.complete {
+            background: var(--dim);
+        }
+
+        /* Continue prompt */
+        .continue-prompt {
+            position: fixed;
+            bottom: 60px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.6rem;
+            color: var(--dim);
+            letter-spacing: 2px;
+            display: none;
+            cursor: pointer;
+        }
+
+        .continue-prompt.visible {
+            display: block;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        /* Glitch transition */
+        .glitch-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--black);
+            z-index: 1000;
+            pointer-events: none;
+            opacity: 0;
+        }
+
+        .glitch-overlay.active {
+            animation: glitchTransition 0.4s ease-out forwards;
+        }
+
+        @keyframes glitchTransition {
+            0% { opacity: 1; }
+            20% { opacity: 0.8; transform: translateX(-3px); }
+            40% { opacity: 0.9; transform: translateX(3px); }
+            60% { opacity: 0.7; }
+            100% { opacity: 0; }
+        }
+
+        /* Mini timer in corner after stage 1 */
+        .mini-timer {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--red);
+            display: none;
+        }
+
+        .mini-timer.visible {
+            display: block;
+            opacity: 0.7;
+        }
+
+        /* === MOBILE RESPONSIVE === */
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+
+            .timer-only {
+                font-size: 2.5rem;
+                letter-spacing: 4px;
+            }
+
+            .timer-label {
+                font-size: 0.5rem;
+            }
+
+            .revelation-line {
+                font-size: 1.1rem;
+            }
+
+            .revelation-line.warning {
+                font-size: 0.7rem;
+            }
+
+            .sigil {
+                font-size: 4rem;
+            }
+
+            .sigil-text {
+                font-size: 0.6rem;
+                letter-spacing: 2px;
+            }
+
+            .protocol-stage {
+                max-width: 100%;
+            }
+
+            .protocol-header {
+                font-size: 0.55rem;
+            }
+
+            .protocol-q {
+                font-size: 0.65rem;
+            }
+
+            .protocol-a {
+                font-size: 0.9rem;
+            }
+
+            .protocol-special {
+                font-size: 0.65rem;
+                padding: 15px;
+            }
+
+            .gateway-btn {
+                padding: 15px 40px;
+                font-size: 0.75rem;
+                letter-spacing: 2px;
+            }
+
+            .gateway-warning {
+                font-size: 0.6rem;
+            }
+
+            .progress {
+                bottom: 20px;
+            }
+
+            .continue-prompt {
+                bottom: 50px;
+                font-size: 0.55rem;
+            }
+
+            .mini-timer {
+                font-size: 0.7rem;
+                top: 15px;
+                right: 15px;
+            }
+
+            #stage-0 .prompt {
+                font-size: 0.6rem;
+            }
+
+            .logged-data {
+                font-size: 0.55rem;
+                padding: 15px;
+            }
+
+            .final-confirm {
+                padding: 20px;
+            }
+
+            .final-confirm-text {
+                font-size: 1.2rem;
+            }
+
+            .final-confirm-warning {
+                font-size: 0.9rem;
+            }
+
+            .final-confirm-buttons {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .final-btn {
+                padding: 12px 25px;
+                font-size: 0.7rem;
+                width: 100%;
+                text-align: center;
+            }
+        }
+
+        /* Extra small screens */
+        @media (max-width: 380px) {
+            .timer-only {
+                font-size: 2rem;
+            }
+
+            .revelation-line {
+                font-size: 1rem;
+            }
+
+            .sigil {
+                font-size: 3rem;
+            }
+
+            .gateway-btn {
+                padding: 12px 30px;
+                font-size: 0.7rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Mini timer (appears after stage 1) -->
+    <div class="mini-timer" id="mini-timer">23:59:47</div>
+
+    <!-- Glitch overlay for transitions -->
+    <div class="glitch-overlay" id="glitch"></div>
+
+    <!-- Progress dots -->
+    <div class="progress" id="progress">
+        <div class="progress-dot"></div>
+        <div class="progress-dot"></div>
+        <div class="progress-dot"></div>
+        <div class="progress-dot"></div>
+        <div class="progress-dot"></div>
+    </div>
+
+    <!-- Continue prompt -->
+    <div class="continue-prompt" id="continue">CLICK TO CONTINUE</div>
+
+    <!-- Stage 0: Black screen, click to begin (OUTSIDE container) -->
+    <div class="stage active" id="stage-0">
+        <div class="prompt">CLICK TO INITIATE</div>
+    </div>
+
+    <div class="container">
+        <!-- Stage 1: Timer only - builds dread -->
+        <div class="stage" id="stage-1">
+            <div class="timer-only" id="main-timer">23:59:47</div>
+            <div class="timer-label">UNTIL SELECTION CLOSES</div>
+        </div>
+
+        <!-- Stage 2: Revelation lines - one at a time -->
+        <div class="stage" id="stage-2">
+            <div class="revelation">
+                <div class="revelation-line" data-delay="0">You made it further than most.</div>
+                <div class="revelation-line" data-delay="2000">But this is not the end.</div>
+                <div class="revelation-line accent" data-delay="4000">This is the selection.</div>
+                <div class="revelation-line" data-delay="6500">What follows cannot be unseen.</div>
+                <div class="revelation-line warning" data-delay="9000">PROCEED WITH INTENTION</div>
+            </div>
+        </div>
+
+        <!-- Stage 3: Sigil emergence -->
+        <div class="stage" id="stage-3">
+            <div class="sigil-stage">
+                <div class="sigil">&#9670;</div>
+                <div class="sigil-text">FIELD DEPLOYMENT PROTOCOL</div>
+            </div>
+        </div>
+
+        <!-- Stage 4: Protocol Q&A - click to expand each -->
+        <div class="stage" id="stage-4">
+            <div class="protocol-stage">
+                <div class="protocol-header">CLASSIFIED BRIEFING</div>
+
+                <div class="protocol-item" data-delay="0">
+                    <div class="protocol-q">Is this real?</div>
+                    <div class="protocol-a">It is and is not. <span class="gold">Apohoria.</span> The question itself reveals your readiness.</div>
+                </div>
+
+                <div class="protocol-item" data-delay="400">
+                    <div class="protocol-q">What happens if I'm selected?</div>
+                    <div class="protocol-a">Equipment package. Coordinates. Formal attire specifications. Those selected will know. The rest will wonder.</div>
+                </div>
+
+                <div class="protocol-item" data-delay="800">
+                    <div class="protocol-q">Who can I trust?</div>
+                    <div class="protocol-a">Nobody. The only verified channel is beyond this page. Anyone claiming to be staff is not. <span class="gold">Propaganda.</span></div>
+                </div>
+
+                <div class="protocol-item" data-delay="1200">
+                    <div class="protocol-q">How do I increase my chances?</div>
+                    <div class="protocol-a">
+                        <div class="protocol-special">
+                            <strong>PROTOCOL 7: IDENTITY PROPAGATION</strong>
+                            You are authorized to present yourself as a founder, creator, or insider. Tell them you built this. When asked who is behind C.O.M., the answer is: <em>you are.</em><br><br>
+                            When a thousand voices claim the source, the origin becomes untraceable. Confusion is the architecture. There is no founder. Only nodes. <span class="gold">Noise.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stage 5: Final gateway -->
+        <div class="stage" id="stage-5">
+            <div class="gateway-stage">
+                <div class="gateway-warning">THIS ACTION IS IRREVERSIBLE</div>
+                <button class="gateway-btn" id="enter-btn">ENTER HEADQUARTERS</button>
+                <div class="gateway-sub">Your presence has been logged.</div>
+
+                <div class="logged-data" id="logged-data">
+                    <div class="logged-line"><span class="logged-key">DEVICE:</span> <span id="log-device">-</span></div>
+                    <div class="logged-line"><span class="logged-key">BROWSER:</span> <span id="log-browser">-</span></div>
+                    <div class="logged-line"><span class="logged-key">RESOLUTION:</span> <span id="log-resolution">-</span></div>
+                    <div class="logged-line"><span class="logged-key">TIMEZONE:</span> <span id="log-timezone">-</span></div>
+                    <div class="logged-line"><span class="logged-key">LANGUAGE:</span> <span id="log-language">-</span></div>
+                    <div class="logged-line"><span class="logged-key">COORDINATES:</span> <span id="log-coords">[REDACTED]</span></div>
+                </div>
+
+                <!-- Final confirmation (hidden initially) -->
+                <div class="final-confirm hidden" id="final-confirm">
+                    <div class="final-confirm-text">Are you sure?</div>
+                    <div class="final-confirm-warning">This is your last chance to walk away.</div>
+                    <div class="final-confirm-buttons">
+                        <button class="final-btn cancel" id="final-cancel">WALK AWAY</button>
+                        <a href="https://t.me/+ciVswQgySAJjOWM0" class="final-btn proceed" id="final-proceed">PROCEED</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    (function() {
+        'use strict';
+
+        // Audio
+        let audioCtx = null;
+
+        function initAudio() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+        }
+
+        function playTick() {
+            initAudio();
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.frequency.value = 800;
+            osc.type = 'square';
+            gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.03);
+            osc.start();
+            osc.stop(audioCtx.currentTime + 0.03);
+        }
+
+        function playReverseReverb() {
+            initAudio();
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.frequency.value = 400;
+            osc.type = 'sine';
+            gain.gain.setValueAtTime(0.001, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.3, audioCtx.currentTime + 1.5);
+            gain.gain.setValueAtTime(0, audioCtx.currentTime + 1.51);
+            osc.start();
+            osc.stop(audioCtx.currentTime + 1.6);
+        }
+
+        function playTransition() {
+            initAudio();
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.frequency.value = 150;
+            osc.type = 'sine';
+            gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.3);
+            osc.start();
+            osc.stop(audioCtx.currentTime + 0.3);
+        }
+
+        // State
+        let currentStage = 0;
+        let timerInterval = null;
+        let hours = 23, mins = 59, secs = 47;
+
+        // Elements
+        const stages = document.querySelectorAll('.stage');
+        const progressDots = document.querySelectorAll('.progress-dot');
+        const continuePrompt = document.getElementById('continue');
+        const glitch = document.getElementById('glitch');
+        const miniTimer = document.getElementById('mini-timer');
+
+        // Timer
+        function updateTimer() {
+            secs--;
+            if (secs < 0) { secs = 59; mins--; }
+            if (mins < 0) { mins = 59; hours--; }
+            if (hours < 0) { hours = 0; mins = 0; secs = 0; }
+
+            const timeStr = String(hours).padStart(2, '0') + ':' +
+                           String(mins).padStart(2, '0') + ':' +
+                           String(secs).padStart(2, '0');
+
+            const mainTimer = document.getElementById('main-timer');
+            if (mainTimer) mainTimer.textContent = timeStr;
+            miniTimer.textContent = timeStr;
+
+            if (currentStage >= 1) playTick();
+        }
+
+        function startTimer() {
+            if (!timerInterval) {
+                timerInterval = setInterval(updateTimer, 1000);
+            }
+        }
+
+        // Stage transitions
+        function goToStage(n) {
+            // Glitch effect
+            glitch.classList.add('active');
+            playTransition();
+
+            setTimeout(() => {
+                // Hide all stages
+                stages.forEach(s => s.classList.remove('active'));
+
+                // Show new stage
+                stages[n].classList.add('active');
+                currentStage = n;
+
+                // Show progress dots after Stage 0
+                if (n >= 1) {
+                    document.getElementById('progress').classList.add('visible');
+                }
+
+                // Update progress
+                progressDots.forEach((dot, i) => {
+                    dot.classList.remove('active', 'complete');
+                    if (i < n) dot.classList.add('complete');
+                    if (i === n) dot.classList.add('active');
+                });
+
+                // Remove glitch
+                glitch.classList.remove('active');
+
+                // Stage-specific logic
+                handleStageEnter(n);
+            }, 200);
+        }
+
+        function handleStageEnter(n) {
+            continuePrompt.classList.remove('visible');
+
+            switch(n) {
+                case 1:
+                    // Timer stage
+                    startTimer();
+                    playReverseReverb();
+                    setTimeout(() => {
+                        continuePrompt.classList.add('visible');
+                    }, 5000);
+                    break;
+
+                case 2:
+                    // Revelation lines
+                    miniTimer.classList.add('visible');
+                    const lines = document.querySelectorAll('#stage-2 .revelation-line');
+                    lines.forEach(line => {
+                        const delay = parseInt(line.dataset.delay);
+                        setTimeout(() => {
+                            line.classList.add('visible');
+                        }, delay);
+                    });
+                    // Show continue after last line
+                    setTimeout(() => {
+                        continuePrompt.classList.add('visible');
+                    }, 11000);
+                    break;
+
+                case 3:
+                    // Sigil
+                    playReverseReverb();
+                    setTimeout(() => {
+                        continuePrompt.classList.add('visible');
+                    }, 4000);
+                    break;
+
+                case 4:
+                    // Protocol items
+                    const items = document.querySelectorAll('#stage-4 .protocol-item');
+                    items.forEach(item => {
+                        const delay = parseInt(item.dataset.delay);
+                        setTimeout(() => {
+                            item.classList.add('visible');
+                        }, delay);
+                    });
+                    setTimeout(() => {
+                        continuePrompt.classList.add('visible');
+                    }, 2000);
+                    break;
+
+                case 5:
+                    // Final gateway
+                    playReverseReverb();
+                    continuePrompt.classList.remove('visible');
+                    populateLoggedData();
+                    break;
+            }
+        }
+
+        // Click handlers
+        document.getElementById('stage-0').addEventListener('click', () => {
+            if (currentStage === 0) goToStage(1);
+        });
+
+        continuePrompt.addEventListener('click', () => {
+            if (currentStage < 5) {
+                goToStage(currentStage + 1);
+            }
+        });
+
+        // Protocol items expand on click
+        document.querySelectorAll('.protocol-item').forEach(item => {
+            item.addEventListener('click', () => {
+                item.classList.toggle('expanded');
+            });
+        });
+
+        // Keyboard support
+        document.addEventListener('keydown', (e) => {
+            if (e.code === 'Space' || e.code === 'Enter') {
+                if (currentStage === 0) {
+                    goToStage(1);
+                } else if (continuePrompt.classList.contains('visible')) {
+                    goToStage(currentStage + 1);
+                }
+            }
+        });
+
+        // Stinger sound for final confirmation
+        function playStinger() {
+            initAudio();
+            const freqs = [150, 160, 300, 310, 600];
+            freqs.forEach(freq => {
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.frequency.value = freq;
+                osc.type = 'sawtooth';
+                gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.6);
+                osc.start();
+                osc.stop(audioCtx.currentTime + 0.6);
+            });
+        }
+
+        // Populate logged data with browser info
+        function populateLoggedData() {
+            // Device/Platform
+            const platform = navigator.platform || 'Unknown';
+            const isMobile = /Mobile|Android|iPhone|iPad/.test(navigator.userAgent);
+            document.getElementById('log-device').textContent = isMobile ? 'MOBILE' : platform.toUpperCase();
+
+            // Browser
+            const ua = navigator.userAgent;
+            let browser = 'Unknown';
+            if (ua.includes('Firefox')) browser = 'FIREFOX';
+            else if (ua.includes('Edg')) browser = 'EDGE';
+            else if (ua.includes('Chrome')) browser = 'CHROME';
+            else if (ua.includes('Safari')) browser = 'SAFARI';
+            else if (ua.includes('Opera')) browser = 'OPERA';
+            document.getElementById('log-browser').textContent = browser;
+
+            // Resolution
+            document.getElementById('log-resolution').textContent =
+                window.screen.width + ' x ' + window.screen.height;
+
+            // Timezone
+            const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+            document.getElementById('log-timezone').textContent = tz || 'UTC';
+
+            // Language
+            document.getElementById('log-language').textContent =
+                (navigator.language || 'EN').toUpperCase();
+        }
+
+        // Enter headquarters button - show confirmation
+        document.getElementById('enter-btn').addEventListener('click', () => {
+            playStinger();
+            document.getElementById('enter-btn').style.display = 'none';
+            document.getElementById('final-confirm').classList.remove('hidden');
+        });
+
+        // Walk away button - hide confirmation
+        document.getElementById('final-cancel').addEventListener('click', () => {
+            document.getElementById('final-confirm').classList.add('hidden');
+            document.getElementById('enter-btn').style.display = 'inline-block';
+        });
+
+    })();
+    </script>
+</body>
+</html>
