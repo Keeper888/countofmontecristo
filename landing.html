@@ -1691,27 +1691,36 @@
             height: 100%;
             border-color: rgba(201,162,39,0.2);
             transform: translate(-50%, -50%);
+            /* Outer square stays still */
         }
 
         .sigil-square:nth-child(2) {
             width: 75%;
             height: 75%;
             border-color: rgba(201,162,39,0.35);
-            transform: translate(-50%, -50%) rotate(15deg);
+            animation: sigilSpin 120s linear infinite;
+            animation-delay: -2s;
         }
 
         .sigil-square:nth-child(3) {
             width: 50%;
             height: 50%;
             border-color: rgba(201,162,39,0.55);
-            transform: translate(-50%, -50%) rotate(30deg);
+            animation: sigilSpin 80s linear infinite;
+            animation-delay: -4s;
         }
 
         .sigil-square:nth-child(4) {
             width: 25%;
             height: 25%;
             border-color: rgba(201,162,39,0.8);
-            transform: translate(-50%, -50%) rotate(45deg);
+            animation: sigilSpin 50s linear infinite;
+            animation-delay: -6s;
+        }
+
+        @keyframes sigilSpin {
+            from { transform: translate(-50%, -50%) rotate(0deg); }
+            to { transform: translate(-50%, -50%) rotate(360deg); }
         }
 
         .sigil-center {
@@ -2619,6 +2628,7 @@
 
         // COUNTDOWN TICK - Clock ticking sound for timer urgency
         function playTick() {
+            if (tickMuted) return;
             initAudio();
             const osc = audioCtx.createOscillator();
             const gain = audioCtx.createGain();
@@ -3158,6 +3168,7 @@
         let deployStage = 1;
         let deployTimerInterval = null;
         let deployHours = 23, deployMins = 59, deploySecs = 47;
+        let tickMuted = false;
 
         // Stinger sound for final confirmation
         function playStinger() {
@@ -3458,9 +3469,11 @@
                 if (day0Audio.paused) {
                     day0Audio.play();
                     day0PlayBtn.textContent = '❚❚';
+                    tickMuted = true;
                 } else {
                     day0Audio.pause();
                     day0PlayBtn.textContent = '▶';
+                    tickMuted = false;
                 }
             });
 
@@ -3483,6 +3496,7 @@
             day0Audio.addEventListener('ended', () => {
                 day0PlayBtn.textContent = '▶';
                 day0Bar.style.width = '0%';
+                tickMuted = false;
                 // Also unlock on audio end if not already
                 if (!day0Unlocked) {
                     day0Unlocked = true;
