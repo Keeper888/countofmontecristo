@@ -1,0 +1,1809 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C.O.M. // BRAND LIBRARY</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&#9670;</text></svg>">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@300;400&display=swap');
+
+        /* ============================================
+           C.O.M. DESIGN SYSTEM
+           Version 1.0
+           ============================================ */
+
+        :root {
+            /* === CORE COLORS === */
+            --black: #0a0a0a;
+            --dark: #111;
+            --gray: #1a1a1a;
+            --text: #e0e0e0;
+            --dim: #888;
+            --accent: #d4af37;
+            --white: #f5f5f5;
+
+            /* === SEMANTIC COLORS === */
+            --error: #8b0000;
+            --error-light: #cc4444;
+            --error-muted: #8b4444;
+            --error-border: #3d0000;
+
+            /* === TYPOGRAPHY === */
+            --font-serif: 'EB Garamond', serif;
+            --font-mono: 'JetBrains Mono', monospace;
+
+            /* === SPACING === */
+            --space-xs: 5px;
+            --space-sm: 10px;
+            --space-md: 15px;
+            --space-lg: 20px;
+            --space-xl: 25px;
+            --space-2xl: 30px;
+            --space-3xl: 40px;
+            --space-4xl: 50px;
+
+            /* === BORDERS === */
+            --border-default: 1px solid var(--gray);
+            --border-accent: 1px solid var(--accent);
+            --border-error: 1px solid var(--error-border);
+
+            /* === TRANSITIONS === */
+            --transition-fast: 0.3s;
+            --transition-normal: 0.5s;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: var(--font-serif);
+            background: var(--black);
+            color: var(--text);
+            line-height: 1.7;
+            padding: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* === LIBRARY STRUCTURE === */
+        .library-header {
+            text-align: center;
+            margin-bottom: 60px;
+            padding-bottom: 40px;
+            border-bottom: var(--border-default);
+        }
+
+        .library-title {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            color: var(--accent);
+            letter-spacing: 4px;
+            margin-bottom: 10px;
+        }
+
+        .library-subtitle {
+            color: var(--dim);
+            font-size: 1rem;
+            font-style: italic;
+        }
+
+        .library-version {
+            font-family: var(--font-mono);
+            font-size: 0.6rem;
+            color: var(--dim);
+            margin-top: 15px;
+            letter-spacing: 2px;
+        }
+
+        .section {
+            margin-bottom: 80px;
+        }
+
+        .section-header {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            color: var(--accent);
+            letter-spacing: 3px;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: var(--border-default);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .section-number {
+            color: var(--dim);
+        }
+
+        .subsection {
+            margin-bottom: 40px;
+        }
+
+        .subsection-title {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            color: var(--dim);
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+        }
+
+        /* === GRID LAYOUTS === */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
+
+        .grid-5 {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 15px;
+        }
+
+        @media (max-width: 800px) {
+            .grid-2, .grid-3, .grid-4, .grid-5 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* === SPECIMEN BOX === */
+        .specimen {
+            background: var(--dark);
+            border: var(--border-default);
+            padding: 25px;
+            transition: border-color var(--transition-fast);
+        }
+
+        .specimen:hover {
+            border-color: var(--accent);
+        }
+
+        .specimen-label {
+            font-family: var(--font-mono);
+            font-size: 0.55rem;
+            color: var(--dim);
+            letter-spacing: 1px;
+            margin-top: 15px;
+            text-transform: uppercase;
+        }
+
+        .specimen-value {
+            font-family: var(--font-mono);
+            font-size: 0.6rem;
+            color: var(--accent);
+            margin-top: 5px;
+        }
+
+        /* === COLOR SWATCHES === */
+        .swatch {
+            aspect-ratio: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 15px;
+            border: var(--border-default);
+        }
+
+        .swatch-name {
+            font-family: var(--font-mono);
+            font-size: 0.6rem;
+            color: var(--white);
+            letter-spacing: 1px;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+        }
+
+        .swatch-hex {
+            font-family: var(--font-mono);
+            font-size: 0.55rem;
+            color: var(--white);
+            opacity: 0.8;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+        }
+
+        .swatch-var {
+            font-family: var(--font-mono);
+            font-size: 0.5rem;
+            color: var(--white);
+            opacity: 0.6;
+            margin-top: 5px;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+        }
+
+        /* === TYPOGRAPHY SPECIMENS === */
+        .type-specimen {
+            background: var(--dark);
+            border: var(--border-default);
+            padding: 30px;
+            margin-bottom: 15px;
+        }
+
+        .type-preview {
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: var(--border-default);
+        }
+
+        .type-details {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .type-detail {
+            font-family: var(--font-mono);
+            font-size: 0.6rem;
+            color: var(--dim);
+        }
+
+        .type-detail span {
+            color: var(--text);
+            display: block;
+            margin-top: 3px;
+        }
+
+        /* === COMPONENT SPECIMENS === */
+        .component-box {
+            background: var(--dark);
+            border: var(--border-default);
+            padding: 30px;
+            text-align: center;
+        }
+
+        .component-demo {
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 60px;
+        }
+
+        .component-label {
+            font-family: var(--font-mono);
+            font-size: 0.6rem;
+            color: var(--dim);
+            letter-spacing: 1px;
+            padding-top: 15px;
+            border-top: var(--border-default);
+        }
+
+        .component-class {
+            font-family: var(--font-mono);
+            font-size: 0.55rem;
+            color: var(--accent);
+            margin-top: 5px;
+        }
+
+        /* === ACTUAL COMPONENTS FROM LANDING === */
+
+        /* Buttons */
+        .btn-primary {
+            padding: 15px 50px;
+            background: transparent;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            letter-spacing: 3px;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+
+        .btn-primary:hover {
+            background: var(--accent);
+            color: var(--black);
+        }
+
+        .btn-secondary {
+            padding: 12px 40px;
+            background: transparent;
+            border: 1px solid var(--dim);
+            color: var(--text);
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            letter-spacing: 3px;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+
+        .btn-secondary:hover {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: var(--black);
+        }
+
+        .btn-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: var(--accent);
+            color: var(--black);
+            padding: 15px 40px;
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+
+        .btn-cta:hover {
+            filter: brightness(1.1);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.2);
+        }
+
+        .btn-danger {
+            padding: 10px 25px;
+            background: transparent;
+            border: 1px solid var(--error);
+            color: var(--error-muted);
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+
+        .btn-danger:hover {
+            background: var(--error);
+            color: var(--white);
+        }
+
+        .btn-small {
+            padding: 10px 30px;
+            background: transparent;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+
+        .btn-small:hover {
+            background: var(--accent);
+            color: var(--black);
+        }
+
+        /* Inputs */
+        .input-primary {
+            width: 100%;
+            max-width: 300px;
+            padding: 15px 20px;
+            background: transparent;
+            border: var(--border-default);
+            color: var(--white);
+            font-family: var(--font-mono);
+            font-size: 1rem;
+            text-align: center;
+            letter-spacing: 2px;
+            outline: none;
+            transition: border-color var(--transition-fast);
+        }
+
+        .input-primary:focus {
+            border-color: var(--accent);
+        }
+
+        .input-primary::placeholder {
+            color: var(--dim);
+        }
+
+        .input-large {
+            width: 100%;
+            max-width: 300px;
+            padding: 20px;
+            background: var(--black);
+            border: var(--border-default);
+            color: var(--accent);
+            font-family: var(--font-mono);
+            font-size: 1.5rem;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            outline: none;
+        }
+
+        .input-large:focus {
+            border-color: var(--accent);
+        }
+
+        /* Cards/Boxes */
+        .card-classified {
+            background: var(--dark);
+            border: var(--border-default);
+            padding: 25px;
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+        }
+
+        .card-classified-line {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: var(--border-default);
+        }
+
+        .card-classified-line:last-child {
+            border-bottom: none;
+        }
+
+        .card-key {
+            color: var(--dim);
+        }
+
+        .card-val {
+            color: var(--text);
+        }
+
+        .card-val.gold {
+            color: var(--accent);
+        }
+
+        .card-token {
+            background: var(--dark);
+            border: 1px solid var(--accent);
+            padding: 20px;
+            font-family: var(--font-mono);
+            text-align: center;
+        }
+
+        .card-token-label {
+            font-size: 0.6rem;
+            color: var(--dim);
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        .card-token-value {
+            font-size: 1.1rem;
+            color: var(--accent);
+            letter-spacing: 3px;
+        }
+
+        .card-warning {
+            background: rgba(139, 0, 0, 0.1);
+            border: var(--border-error);
+            padding: 15px 20px;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--error-muted);
+        }
+
+        .card-readme {
+            background: var(--dark);
+            border: var(--border-default);
+            padding: 25px;
+            text-align: center;
+        }
+
+        .card-readme-title {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            color: var(--accent);
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+        }
+
+        .card-readme-text {
+            font-size: 0.9rem;
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        /* Quote */
+        .quote-block {
+            font-style: italic;
+            color: var(--dim);
+            padding: 20px 30px;
+            border-left: 1px solid var(--accent);
+            text-align: left;
+        }
+
+        /* Progress */
+        .progress-container {
+            width: 100%;
+            height: 6px;
+            background: var(--black);
+            border: var(--border-default);
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            width: 65%;
+            background: linear-gradient(90deg, var(--accent), #f0d078);
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+        }
+
+        /* Hint Prompt */
+        .hint-prompt-demo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            opacity: 0.8;
+            cursor: pointer;
+            transition: opacity var(--transition-fast);
+        }
+
+        .hint-prompt-demo:hover {
+            opacity: 1;
+        }
+
+        .hint-icon {
+            color: var(--accent);
+            font-size: 1rem;
+        }
+
+        .hint-text-demo {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            color: var(--dim);
+            letter-spacing: 1px;
+        }
+
+        /* Sigil */
+        .sigil-demo {
+            font-size: 4rem;
+            color: var(--accent);
+            filter: drop-shadow(0 0 30px rgba(212, 175, 55, 0.3));
+        }
+
+        /* Cipher Display */
+        .cipher-display-demo {
+            font-family: var(--font-mono);
+            font-size: 1.1rem;
+            color: var(--accent);
+            letter-spacing: 8px;
+            padding: 25px;
+            background: var(--dark);
+            border: var(--border-default);
+        }
+
+        /* Runes */
+        .runes-demo {
+            font-size: 1.2rem;
+            color: var(--dim);
+            letter-spacing: 8px;
+            opacity: 0.5;
+        }
+
+        /* Protocol Label (Contract) */
+        .protocol-label {
+            font-family: var(--font-mono);
+            letter-spacing: 2px;
+            font-size: 0.85rem;
+            color: var(--accent);
+        }
+
+        /* === SPACING DEMO === */
+        .spacing-demo {
+            display: flex;
+            align-items: flex-end;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .spacing-block {
+            background: var(--accent);
+            opacity: 0.6;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            padding-bottom: 5px;
+        }
+
+        .spacing-label {
+            font-family: var(--font-mono);
+            font-size: 0.5rem;
+            color: var(--black);
+        }
+
+        /* === LETTER SPACING DEMO === */
+        .letter-spacing-demo {
+            background: var(--dark);
+            border: var(--border-default);
+            padding: 20px;
+            margin-bottom: 10px;
+        }
+
+        .letter-spacing-preview {
+            font-family: var(--font-mono);
+            color: var(--text);
+            margin-bottom: 10px;
+        }
+
+        .letter-spacing-info {
+            font-family: var(--font-mono);
+            font-size: 0.55rem;
+            color: var(--dim);
+        }
+
+        /* === LINE HEIGHT DEMO === */
+        .line-height-demo {
+            background: var(--dark);
+            border: var(--border-default);
+            padding: 20px;
+            margin-bottom: 10px;
+        }
+
+        .line-height-preview {
+            color: var(--text);
+            margin-bottom: 15px;
+        }
+
+        .line-height-info {
+            font-family: var(--font-mono);
+            font-size: 0.55rem;
+            color: var(--dim);
+        }
+
+        /* === STATES === */
+        .states-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
+
+        .state-box {
+            background: var(--dark);
+            border: var(--border-default);
+            padding: 20px;
+            text-align: center;
+        }
+
+        .state-demo {
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 10px;
+        }
+
+        .state-label {
+            font-family: var(--font-mono);
+            font-size: 0.55rem;
+            color: var(--dim);
+            letter-spacing: 1px;
+        }
+
+        /* === ICONOGRAPHY === */
+        .icon-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 15px;
+        }
+
+        .icon-box {
+            background: var(--dark);
+            border: var(--border-default);
+            padding: 25px;
+            text-align: center;
+        }
+
+        .icon-preview {
+            font-size: 2rem;
+            color: var(--accent);
+            margin-bottom: 10px;
+        }
+
+        .icon-label {
+            font-family: var(--font-mono);
+            font-size: 0.5rem;
+            color: var(--dim);
+            letter-spacing: 1px;
+        }
+
+        .icon-code {
+            font-family: var(--font-mono);
+            font-size: 0.5rem;
+            color: var(--accent);
+            margin-top: 5px;
+        }
+
+        /* === USAGE NOTES === */
+        .usage-box {
+            background: var(--dark);
+            border: var(--border-default);
+            padding: 25px;
+            margin-top: 20px;
+        }
+
+        .usage-title {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            color: var(--accent);
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+        }
+
+        .usage-list {
+            list-style: none;
+        }
+
+        .usage-list li {
+            font-size: 0.85rem;
+            color: var(--text);
+            padding: 8px 0;
+            padding-left: 20px;
+            position: relative;
+            border-bottom: var(--border-default);
+        }
+
+        .usage-list li:last-child {
+            border-bottom: none;
+        }
+
+        .usage-list li::before {
+            content: '>';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-family: var(--font-mono);
+        }
+
+        /* === CSS VARIABLES REFERENCE === */
+        .var-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .var-table th,
+        .var-table td {
+            text-align: left;
+            padding: 12px 15px;
+            border-bottom: var(--border-default);
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+        }
+
+        .var-table th {
+            color: var(--dim);
+            font-weight: normal;
+            letter-spacing: 1px;
+        }
+
+        .var-table td {
+            color: var(--text);
+        }
+
+        .var-table td:first-child {
+            color: var(--accent);
+        }
+
+        .var-preview {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border-radius: 2px;
+            vertical-align: middle;
+            margin-right: 8px;
+            border: 1px solid var(--gray);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header class="library-header">
+        <h1 class="library-title">C.O.M. // BRAND LIBRARY</h1>
+        <p class="library-subtitle">Design System & Visual Identity Guidelines</p>
+        <p class="library-version">VERSION 1.0 // CLASSIFIED</p>
+    </header>
+
+    <!-- 01: COLOR PALETTE -->
+    <section class="section">
+        <div class="section-header">
+            <span>COLOR PALETTE</span>
+            <span class="section-number">01</span>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">CORE COLORS</h3>
+            <div class="grid-5">
+                <div class="swatch" style="background: #0a0a0a;">
+                    <span class="swatch-name">BLACK</span>
+                    <span class="swatch-hex">#0A0A0A</span>
+                    <span class="swatch-var">--black</span>
+                </div>
+                <div class="swatch" style="background: #111;">
+                    <span class="swatch-name">DARK</span>
+                    <span class="swatch-hex">#111111</span>
+                    <span class="swatch-var">--dark</span>
+                </div>
+                <div class="swatch" style="background: #1a1a1a;">
+                    <span class="swatch-name">GRAY</span>
+                    <span class="swatch-hex">#1A1A1A</span>
+                    <span class="swatch-var">--gray</span>
+                </div>
+                <div class="swatch" style="background: #888;">
+                    <span class="swatch-name">DIM</span>
+                    <span class="swatch-hex">#888888</span>
+                    <span class="swatch-var">--dim</span>
+                </div>
+                <div class="swatch" style="background: #e0e0e0;">
+                    <span class="swatch-name" style="color:#111;">TEXT</span>
+                    <span class="swatch-hex" style="color:#111;">#E0E0E0</span>
+                    <span class="swatch-var" style="color:#111;">--text</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">ACCENT & SEMANTIC</h3>
+            <div class="grid-5">
+                <div class="swatch" style="background: #d4af37;">
+                    <span class="swatch-name" style="color:#111;">GOLD</span>
+                    <span class="swatch-hex" style="color:#111;">#D4AF37</span>
+                    <span class="swatch-var" style="color:#111;">--accent</span>
+                </div>
+                <div class="swatch" style="background: #f5f5f5;">
+                    <span class="swatch-name" style="color:#111;">WHITE</span>
+                    <span class="swatch-hex" style="color:#111;">#F5F5F5</span>
+                    <span class="swatch-var" style="color:#111;">--white</span>
+                </div>
+                <div class="swatch" style="background: #8b0000;">
+                    <span class="swatch-name">ERROR</span>
+                    <span class="swatch-hex">#8B0000</span>
+                    <span class="swatch-var">--error</span>
+                </div>
+                <div class="swatch" style="background: #cc4444;">
+                    <span class="swatch-name">ERROR LIGHT</span>
+                    <span class="swatch-hex">#CC4444</span>
+                    <span class="swatch-var">--error-light</span>
+                </div>
+                <div class="swatch" style="background: #3d0000;">
+                    <span class="swatch-name">ERROR BORDER</span>
+                    <span class="swatch-hex">#3D0000</span>
+                    <span class="swatch-var">--error-border</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="usage-box">
+            <div class="usage-title">COLOR USAGE RULES</div>
+            <ul class="usage-list">
+                <li>Background hierarchy: --black (page) > --dark (cards) > --gray (borders/dividers)</li>
+                <li>Gold accent (#d4af37) reserved for: CTAs, highlights, important labels, interactive states</li>
+                <li>Error colors only for: warnings, forfeit states, dangerous actions</li>
+                <li>Never use pure white (#fff) - always use --white (#f5f5f5) or --text (#e0e0e0)</li>
+                <li>Maintain minimum 4.5:1 contrast ratio for text accessibility</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- 02: TYPOGRAPHY -->
+    <section class="section">
+        <div class="section-header">
+            <span>TYPOGRAPHY</span>
+            <span class="section-number">02</span>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">FONT FAMILIES</h3>
+            <div class="grid-2">
+                <div class="type-specimen">
+                    <div class="type-preview" style="font-family: 'EB Garamond', serif; font-size: 2rem;">
+                        EB Garamond
+                    </div>
+                    <div class="type-preview" style="font-family: 'EB Garamond', serif; font-size: 1.2rem; font-style: italic;">
+                        The quick brown fox jumps over the lazy dog
+                    </div>
+                    <div class="type-details">
+                        <div class="type-detail">ROLE <span>Body Text, Quotes, Narrative</span></div>
+                        <div class="type-detail">WEIGHTS <span>400 (Regular), 500 (Medium), 400i (Italic)</span></div>
+                        <div class="type-detail">VAR <span>--font-serif</span></div>
+                    </div>
+                </div>
+                <div class="type-specimen">
+                    <div class="type-preview" style="font-family: 'JetBrains Mono', monospace; font-size: 1.5rem;">
+                        JetBrains Mono
+                    </div>
+                    <div class="type-preview" style="font-family: 'JetBrains Mono', monospace; font-size: 1rem;">
+                        ABCDEFGHIJKLMNOPQRSTUVWXYZ 0123456789
+                    </div>
+                    <div class="type-details">
+                        <div class="type-detail">ROLE <span>Headers, Labels, Code, UI Elements</span></div>
+                        <div class="type-detail">WEIGHTS <span>300 (Light), 400 (Regular)</span></div>
+                        <div class="type-detail">VAR <span>--font-mono</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">TYPE SCALE (FONT SIZES)</h3>
+
+            <div class="type-specimen">
+                <div class="type-preview" style="font-size: 6rem; color: var(--accent);">&#9670;</div>
+                <div class="type-details">
+                    <div class="type-detail">SIZE <span>6rem (96px)</span></div>
+                    <div class="type-detail">USE <span>Main Sigil</span></div>
+                </div>
+            </div>
+
+            <div class="type-specimen">
+                <div class="type-preview" style="font-size: 2.5rem; font-family: var(--font-mono); color: var(--accent);">REVEAL</div>
+                <div class="type-details">
+                    <div class="type-detail">SIZE <span>2.5rem (40px)</span></div>
+                    <div class="type-detail">USE <span>Dramatic reveals, result words</span></div>
+                </div>
+            </div>
+
+            <div class="type-specimen">
+                <div class="type-preview" style="font-size: 1.8rem;">You Have Proven Worthy</div>
+                <div class="type-details">
+                    <div class="type-detail">SIZE <span>1.8rem (28.8px)</span></div>
+                    <div class="type-detail">USE <span>Page titles</span></div>
+                </div>
+            </div>
+
+            <div class="type-specimen">
+                <div class="type-preview" style="font-size: 1.4rem;">Prove you see what others cannot.</div>
+                <div class="type-details">
+                    <div class="type-detail">SIZE <span>1.4rem (22.4px)</span></div>
+                    <div class="type-detail">USE <span>Section questions, challenges</span></div>
+                </div>
+            </div>
+
+            <div class="type-specimen">
+                <div class="type-preview" style="font-size: 1.1rem; font-style: italic;">The path lies in the shadows between knowing and seeking.</div>
+                <div class="type-details">
+                    <div class="type-detail">SIZE <span>1.1rem (17.6px)</span></div>
+                    <div class="type-detail">USE <span>Epigraphs, token values, emphasis text</span></div>
+                </div>
+            </div>
+
+            <div class="type-specimen">
+                <div class="type-preview" style="font-size: 1rem;">We are assembling a network. Not of followers, but of minds.</div>
+                <div class="type-details">
+                    <div class="type-detail">SIZE <span>1rem (16px)</span></div>
+                    <div class="type-detail">USE <span>Body text, descriptions, paragraphs</span></div>
+                </div>
+            </div>
+
+            <div class="type-specimen">
+                <div class="type-preview" style="font-size: 0.75rem; font-family: var(--font-mono); letter-spacing: 3px; color: var(--accent);">// INITIATE CONTACT //</div>
+                <div class="type-details">
+                    <div class="type-detail">SIZE <span>0.75rem (12px)</span></div>
+                    <div class="type-detail">USE <span>Buttons, instructions, labels</span></div>
+                </div>
+            </div>
+
+            <div class="type-specimen">
+                <div class="type-preview" style="font-size: 0.65rem; font-family: var(--font-mono); letter-spacing: 4px; color: var(--dim);">COGNITIVE FILTER // ACTIVE</div>
+                <div class="type-details">
+                    <div class="type-detail">SIZE <span>0.65rem (10.4px)</span></div>
+                    <div class="type-detail">USE <span>Phase headers, status indicators</span></div>
+                </div>
+            </div>
+
+            <div class="type-specimen">
+                <div class="type-preview" style="font-size: 0.6rem; font-family: var(--font-mono); letter-spacing: 2px; color: var(--dim);">1,247 seekers before you</div>
+                <div class="type-details">
+                    <div class="type-detail">SIZE <span>0.6rem (9.6px)</span></div>
+                    <div class="type-detail">USE <span>Subtle counters, metadata, footnotes</span></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">LETTER SPACING</h3>
+
+            <div class="letter-spacing-demo">
+                <div class="letter-spacing-preview" style="letter-spacing: 8px; font-size: 1.1rem;">.- .. / . ... -.-. .- .--. . -..</div>
+                <div class="letter-spacing-info">8px - Cipher displays, dramatic reveals, runes</div>
+            </div>
+
+            <div class="letter-spacing-demo">
+                <div class="letter-spacing-preview" style="letter-spacing: 4px; font-size: 0.7rem;">COGNITIVE FILTER // ACTIVE</div>
+                <div class="letter-spacing-info">4px - Section headers, main titles</div>
+            </div>
+
+            <div class="letter-spacing-demo">
+                <div class="letter-spacing-preview" style="letter-spacing: 3px; font-size: 0.75rem;">PROCEED TO SECURE CHANNEL</div>
+                <div class="letter-spacing-info">3px - Buttons, CTAs, important labels</div>
+            </div>
+
+            <div class="letter-spacing-demo">
+                <div class="letter-spacing-preview" style="letter-spacing: 2px; font-size: 0.8rem;">YOUR ENTRY TOKEN</div>
+                <div class="letter-spacing-info">2px - Sub-labels, hints, secondary UI elements</div>
+            </div>
+
+            <div class="letter-spacing-demo">
+                <div class="letter-spacing-preview" style="letter-spacing: 1px; font-size: 0.7rem;">Share with another agent to unlock hint 1</div>
+                <div class="letter-spacing-info">1px - Small text, metadata, hints</div>
+            </div>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">LINE HEIGHTS</h3>
+
+            <div class="line-height-demo">
+                <div class="line-height-preview" style="line-height: 1.9;">
+                    <strong style="color: var(--accent);">DECLINE:</strong> Your file will be closed. Permanently.<br><br>
+                    <strong style="color: var(--accent);">ACCEPT BUT FAIL:</strong> You will be assigned to support roles.
+                </div>
+                <div class="line-height-info">line-height: 1.9 - Contract warnings, important multi-line text</div>
+            </div>
+
+            <div class="line-height-demo">
+                <div class="line-height-preview" style="line-height: 1.8; font-style: italic; color: var(--dim);">
+                    "Intelligence is not the ability to store information, but to know where to find it."
+                </div>
+                <div class="line-height-info">line-height: 1.8 - Quotes, deployment text, reading content</div>
+            </div>
+
+            <div class="line-height-demo">
+                <div class="line-height-preview" style="line-height: 1.7;">
+                    You have been assigned a unique entry token. Use it to verify your identity in the secure channel. This token expires. Do not share it.
+                </div>
+                <div class="line-height-info">line-height: 1.7 - Default body text, descriptions</div>
+            </div>
+
+            <div class="line-height-demo">
+                <div class="line-height-preview" style="line-height: 1.6; font-size: 0.9rem;">
+                    What you share next binds you. Each agent you recruit becomes part of your operation. Their success reflects on you.
+                </div>
+                <div class="line-height-info">line-height: 1.6 - Compact text, readme boxes, FAQ answers</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 03: SPACING -->
+    <section class="section">
+        <div class="section-header">
+            <span>SPACING SYSTEM</span>
+            <span class="section-number">03</span>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">SPACING SCALE</h3>
+            <div class="spacing-demo">
+                <div class="spacing-block" style="width: 5px; height: 5px;"><span class="spacing-label"></span></div>
+                <div class="spacing-block" style="width: 10px; height: 10px;"><span class="spacing-label"></span></div>
+                <div class="spacing-block" style="width: 15px; height: 15px;"><span class="spacing-label"></span></div>
+                <div class="spacing-block" style="width: 20px; height: 20px;"><span class="spacing-label"></span></div>
+                <div class="spacing-block" style="width: 25px; height: 25px;"><span class="spacing-label"></span></div>
+                <div class="spacing-block" style="width: 30px; height: 30px;"><span class="spacing-label"></span></div>
+                <div class="spacing-block" style="width: 40px; height: 40px;"><span class="spacing-label"></span></div>
+                <div class="spacing-block" style="width: 50px; height: 50px;"><span class="spacing-label"></span></div>
+            </div>
+
+            <table class="var-table" style="margin-top: 30px;">
+                <tr>
+                    <th>VARIABLE</th>
+                    <th>VALUE</th>
+                    <th>COMMON USE</th>
+                </tr>
+                <tr>
+                    <td>--space-xs</td>
+                    <td>5px</td>
+                    <td>Icon margins, tight spacing</td>
+                </tr>
+                <tr>
+                    <td>--space-sm</td>
+                    <td>10px</td>
+                    <td>Label margins, gap between small elements</td>
+                </tr>
+                <tr>
+                    <td>--space-md</td>
+                    <td>15px</td>
+                    <td>Button padding, card internal spacing</td>
+                </tr>
+                <tr>
+                    <td>--space-lg</td>
+                    <td>20px</td>
+                    <td>Section padding, card margins</td>
+                </tr>
+                <tr>
+                    <td>--space-xl</td>
+                    <td>25px</td>
+                    <td>Card padding, major element spacing</td>
+                </tr>
+                <tr>
+                    <td>--space-2xl</td>
+                    <td>30px</td>
+                    <td>Section gaps, reveal spacing</td>
+                </tr>
+                <tr>
+                    <td>--space-3xl</td>
+                    <td>40px</td>
+                    <td>Page padding, major section breaks</td>
+                </tr>
+                <tr>
+                    <td>--space-4xl</td>
+                    <td>50px</td>
+                    <td>Phase padding, footer spacing</td>
+                </tr>
+            </table>
+        </div>
+    </section>
+
+    <!-- 04: COMPONENTS -->
+    <section class="section">
+        <div class="section-header">
+            <span>UI COMPONENTS</span>
+            <span class="section-number">04</span>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">BUTTONS</h3>
+            <div class="grid-3">
+                <div class="component-box">
+                    <div class="component-demo">
+                        <button class="btn-primary">PROCEED</button>
+                    </div>
+                    <div class="component-label">PRIMARY BUTTON</div>
+                    <div class="component-class">.continue-btn</div>
+                </div>
+                <div class="component-box">
+                    <div class="component-demo">
+                        <button class="btn-secondary">VERIFY</button>
+                    </div>
+                    <div class="component-label">SECONDARY BUTTON</div>
+                    <div class="component-class">.submit-btn</div>
+                </div>
+                <div class="component-box">
+                    <div class="component-demo">
+                        <button class="btn-cta">&#9654; ENTER CHANNEL</button>
+                    </div>
+                    <div class="component-label">CTA BUTTON</div>
+                    <div class="component-class">.telegram-link</div>
+                </div>
+                <div class="component-box">
+                    <div class="component-demo">
+                        <button class="btn-danger">FORFEIT</button>
+                    </div>
+                    <div class="component-label">DANGER BUTTON</div>
+                    <div class="component-class">.confirm-btn.forfeit</div>
+                </div>
+                <div class="component-box">
+                    <div class="component-demo">
+                        <button class="btn-small">I UNDERSTAND</button>
+                    </div>
+                    <div class="component-label">SMALL BUTTON</div>
+                    <div class="component-class">.readme-btn</div>
+                </div>
+                <div class="component-box">
+                    <div class="component-demo">
+                        <button class="btn-secondary" style="opacity: 0.5; cursor: not-allowed;">DISABLED</button>
+                    </div>
+                    <div class="component-label">DISABLED STATE</div>
+                    <div class="component-class">:disabled</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">INPUTS</h3>
+            <div class="grid-2">
+                <div class="component-box">
+                    <div class="component-demo">
+                        <input type="text" class="input-primary" placeholder="ENTER CODE">
+                    </div>
+                    <div class="component-label">PRIMARY INPUT</div>
+                    <div class="component-class">.answer-input</div>
+                </div>
+                <div class="component-box">
+                    <div class="component-demo">
+                        <input type="text" class="input-large" placeholder="WORD" maxlength="8">
+                    </div>
+                    <div class="component-label">LARGE INPUT</div>
+                    <div class="component-class">.word-input</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">CARDS & CONTAINERS</h3>
+            <div class="grid-2">
+                <div class="component-box" style="padding: 15px;">
+                    <div class="card-classified">
+                        <div class="card-classified-line">
+                            <span class="card-key">CLEARANCE:</span>
+                            <span class="card-val gold">GRANTED</span>
+                        </div>
+                        <div class="card-classified-line">
+                            <span class="card-key">DESIGNATION:</span>
+                            <span class="card-val">NODE-4721</span>
+                        </div>
+                        <div class="card-classified-line">
+                            <span class="card-key">STATUS:</span>
+                            <span class="card-val">ACTIVE</span>
+                        </div>
+                    </div>
+                    <div class="component-label" style="margin-top: 15px;">CLASSIFIED BLOCK</div>
+                    <div class="component-class">.classified-block</div>
+                </div>
+                <div class="component-box" style="padding: 15px;">
+                    <div class="card-token">
+                        <div class="card-token-label">YOUR ENTRY TOKEN</div>
+                        <div class="card-token-value">COM-X7K9-P3M2</div>
+                    </div>
+                    <div class="component-label" style="margin-top: 15px;">TOKEN DISPLAY</div>
+                    <div class="component-class">.token-display</div>
+                </div>
+                <div class="component-box" style="padding: 15px;">
+                    <div class="card-warning">
+                        Entry is final. If you are not ready, close this page now.
+                    </div>
+                    <div class="component-label" style="margin-top: 15px;">WARNING BOX</div>
+                    <div class="component-class">.warning-box</div>
+                </div>
+                <div class="component-box" style="padding: 15px;">
+                    <div class="card-readme">
+                        <div class="card-readme-title">Cell Expansion Protocol</div>
+                        <div class="card-readme-text">What you share next binds you.</div>
+                    </div>
+                    <div class="component-label" style="margin-top: 15px;">README BOX</div>
+                    <div class="component-class">.readme-box</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">SPECIAL ELEMENTS</h3>
+            <div class="grid-3">
+                <div class="component-box">
+                    <div class="component-demo">
+                        <div class="sigil-demo">&#9670;</div>
+                    </div>
+                    <div class="component-label">SIGIL</div>
+                    <div class="component-class">.sigil</div>
+                </div>
+                <div class="component-box">
+                    <div class="component-demo">
+                        <div class="cipher-display-demo">.- .. / . ... -.-. .- .--. . -..</div>
+                    </div>
+                    <div class="component-label">CIPHER DISPLAY</div>
+                    <div class="component-class">.cipher-display</div>
+                </div>
+                <div class="component-box">
+                    <div class="component-demo">
+                        <div class="runes-demo">&#5765; &#5791; &#5792; &#5794; &#5765;</div>
+                    </div>
+                    <div class="component-label">RUNES</div>
+                    <div class="component-class">.footer-runes</div>
+                </div>
+                <div class="component-box">
+                    <div class="component-demo">
+                        <div class="quote-block">"Intelligence is not the ability to store information..."</div>
+                    </div>
+                    <div class="component-label">QUOTE BLOCK</div>
+                    <div class="component-class">.reveal-quote</div>
+                </div>
+                <div class="component-box">
+                    <div class="component-demo" style="flex-direction: column; gap: 10px;">
+                        <div class="progress-container">
+                            <div class="progress-fill"></div>
+                        </div>
+                    </div>
+                    <div class="component-label">PROGRESS BAR</div>
+                    <div class="component-class">.progress-bar-fill</div>
+                </div>
+                <div class="component-box">
+                    <div class="component-demo">
+                        <div class="hint-prompt-demo">
+                            <span class="hint-icon">&#9671;</span>
+                            <span class="hint-text-demo">Unlock hint 1</span>
+                        </div>
+                    </div>
+                    <div class="component-label">HINT PROMPT</div>
+                    <div class="component-class">.hint-prompt</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">PROTOCOL LABELS (CONTRACT)</h3>
+            <div class="component-box" style="text-align: left; padding: 30px;">
+                <p style="color: var(--text); line-height: 1.9; font-size: 1rem;">
+                    <strong class="protocol-label">DECLINE:</strong> Your file will be closed. Permanently.<br><br>
+                    <strong class="protocol-label">ACCEPT BUT FAIL:</strong> You will be assigned to support roles. No field operations.<br><br>
+                    <strong class="protocol-label">ACCEPT AND PASS:</strong> Full clearance. Welcome to the inner circle.
+                </p>
+                <div class="component-label" style="margin-top: 20px;">PROTOCOL LABEL STYLE</div>
+                <div class="component-class">.protocol-label (JetBrains Mono, letter-spacing: 2px)</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 05: ICONOGRAPHY -->
+    <section class="section">
+        <div class="section-header">
+            <span>ICONOGRAPHY & SYMBOLS</span>
+            <span class="section-number">05</span>
+        </div>
+
+        <div class="icon-grid">
+            <div class="icon-box">
+                <div class="icon-preview">&#9670;</div>
+                <div class="icon-label">SIGIL</div>
+                <div class="icon-code">&amp;#9670;</div>
+            </div>
+            <div class="icon-box">
+                <div class="icon-preview">&#9671;</div>
+                <div class="icon-label">SIGIL OUTLINE</div>
+                <div class="icon-code">&amp;#9671;</div>
+            </div>
+            <div class="icon-box">
+                <div class="icon-preview">&#9654;</div>
+                <div class="icon-label">PLAY/ENTER</div>
+                <div class="icon-code">&amp;#9654;</div>
+            </div>
+            <div class="icon-box">
+                <div class="icon-preview">&#9632;</div>
+                <div class="icon-label">STOP</div>
+                <div class="icon-code">&amp;#9632;</div>
+            </div>
+            <div class="icon-box">
+                <div class="icon-preview">&#10003;</div>
+                <div class="icon-label">CHECK</div>
+                <div class="icon-code">&amp;#10003;</div>
+            </div>
+            <div class="icon-box">
+                <div class="icon-preview">&#10007;</div>
+                <div class="icon-label">CROSS</div>
+                <div class="icon-code">&amp;#10007;</div>
+            </div>
+            <div class="icon-box">
+                <div class="icon-preview">&#5765;</div>
+                <div class="icon-label">RUNE 1</div>
+                <div class="icon-code">&amp;#5765;</div>
+            </div>
+            <div class="icon-box">
+                <div class="icon-preview">&#5791;</div>
+                <div class="icon-label">RUNE 2</div>
+                <div class="icon-code">&amp;#5791;</div>
+            </div>
+            <div class="icon-box">
+                <div class="icon-preview">&#5792;</div>
+                <div class="icon-label">RUNE 3</div>
+                <div class="icon-code">&amp;#5792;</div>
+            </div>
+            <div class="icon-box">
+                <div class="icon-preview">&#5794;</div>
+                <div class="icon-label">RUNE 4</div>
+                <div class="icon-code">&amp;#5794;</div>
+            </div>
+            <div class="icon-box">
+                <div class="icon-preview">&#9733;</div>
+                <div class="icon-label">STAR</div>
+                <div class="icon-code">&amp;#9733;</div>
+            </div>
+            <div class="icon-box">
+                <div class="icon-preview">&#10022;</div>
+                <div class="icon-label">SPARKLE</div>
+                <div class="icon-code">&amp;#10022;</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 06: STATES -->
+    <section class="section">
+        <div class="section-header">
+            <span>INTERACTIVE STATES</span>
+            <span class="section-number">06</span>
+        </div>
+
+        <div class="states-grid">
+            <div class="state-box">
+                <div class="state-demo">
+                    <div style="padding: 10px 20px; border: 1px solid var(--gray); color: var(--text);">DEFAULT</div>
+                </div>
+                <div class="state-label">DEFAULT</div>
+            </div>
+            <div class="state-box">
+                <div class="state-demo">
+                    <div style="padding: 10px 20px; border: 1px solid var(--accent); color: var(--text);">HOVER</div>
+                </div>
+                <div class="state-label">HOVER</div>
+            </div>
+            <div class="state-box">
+                <div class="state-demo">
+                    <div style="padding: 10px 20px; border: 1px solid var(--accent); background: var(--accent); color: var(--black);">ACTIVE</div>
+                </div>
+                <div class="state-label">ACTIVE</div>
+            </div>
+            <div class="state-box">
+                <div class="state-demo">
+                    <div style="padding: 10px 20px; border: 1px solid var(--gray); color: var(--dim); opacity: 0.5;">DISABLED</div>
+                </div>
+                <div class="state-label">DISABLED</div>
+            </div>
+            <div class="state-box">
+                <div class="state-demo">
+                    <div style="padding: 10px 20px; border: 1px solid var(--accent); background: rgba(212, 175, 55, 0.1); color: var(--accent);">SELECTED</div>
+                </div>
+                <div class="state-label">SELECTED</div>
+            </div>
+            <div class="state-box">
+                <div class="state-demo">
+                    <div style="padding: 10px 20px; border: 1px solid var(--error-border); background: rgba(139, 0, 0, 0.1); color: var(--error-light);">ERROR</div>
+                </div>
+                <div class="state-label">ERROR</div>
+            </div>
+            <div class="state-box">
+                <div class="state-demo">
+                    <div style="padding: 10px 20px; border: 1px solid var(--accent); color: var(--accent);">SUCCESS</div>
+                </div>
+                <div class="state-label">SUCCESS</div>
+            </div>
+            <div class="state-box">
+                <div class="state-demo">
+                    <div style="padding: 10px 20px; border: 1px solid var(--accent); color: var(--accent); animation: pulse 2s infinite;">ATTENTION</div>
+                </div>
+                <div class="state-label">ATTENTION</div>
+            </div>
+        </div>
+
+        <style>
+            @keyframes pulse {
+                0%, 100% { opacity: 0.7; transform: scale(1); }
+                50% { opacity: 1; transform: scale(1.02); }
+            }
+        </style>
+    </section>
+
+    <!-- 07: CSS VARIABLES REFERENCE -->
+    <section class="section">
+        <div class="section-header">
+            <span>CSS VARIABLES REFERENCE</span>
+            <span class="section-number">07</span>
+        </div>
+
+        <table class="var-table">
+            <tr>
+                <th>VARIABLE</th>
+                <th>VALUE</th>
+                <th>PREVIEW</th>
+            </tr>
+            <tr>
+                <td>--black</td>
+                <td>#0a0a0a</td>
+                <td><span class="var-preview" style="background: #0a0a0a;"></span>Page background</td>
+            </tr>
+            <tr>
+                <td>--dark</td>
+                <td>#111</td>
+                <td><span class="var-preview" style="background: #111;"></span>Card/container background</td>
+            </tr>
+            <tr>
+                <td>--gray</td>
+                <td>#1a1a1a</td>
+                <td><span class="var-preview" style="background: #1a1a1a;"></span>Borders, dividers</td>
+            </tr>
+            <tr>
+                <td>--text</td>
+                <td>#e0e0e0</td>
+                <td><span class="var-preview" style="background: #e0e0e0;"></span>Primary text</td>
+            </tr>
+            <tr>
+                <td>--dim</td>
+                <td>#888</td>
+                <td><span class="var-preview" style="background: #888;"></span>Secondary text, labels</td>
+            </tr>
+            <tr>
+                <td>--accent</td>
+                <td>#d4af37</td>
+                <td><span class="var-preview" style="background: #d4af37;"></span>Gold accent, CTAs</td>
+            </tr>
+            <tr>
+                <td>--white</td>
+                <td>#f5f5f5</td>
+                <td><span class="var-preview" style="background: #f5f5f5;"></span>High-contrast text</td>
+            </tr>
+            <tr>
+                <td>--error</td>
+                <td>#8b0000</td>
+                <td><span class="var-preview" style="background: #8b0000;"></span>Error states</td>
+            </tr>
+            <tr>
+                <td>--error-light</td>
+                <td>#cc4444</td>
+                <td><span class="var-preview" style="background: #cc4444;"></span>Error text</td>
+            </tr>
+            <tr>
+                <td>--error-muted</td>
+                <td>#8b4444</td>
+                <td><span class="var-preview" style="background: #8b4444;"></span>Muted error</td>
+            </tr>
+            <tr>
+                <td>--error-border</td>
+                <td>#3d0000</td>
+                <td><span class="var-preview" style="background: #3d0000;"></span>Error borders</td>
+            </tr>
+            <tr>
+                <td>--font-serif</td>
+                <td>'EB Garamond', serif</td>
+                <td>Body text font</td>
+            </tr>
+            <tr>
+                <td>--font-mono</td>
+                <td>'JetBrains Mono', monospace</td>
+                <td>UI/technical font</td>
+            </tr>
+            <tr>
+                <td>--border-default</td>
+                <td>1px solid var(--gray)</td>
+                <td>Standard borders</td>
+            </tr>
+            <tr>
+                <td>--border-accent</td>
+                <td>1px solid var(--accent)</td>
+                <td>Highlighted borders</td>
+            </tr>
+            <tr>
+                <td>--transition-fast</td>
+                <td>0.3s</td>
+                <td>Quick transitions</td>
+            </tr>
+            <tr>
+                <td>--transition-normal</td>
+                <td>0.5s</td>
+                <td>Standard transitions</td>
+            </tr>
+        </table>
+    </section>
+
+    <!-- 08: DESIGN PRINCIPLES -->
+    <section class="section">
+        <div class="section-header">
+            <span>DESIGN PRINCIPLES</span>
+            <span class="section-number">08</span>
+        </div>
+
+        <div class="usage-box" style="margin-top: 0;">
+            <div class="usage-title">CORE PRINCIPLES</div>
+            <ul class="usage-list">
+                <li><strong>Dark Authority:</strong> Dark backgrounds with minimal contrast create gravitas and exclusivity</li>
+                <li><strong>Gold Scarcity:</strong> Use accent color sparingly - only for CTAs, key highlights, and earned rewards</li>
+                <li><strong>Monospace = System:</strong> JetBrains Mono signals "official", "technical", "authoritative"</li>
+                <li><strong>Serif = Human:</strong> EB Garamond signals "wisdom", "narrative", "personal"</li>
+                <li><strong>Breathing Room:</strong> Generous padding and spacing creates luxury feel (poverty is crowded)</li>
+                <li><strong>Progressive Disclosure:</strong> Reveal information gradually, reward attention and effort</li>
+                <li><strong>Subtle Animation:</strong> Movement should be barely noticeable - mystery lives in the peripheral</li>
+                <li><strong>Borders as Hierarchy:</strong> 1px borders define space without demanding attention</li>
+            </ul>
+        </div>
+
+        <div class="usage-box">
+            <div class="usage-title">DO NOT</div>
+            <ul class="usage-list">
+                <li>Use pure white (#fff) - it's too harsh against dark backgrounds</li>
+                <li>Overuse gold accent - dilutes its power as a reward signal</li>
+                <li>Mix font families randomly - maintain clear semantic roles</li>
+                <li>Use rounded corners - sharp edges maintain the classified aesthetic</li>
+                <li>Add shadows to text - let contrast do the work</li>
+                <li>Use bright colors beyond the defined palette</li>
+                <li>Center-align body text - left-align for readability</li>
+                <li>Use animations for decoration - only for psychological purpose</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- 09: UX AUDIT NOTES -->
+    <section class="section" style="background: linear-gradient(180deg, var(--black) 0%, rgba(139, 68, 68, 0.05) 100%); margin: 0 -40px; padding: 60px 40px; border-top: 1px solid var(--error-border);">
+        <div class="section-header" style="border-color: var(--error-border);">
+            <span style="color: var(--error-light);">UX AUDIT // CRITICAL REVIEW</span>
+            <span class="section-number" style="color: var(--error-muted);">09</span>
+        </div>
+
+        <div style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--error-muted); margin-bottom: 40px; letter-spacing: 1px;">
+            The following observations are from a UX/UI expert perspective. These are suggestions for v2.0, not requirements.
+        </div>
+
+        <!-- ACCESSIBILITY CONCERNS -->
+        <div class="usage-box" style="border-color: var(--error-border); margin-bottom: 25px;">
+            <div class="usage-title" style="color: var(--error-light);">ACCESSIBILITY CONCERNS // PRIORITY: HIGH</div>
+            <ul class="usage-list">
+                <li><strong style="color: var(--error-light);">Minimum Font Size:</strong> Sizes below 0.7rem (11.2px) fail WCAG readability guidelines. The 0.55rem and 0.6rem specimens are problematic for users with visual impairments. <em style="color: var(--dim);">Suggestion: Consolidate to minimum 0.7rem for any readable text.</em></li>
+                <li><strong style="color: var(--error-light);">Color Contrast:</strong> --dim (#888) on --black (#0a0a0a) yields only 5.3:1 ratio. Acceptable for large text but fails for small labels. <em style="color: var(--dim);">Suggestion: Use #999 or higher for small dim text.</em></li>
+                <li><strong style="color: var(--error-light);">Focus States Missing:</strong> No documented keyboard focus indicators. Users navigating via Tab key have no visual feedback. <em style="color: var(--dim);">Suggestion: Add outline: 2px solid var(--accent) with offset for all interactive elements.</em></li>
+                <li><strong style="color: var(--error-light);">Touch Targets:</strong> Some buttons have padding of 10px which results in touch targets below 44x44px minimum for mobile. <em style="color: var(--dim);">Suggestion: Ensure minimum 44px height on all buttons.</em></li>
+            </ul>
+        </div>
+
+        <!-- TYPOGRAPHY ISSUES -->
+        <div class="usage-box" style="border-color: var(--error-border); margin-bottom: 25px;">
+            <div class="usage-title" style="color: var(--error-light);">TYPOGRAPHY SCALE // PRIORITY: MEDIUM</div>
+            <ul class="usage-list">
+                <li><strong style="color: var(--accent);">Too Many Sizes:</strong> Current scale has 12+ font sizes. Industry standard recommends 6-8 maximum for consistency. <em style="color: var(--dim);">Suggestion: Consolidate to: 6rem, 2.5rem, 1.5rem, 1.1rem, 1rem, 0.85rem, 0.75rem, 0.7rem.</em></li>
+                <li><strong style="color: var(--accent);">Letter Spacing Inconsistency:</strong> Five different letter-spacing values (1px, 2px, 3px, 4px, 8px) lack mathematical relationship. <em style="color: var(--dim);">Suggestion: Use powers of 2: 1px, 2px, 4px, 8px only.</em></li>
+                <li><strong style="color: var(--accent);">Line Height Variants:</strong> Four line-heights (1.6, 1.7, 1.8, 1.9) are too granular to notice. <em style="color: var(--dim);">Suggestion: Use only 1.5 (compact), 1.7 (default), 1.9 (relaxed).</em></li>
+                <li><strong style="color: var(--accent);">Missing Type Variables:</strong> Font sizes are hardcoded rather than using CSS custom properties. <em style="color: var(--dim);">Suggestion: Create --font-size-xs through --font-size-4xl variables.</em></li>
+            </ul>
+        </div>
+
+        <!-- SPACING SYSTEM -->
+        <div class="usage-box" style="border-color: var(--error-border); margin-bottom: 25px;">
+            <div class="usage-title" style="color: var(--error-light);">SPACING SYSTEM // PRIORITY: MEDIUM</div>
+            <ul class="usage-list">
+                <li><strong style="color: var(--accent);">Non-Mathematical Scale:</strong> Current: 5, 10, 15, 20, 25, 30, 40, 50. This is neither base-4 nor base-8. <em style="color: var(--dim);">Suggestion: Adopt 4px base: 4, 8, 12, 16, 24, 32, 48, 64, 96.</em></li>
+                <li><strong style="color: var(--accent);">Inconsistent Jumps:</strong> Scale jumps from +5 increments to +10 (30>40>50) without reason. Creates unpredictable visual rhythm.</li>
+                <li><strong style="color: var(--accent);">No Negative Space:</strong> No documentation for margin-auto centering, flex gaps, or grid gutters.</li>
+            </ul>
+        </div>
+
+        <!-- COMPONENT GAPS -->
+        <div class="usage-box" style="border-color: var(--error-border); margin-bottom: 25px;">
+            <div class="usage-title" style="color: var(--error-light);">MISSING COMPONENTS // PRIORITY: MEDIUM</div>
+            <ul class="usage-list">
+                <li><strong style="color: var(--accent);">Loading States:</strong> No skeleton screens, spinners, or progress indicators documented. The experience uses loading moments.</li>
+                <li><strong style="color: var(--accent);">Form Validation:</strong> Only error state shown. Missing: success checkmark, warning, info, loading states for inputs.</li>
+                <li><strong style="color: var(--accent);">Audio Player:</strong> The morse.wav player exists in landing but not documented in library. Inconsistent with other components.</li>
+                <li><strong style="color: var(--accent);">Modal/Overlay:</strong> Contract modal exists but no reusable modal pattern documented.</li>
+                <li><strong style="color: var(--accent);">Tooltips:</strong> No hover explanation patterns for complex UI elements.</li>
+                <li><strong style="color: var(--accent);">Responsive Breakpoints:</strong> No mobile/tablet/desktop breakpoint documentation. Only one @media query at 800px.</li>
+            </ul>
+        </div>
+
+        <!-- COLOR SEMANTIC ISSUES -->
+        <div class="usage-box" style="border-color: var(--error-border); margin-bottom: 25px;">
+            <div class="usage-title" style="color: var(--error-light);">COLOR SEMANTICS // PRIORITY: LOW</div>
+            <ul class="usage-list">
+                <li><strong style="color: var(--accent);">Gold Overload:</strong> --accent (#d4af37) is used for: CTAs, success, selected, verified, highlights, links, labels. Too many semantic meanings dilute its significance. <em style="color: var(--dim);">Suggestion: Consider a secondary accent for non-CTA highlights.</em></li>
+                <li><strong style="color: var(--accent);">No Warning State:</strong> Only error (red) exists. No amber/orange for non-critical warnings. The forfeit confirmation uses red but isn't an error.</li>
+                <li><strong style="color: var(--accent);">Error Variants Overkill:</strong> Four error colors (--error, --error-light, --error-muted, --error-border) may be excessive. <em style="color: var(--dim);">Suggestion: Reduce to --error and --error-subtle.</em></li>
+            </ul>
+        </div>
+
+        <!-- BUTTON HIERARCHY -->
+        <div class="usage-box" style="border-color: var(--error-border); margin-bottom: 25px;">
+            <div class="usage-title" style="color: var(--error-light);">BUTTON HIERARCHY // PRIORITY: LOW</div>
+            <ul class="usage-list">
+                <li><strong style="color: var(--accent);">Primary vs CTA Confusion:</strong> Both are gold-themed. Primary is outline, CTA is filled. User may not understand hierarchy difference.</li>
+                <li><strong style="color: var(--accent);">Danger Button Too Subtle:</strong> Red outline on dark background is less visible than gold. Destructive actions should be MORE prominent, not less.</li>
+                <li><strong style="color: var(--accent);">No Ghost Button:</strong> Missing a minimal button style for tertiary actions (e.g., "Cancel" that shouldn't compete with primary).</li>
+            </ul>
+        </div>
+
+        <!-- WHAT'S WORKING WELL -->
+        <div class="usage-box" style="border-color: var(--accent); margin-bottom: 25px;">
+            <div class="usage-title" style="color: var(--accent);">WHAT'S WORKING WELL // STRENGTHS</div>
+            <ul class="usage-list">
+                <li><strong style="color: var(--accent);">Strong Visual Identity:</strong> The dark + gold palette is distinctive, memorable, and creates genuine premium feel.</li>
+                <li><strong style="color: var(--accent);">Clear Font Pairing:</strong> Serif for humanity, mono for system. The semantic separation is clear and consistent.</li>
+                <li><strong style="color: var(--accent);">Psychological Coherence:</strong> Every element serves the "classified/exclusive" narrative. No aesthetic compromises.</li>
+                <li><strong style="color: var(--accent);">Animation Restraint:</strong> Subtle breathe/pulse animations create life without distraction. Professional-grade.</li>
+                <li><strong style="color: var(--accent);">Information Hierarchy:</strong> Clear visual hierarchy guides user attention effectively through complex flows.</li>
+                <li><strong style="color: var(--accent);">Iconography:</strong> Unicode symbols over custom icons is pragmatic and ensures cross-platform consistency.</li>
+            </ul>
+        </div>
+
+        <!-- VISUAL SUGGESTION -->
+        <div style="margin-top: 50px; padding: 40px; background: var(--dark); border: 1px solid var(--accent);">
+            <div style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--accent); letter-spacing: 3px; margin-bottom: 25px; text-align: center;">PROPOSED TYPE SCALE V2.0</div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; margin-bottom: 30px;">
+                <div style="text-align: center;">
+                    <div style="font-size: 4rem; color: var(--accent); margin-bottom: 10px;">&#9670;</div>
+                    <div style="font-family: var(--font-mono); font-size: 0.6rem; color: var(--dim);">--size-display<br>4rem / 64px</div>
+                </div>
+                <div style="text-align: center;">
+                    <div style="font-size: 2rem; margin-bottom: 10px;">Heading 1</div>
+                    <div style="font-family: var(--font-mono); font-size: 0.6rem; color: var(--dim);">--size-h1<br>2rem / 32px</div>
+                </div>
+                <div style="text-align: center;">
+                    <div style="font-size: 1.5rem; margin-bottom: 10px;">Heading 2</div>
+                    <div style="font-family: var(--font-mono); font-size: 0.6rem; color: var(--dim);">--size-h2<br>1.5rem / 24px</div>
+                </div>
+                <div style="text-align: center;">
+                    <div style="font-size: 1.125rem; margin-bottom: 10px;">Large Body</div>
+                    <div style="font-family: var(--font-mono); font-size: 0.6rem; color: var(--dim);">--size-lg<br>1.125rem / 18px</div>
+                </div>
+                <div style="text-align: center;">
+                    <div style="font-size: 1rem; margin-bottom: 10px;">Body Text</div>
+                    <div style="font-family: var(--font-mono); font-size: 0.6rem; color: var(--dim);">--size-base<br>1rem / 16px</div>
+                </div>
+                <div style="text-align: center;">
+                    <div style="font-size: 0.875rem; margin-bottom: 10px; font-family: var(--font-mono);">UI LABEL</div>
+                    <div style="font-family: var(--font-mono); font-size: 0.6rem; color: var(--dim);">--size-sm<br>0.875rem / 14px</div>
+                </div>
+                <div style="text-align: center;">
+                    <div style="font-size: 0.75rem; margin-bottom: 10px; font-family: var(--font-mono); letter-spacing: 2px;">CAPTION</div>
+                    <div style="font-family: var(--font-mono); font-size: 0.6rem; color: var(--dim);">--size-xs<br>0.75rem / 12px</div>
+                </div>
+                <div style="text-align: center; grid-column: span 2;">
+                    <div style="font-size: 0.7rem; margin-bottom: 10px; font-family: var(--font-mono); color: var(--dim); letter-spacing: 1px;">metadata / minimum</div>
+                    <div style="font-family: var(--font-mono); font-size: 0.6rem; color: var(--dim);">--size-2xs<br>0.7rem / 11.2px (minimum)</div>
+                </div>
+            </div>
+
+            <div style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--dim); text-align: center; padding-top: 20px; border-top: 1px solid var(--gray);">
+                Scale ratio: 1.25 (Major Third) | Base: 16px | Minimum: 11.2px
+            </div>
+        </div>
+
+        <!-- PROPOSED SPACING -->
+        <div style="margin-top: 30px; padding: 40px; background: var(--dark); border: 1px solid var(--accent);">
+            <div style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--accent); letter-spacing: 3px; margin-bottom: 25px; text-align: center;">PROPOSED SPACING SCALE V2.0</div>
+
+            <div style="display: flex; align-items: flex-end; justify-content: center; gap: 15px; margin-bottom: 30px;">
+                <div style="text-align: center;">
+                    <div style="width: 4px; height: 4px; background: var(--accent); margin: 0 auto 10px;"></div>
+                    <div style="font-family: var(--font-mono); font-size: 0.55rem; color: var(--dim);">4px</div>
+                </div>
+                <div style="text-align: center;">
+                    <div style="width: 8px; height: 8px; background: var(--accent); margin: 0 auto 10px;"></div>
+                    <div style="font-family: var(--font-mono); font-size: 0.55rem; color: var(--dim);">8px</div>
+                </div>
+                <div style="text-align: center;">
+                    <div style="width: 12px; height: 12px; background: var(--accent); margin: 0 auto 10px;"></div>
+                    <div style="font-family: var(--font-mono); font-size: 0.55rem; color: var(--dim);">12px</div>
+                </div>
+                <div style="text-align: center;">
+                    <div style="width: 16px; height: 16px; background: var(--accent); margin: 0 auto 10px;"></div>
+                    <div style="font-family: var(--font-mono); font-size: 0.55rem; color: var(--dim);">16px</div>
+                </div>
+                <div style="text-align: center;">
+                    <div style="width: 24px; height: 24px; background: var(--accent); margin: 0 auto 10px;"></div>
+                    <div style="font-family: var(--font-mono); font-size: 0.55rem; color: var(--dim);">24px</div>
+                </div>
+                <div style="text-align: center;">
+                    <div style="width: 32px; height: 32px; background: var(--accent); margin: 0 auto 10px;"></div>
+                    <div style="font-family: var(--font-mono); font-size: 0.55rem; color: var(--dim);">32px</div>
+                </div>
+                <div style="text-align: center;">
+                    <div style="width: 48px; height: 48px; background: var(--accent); margin: 0 auto 10px;"></div>
+                    <div style="font-family: var(--font-mono); font-size: 0.55rem; color: var(--dim);">48px</div>
+                </div>
+                <div style="text-align: center;">
+                    <div style="width: 64px; height: 64px; background: var(--accent); margin: 0 auto 10px;"></div>
+                    <div style="font-family: var(--font-mono); font-size: 0.55rem; color: var(--dim);">64px</div>
+                </div>
+                <div style="text-align: center;">
+                    <div style="width: 96px; height: 96px; background: var(--accent); margin: 0 auto 10px;"></div>
+                    <div style="font-family: var(--font-mono); font-size: 0.55rem; color: var(--dim);">96px</div>
+                </div>
+            </div>
+
+            <div style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--dim); text-align: center; padding-top: 20px; border-top: 1px solid var(--gray);">
+                Base unit: 4px | Scale: 4, 8, 12, 16, 24, 32, 48, 64, 96 | Ratio follows 1.5x after 16px
+            </div>
+        </div>
+
+        <!-- OVERALL ASSESSMENT -->
+        <div style="margin-top: 40px; padding: 30px; border: 1px solid var(--gray); text-align: center;">
+            <div style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--dim); letter-spacing: 2px; margin-bottom: 20px;">OVERALL ASSESSMENT</div>
+            <div style="font-size: 1.2rem; color: var(--text); margin-bottom: 15px;">
+                <strong style="color: var(--accent);">7.5 / 10</strong> - Production Ready with Reservations
+            </div>
+            <div style="font-size: 0.9rem; color: var(--dim); line-height: 1.7; max-width: 600px; margin: 0 auto;">
+                Strong visual identity with clear psychological intent. The system successfully creates an immersive "classified" aesthetic. Main concerns are accessibility (small text, contrast) and scale consistency. Recommended for desktop-first experiences targeting tech-savvy audiences. Mobile optimization and WCAG compliance should be priorities for v2.0.
+            </div>
+        </div>
+
+    </section>
+
+    <!-- FOOTER -->
+    <footer style="text-align: center; padding: 60px 0 40px; border-top: var(--border-default); margin-top: 0;">
+        <div style="font-size: 1.5rem; color: var(--accent); margin-bottom: 20px;">&#9670;</div>
+        <div style="font-family: var(--font-mono); font-size: 0.6rem; color: var(--dim); letter-spacing: 2px;">
+            C.O.M. BRAND LIBRARY // END OF DOCUMENT
+        </div>
+        <div style="font-family: var(--font-mono); font-size: 0.55rem; color: var(--dim); margin-top: 10px; letter-spacing: 1px;">
+            CLASSIFICATION: INTERNAL USE ONLY
+        </div>
+    </footer>
+
+</body>
+</html>

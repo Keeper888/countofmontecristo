@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stage 5 - Sigil Variations</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #0a0a0a;
+            --accent: #c9a227;
+            --text: #e0e0e0;
+            --dim: #666;
+            --gray: #333;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Courier New', monospace;
+            min-height: 100vh;
+        }
+
+        /* Demo Navigation */
+        .demo-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: #111;
+            border-bottom: 1px solid #333;
+            padding: 15px 20px;
+            display: flex;
+            gap: 10px;
+            z-index: 1000;
+            flex-wrap: wrap;
+        }
+
+        .demo-btn {
+            background: transparent;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            padding: 10px 20px;
+            font-family: inherit;
+            font-size: 12px;
+            cursor: pointer;
+            letter-spacing: 2px;
+            transition: all 0.3s;
+        }
+
+        .demo-btn:hover,
+        .demo-btn.active {
+            background: var(--accent);
+            color: #000;
+        }
+
+        /* Demo Container */
+        .demo {
+            display: none;
+            min-height: 100vh;
+            padding-top: 70px;
+            background: radial-gradient(ellipse at center, #111 0%, #0a0a0a 70%);
+        }
+
+        .demo.active {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .content {
+            text-align: center;
+            padding: 40px;
+        }
+
+        /* Audio player - EXACT hint 2 style */
+        .audio-player {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin: 40px 0;
+            padding: 15px 20px;
+            background: transparent;
+            border: none;
+        }
+
+        .play-btn {
+            width: 40px;
+            height: 40px;
+            background: transparent;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .play-btn:hover {
+            background: var(--accent);
+            color: #000;
+        }
+
+        .audio-progress {
+            flex: 1;
+            max-width: 200px;
+            height: 4px;
+            background: var(--gray);
+            cursor: pointer;
+        }
+
+        .audio-bar {
+            height: 100%;
+            width: 35%;
+            background: var(--accent);
+            transition: width 0.1s;
+        }
+
+        .audio-time {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            color: var(--dim);
+            min-width: 35px;
+        }
+
+        /* Quote styles */
+        .quote {
+            font-size: 14px;
+            color: #777;
+            line-height: 2.2;
+            font-style: italic;
+            margin-bottom: 15px;
+        }
+
+        .subquote {
+            font-size: 11px;
+            color: #555;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        /* CTA button */
+        .cta {
+            background: transparent;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            font-family: inherit;
+            font-size: 11px;
+            letter-spacing: 5px;
+            cursor: pointer;
+            padding: 16px 45px;
+            transition: all 0.4s;
+        }
+
+        .cta:hover {
+            background: var(--accent);
+            color: #000;
+        }
+
+        /* ========================================
+           DEMO 1: CONCENTRIC CIRCLES
+           Classic ripple/target pattern
+        ======================================== */
+        .demo-1 .sigil {
+            width: 140px;
+            height: 140px;
+            margin: 0 auto 50px;
+            position: relative;
+            animation: slowRotate 120s linear infinite;
+        }
+
+        @keyframes slowRotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .demo-1 .sigil-ring {
+            position: absolute;
+            border: 1px solid;
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .demo-1 .sigil-ring:nth-child(1) {
+            width: 100%;
+            height: 100%;
+            border-color: rgba(201,162,39,0.2);
+        }
+
+        .demo-1 .sigil-ring:nth-child(2) {
+            width: 70%;
+            height: 70%;
+            border-color: rgba(201,162,39,0.4);
+            animation: slowRotate 80s linear infinite reverse;
+        }
+
+        .demo-1 .sigil-ring:nth-child(3) {
+            width: 45%;
+            height: 45%;
+            border-color: rgba(201,162,39,0.6);
+        }
+
+        .demo-1 .sigil-ring:nth-child(4) {
+            width: 20%;
+            height: 20%;
+            border-color: rgba(201,162,39,0.8);
+            animation: slowRotate 40s linear infinite reverse;
+        }
+
+        .demo-1 .sigil-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 6px;
+            height: 6px;
+            background: var(--accent);
+            border-radius: 50%;
+            animation: pulse 3s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; box-shadow: 0 0 0 0 rgba(201,162,39,0.4); }
+            50% { opacity: 1; box-shadow: 0 0 20px 5px rgba(201,162,39,0.2); }
+        }
+
+        /* ========================================
+           DEMO 2: NESTED SQUARES
+           Geometric, structured, architectural
+        ======================================== */
+        .demo-2 .sigil {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 50px;
+            position: relative;
+        }
+
+        .demo-2 .sigil-square {
+            position: absolute;
+            border: 1px solid;
+            top: 50%;
+            left: 50%;
+        }
+
+        .demo-2 .sigil-square:nth-child(1) {
+            width: 100%;
+            height: 100%;
+            border-color: rgba(201,162,39,0.2);
+            transform: translate(-50%, -50%);
+        }
+
+        .demo-2 .sigil-square:nth-child(2) {
+            width: 75%;
+            height: 75%;
+            border-color: rgba(201,162,39,0.35);
+            transform: translate(-50%, -50%) rotate(15deg);
+        }
+
+        .demo-2 .sigil-square:nth-child(3) {
+            width: 50%;
+            height: 50%;
+            border-color: rgba(201,162,39,0.55);
+            transform: translate(-50%, -50%) rotate(30deg);
+        }
+
+        .demo-2 .sigil-square:nth-child(4) {
+            width: 25%;
+            height: 25%;
+            border-color: rgba(201,162,39,0.8);
+            transform: translate(-50%, -50%) rotate(45deg);
+        }
+
+        .demo-2 .sigil-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 4px;
+            height: 4px;
+            background: var(--accent);
+            animation: pulse 3s ease-in-out infinite;
+        }
+
+        /* ========================================
+           DEMO 3: CROSSHAIR / COMPASS
+           Directional, focused, precise
+        ======================================== */
+        .demo-3 .sigil {
+            width: 140px;
+            height: 140px;
+            margin: 0 auto 50px;
+            position: relative;
+        }
+
+        .demo-3 .sigil-circle {
+            position: absolute;
+            border: 1px solid rgba(201,162,39,0.3);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .demo-3 .sigil-circle:nth-child(1) {
+            width: 100%;
+            height: 100%;
+        }
+
+        .demo-3 .sigil-circle:nth-child(2) {
+            width: 60%;
+            height: 60%;
+            border-color: rgba(201,162,39,0.5);
+        }
+
+        .demo-3 .sigil-line {
+            position: absolute;
+            background: rgba(201,162,39,0.4);
+        }
+
+        .demo-3 .sigil-line.h {
+            width: 100%;
+            height: 1px;
+            top: 50%;
+            left: 0;
+        }
+
+        .demo-3 .sigil-line.v {
+            width: 1px;
+            height: 100%;
+            left: 50%;
+            top: 0;
+        }
+
+        .demo-3 .sigil-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 10px;
+            height: 10px;
+            border: 1px solid var(--accent);
+            border-radius: 50%;
+            animation: pulse 3s ease-in-out infinite;
+        }
+
+        .demo-3 .sigil-center::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 4px;
+            height: 4px;
+            background: var(--accent);
+            border-radius: 50%;
+        }
+
+        /* ========================================
+           DEMO 4: ECLIPSE / VOID
+           Minimal, ominous, gravitational
+        ======================================== */
+        .demo-4 .sigil {
+            width: 140px;
+            height: 140px;
+            margin: 0 auto 50px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .demo-4 .sigil-void {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, #1a1a1a 0%, #000 100%);
+            box-shadow:
+                0 0 60px 20px rgba(0,0,0,0.8),
+                inset 0 0 30px rgba(201,162,39,0.1);
+            animation: voidPulse 4s ease-in-out infinite;
+        }
+
+        @keyframes voidPulse {
+            0%, 100% {
+                box-shadow:
+                    0 0 60px 20px rgba(0,0,0,0.8),
+                    inset 0 0 30px rgba(201,162,39,0.1);
+            }
+            50% {
+                box-shadow:
+                    0 0 80px 30px rgba(0,0,0,0.9),
+                    inset 0 0 40px rgba(201,162,39,0.15);
+            }
+        }
+
+        .demo-4 .sigil-corona {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            border: 1px solid rgba(201,162,39,0.15);
+            border-radius: 50%;
+            animation: coronaExpand 6s ease-in-out infinite;
+        }
+
+        @keyframes coronaExpand {
+            0%, 100% {
+                width: 100px;
+                height: 100px;
+                opacity: 0.3;
+            }
+            50% {
+                width: 130px;
+                height: 130px;
+                opacity: 0.1;
+            }
+        }
+
+        .demo-4 .sigil-corona:nth-child(2) {
+            animation-delay: -2s;
+        }
+
+        .demo-4 .sigil-corona:nth-child(3) {
+            animation-delay: -4s;
+        }
+
+        /* Mobile */
+        @media (max-width: 600px) {
+            .demo-nav {
+                padding: 10px;
+            }
+            .demo-btn {
+                padding: 8px 12px;
+                font-size: 10px;
+                letter-spacing: 1px;
+            }
+            .quote {
+                font-size: 13px;
+            }
+            .content {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="demo-nav">
+        <button class="demo-btn active" data-demo="1">DEMO 1</button>
+        <button class="demo-btn" data-demo="2">DEMO 2</button>
+        <button class="demo-btn" data-demo="3">DEMO 3</button>
+        <button class="demo-btn" data-demo="4">DEMO 4</button>
+    </nav>
+
+    <!-- DEMO 1: CONCENTRIC CIRCLES -->
+    <div class="demo demo-1 active" id="demo-1">
+        <div class="content">
+            <div class="sigil">
+                <div class="sigil-ring"></div>
+                <div class="sigil-ring"></div>
+                <div class="sigil-ring"></div>
+                <div class="sigil-ring"></div>
+                <div class="sigil-center"></div>
+            </div>
+
+            <div class="quote">"What you seek is seeking you."</div>
+            <div class="subquote">Beyond this point, there is no observer. Only participant.</div>
+
+            <div class="audio-player">
+                <button class="play-btn">▶</button>
+                <div class="audio-progress">
+                    <div class="audio-bar"></div>
+                </div>
+                <span class="audio-time">0:00</span>
+            </div>
+
+            <button class="cta">ENTER THE THRESHOLD</button>
+        </div>
+    </div>
+
+    <!-- DEMO 2: NESTED SQUARES -->
+    <div class="demo demo-2" id="demo-2">
+        <div class="content">
+            <div class="sigil">
+                <div class="sigil-square"></div>
+                <div class="sigil-square"></div>
+                <div class="sigil-square"></div>
+                <div class="sigil-square"></div>
+                <div class="sigil-center"></div>
+            </div>
+
+            <div class="quote">"What you seek is seeking you."</div>
+            <div class="subquote">Beyond this point, there is no observer. Only participant.</div>
+
+            <div class="audio-player">
+                <button class="play-btn">▶</button>
+                <div class="audio-progress">
+                    <div class="audio-bar"></div>
+                </div>
+                <span class="audio-time">0:00</span>
+            </div>
+
+            <button class="cta">ENTER THE THRESHOLD</button>
+        </div>
+    </div>
+
+    <!-- DEMO 3: CROSSHAIR -->
+    <div class="demo demo-3" id="demo-3">
+        <div class="content">
+            <div class="sigil">
+                <div class="sigil-circle"></div>
+                <div class="sigil-circle"></div>
+                <div class="sigil-line h"></div>
+                <div class="sigil-line v"></div>
+                <div class="sigil-center"></div>
+            </div>
+
+            <div class="quote">"What you seek is seeking you."</div>
+            <div class="subquote">Beyond this point, there is no observer. Only participant.</div>
+
+            <div class="audio-player">
+                <button class="play-btn">▶</button>
+                <div class="audio-progress">
+                    <div class="audio-bar"></div>
+                </div>
+                <span class="audio-time">0:00</span>
+            </div>
+
+            <button class="cta">ENTER THE THRESHOLD</button>
+        </div>
+    </div>
+
+    <!-- DEMO 4: ECLIPSE / VOID -->
+    <div class="demo demo-4" id="demo-4">
+        <div class="content">
+            <div class="sigil">
+                <div class="sigil-corona"></div>
+                <div class="sigil-corona"></div>
+                <div class="sigil-corona"></div>
+                <div class="sigil-void"></div>
+            </div>
+
+            <div class="quote">"What you seek is seeking you."</div>
+            <div class="subquote">Beyond this point, there is no observer. Only participant.</div>
+
+            <div class="audio-player">
+                <button class="play-btn">▶</button>
+                <div class="audio-progress">
+                    <div class="audio-bar"></div>
+                </div>
+                <span class="audio-time">0:00</span>
+            </div>
+
+            <button class="cta">ENTER THE THRESHOLD</button>
+        </div>
+    </div>
+
+    <script>
+        document.querySelectorAll('.demo-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.demo-btn').forEach(b => b.classList.remove('active'));
+                document.querySelectorAll('.demo').forEach(d => d.classList.remove('active'));
+                btn.classList.add('active');
+                document.getElementById('demo-' + btn.dataset.demo).classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>

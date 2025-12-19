@@ -1632,6 +1632,141 @@
             box-shadow: 0 0 30px rgba(139, 0, 0, 0.5);
         }
 
+        /* Stage 5: Digital Shadow */
+        .deploy-shadow {
+            text-align: center;
+            max-width: 500px;
+            animation: deployFadeIn 1s ease-out forwards;
+        }
+
+        .deploy-shadow-title {
+            font-size: 1.2rem;
+            color: var(--text);
+            margin-bottom: 15px;
+            letter-spacing: 2px;
+        }
+
+        .deploy-shadow-sub {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--dim);
+            margin-bottom: 40px;
+            letter-spacing: 1px;
+        }
+
+        .deploy-shadow .deploy-logged-data {
+            margin-bottom: 40px;
+        }
+
+        .deploy-shadow-disclaimer {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.65rem;
+            color: #555;
+            line-height: 1.8;
+            letter-spacing: 1px;
+        }
+
+        /* Stage 6: Sigil Final */
+        .deploy-sigil-final {
+            text-align: center;
+            animation: deployFadeIn 1s ease-out forwards;
+        }
+
+        .deploy-sigil-squares {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 50px;
+            position: relative;
+        }
+
+        .sigil-square {
+            position: absolute;
+            border: 1px solid;
+            top: 50%;
+            left: 50%;
+        }
+
+        .sigil-square:nth-child(1) {
+            width: 100%;
+            height: 100%;
+            border-color: rgba(201,162,39,0.2);
+            transform: translate(-50%, -50%);
+        }
+
+        .sigil-square:nth-child(2) {
+            width: 75%;
+            height: 75%;
+            border-color: rgba(201,162,39,0.35);
+            transform: translate(-50%, -50%) rotate(15deg);
+        }
+
+        .sigil-square:nth-child(3) {
+            width: 50%;
+            height: 50%;
+            border-color: rgba(201,162,39,0.55);
+            transform: translate(-50%, -50%) rotate(30deg);
+        }
+
+        .sigil-square:nth-child(4) {
+            width: 25%;
+            height: 25%;
+            border-color: rgba(201,162,39,0.8);
+            transform: translate(-50%, -50%) rotate(45deg);
+        }
+
+        .sigil-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 4px;
+            height: 4px;
+            background: var(--accent);
+            animation: sigilPulse 3s ease-in-out infinite;
+        }
+
+        @keyframes sigilPulse {
+            0%, 100% { opacity: 0.5; box-shadow: 0 0 0 0 rgba(201,162,39,0.4); }
+            50% { opacity: 1; box-shadow: 0 0 20px 5px rgba(201,162,39,0.2); }
+        }
+
+        .deploy-sigil-quote {
+            font-size: 0.9rem;
+            color: #777;
+            font-style: italic;
+            margin-bottom: 15px;
+        }
+
+        .deploy-sigil-subquote {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            color: #555;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        .deploy-threshold-btn {
+            background: transparent;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            padding: 16px 45px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            letter-spacing: 5px;
+            cursor: pointer;
+            transition: all 0.4s;
+            margin-top: 20px;
+        }
+
+        .deploy-threshold-btn:hover {
+            background: var(--accent);
+            color: #000;
+        }
+
+        .deploy-threshold-btn.locked {
+            display: none;
+        }
+
         .deploy-progress {
             position: fixed;
             bottom: 30px;
@@ -2328,6 +2463,7 @@
             <div class="deploy-progress-dot"></div>
             <div class="deploy-progress-dot"></div>
             <div class="deploy-progress-dot"></div>
+            <div class="deploy-progress-dot"></div>
         </div>
 
         <!-- Continue prompt -->
@@ -2393,19 +2529,11 @@
                 </div>
             </div>
 
-            <!-- Stage 5: Final gateway -->
+            <!-- Stage 5: Digital Shadow (penultimate) -->
             <div class="deploy-stage hidden" id="deploy-stage-5">
-                <div class="audio-player" style="background: transparent; border: none;">
-                    <button class="play-btn" id="day0-play-btn">▶</button>
-                    <div class="audio-progress" id="day0-progress">
-                        <div class="audio-bar" id="day0-bar"></div>
-                    </div>
-                    <span class="audio-time" id="day0-time">0:00</span>
-                </div>
-                <audio id="day0-audio" src="day0.mp3" preload="auto"></audio>
-                <div class="deploy-gateway">
-                    <button class="deploy-gateway-btn locked" id="deploy-enter-btn" data-default="ENTER HEADQUARTERS" data-hover="THIS ACTION IS IRREVERSIBLE">ENTER HEADQUARTERS</button>
-                    <div class="deploy-gateway-sub">This is your digital shadow. Every website sees this. Most harvest it silently. We only revealed it.<br><span class="deploy-disclaimer">We do not store, track, or record any of this. You were never in danger from us. But now you see how exposed you always were.</span></div>
+                <div class="deploy-shadow">
+                    <div class="deploy-shadow-title">This is your digital shadow.</div>
+                    <div class="deploy-shadow-sub">Every website sees this. Most harvest it silently. We only revealed it.</div>
 
                     <div class="deploy-logged-data" id="deploy-logged-data">
                         <div class="deploy-logged-line"><span class="deploy-logged-key">DEVICE:</span> <span id="deploy-log-device">-</span></div>
@@ -2415,6 +2543,35 @@
                         <div class="deploy-logged-line"><span class="deploy-logged-key">LANGUAGE:</span> <span id="deploy-log-language">-</span></div>
                         <div class="deploy-logged-line"><span class="deploy-logged-key">COORDINATES:</span> <span id="deploy-log-coords">[REDACTED]</span></div>
                     </div>
+
+                    <div class="deploy-shadow-disclaimer">We do not store, track, or record any of this.<br>You were never in danger from us. But now you see how exposed you always were.</div>
+                </div>
+            </div>
+
+            <!-- Stage 6: Final gateway - Sigil -->
+            <div class="deploy-stage hidden" id="deploy-stage-6">
+                <div class="deploy-sigil-final">
+                    <div class="deploy-sigil-squares">
+                        <div class="sigil-square"></div>
+                        <div class="sigil-square"></div>
+                        <div class="sigil-square"></div>
+                        <div class="sigil-square"></div>
+                        <div class="sigil-center"></div>
+                    </div>
+
+                    <div class="deploy-sigil-quote">"What you seek is seeking you."</div>
+                    <div class="deploy-sigil-subquote">Beyond this point, there is no observer. Only participant.</div>
+
+                    <div class="audio-player" style="background: transparent; border: none;">
+                        <button class="play-btn" id="day0-play-btn">▶</button>
+                        <div class="audio-progress" id="day0-progress">
+                            <div class="audio-bar" id="day0-bar"></div>
+                        </div>
+                        <span class="audio-time" id="day0-time">0:00</span>
+                    </div>
+                    <audio id="day0-audio" src="day0.mp3" preload="auto"></audio>
+
+                    <button class="deploy-threshold-btn locked" id="deploy-enter-btn">ENTER THE THRESHOLD</button>
 
                     <!-- Final confirmation (hidden initially) -->
                     <div class="deploy-final-confirm hidden" id="deploy-final-confirm">
@@ -3177,9 +3334,16 @@
                     break;
 
                 case 5:
-                    // Final gateway
-                    continuePrompt.classList.add('hidden');
+                    // Digital shadow (penultimate)
                     populateDeployLoggedData();
+                    setTimeout(() => {
+                        continuePrompt.classList.remove('hidden');
+                    }, 4000);
+                    break;
+
+                case 6:
+                    // Final gateway - Sigil
+                    continuePrompt.classList.add('hidden');
                     // Blink play button and play invite sound
                     setTimeout(() => {
                         const playBtn = document.getElementById('day0-play-btn');
@@ -3228,7 +3392,7 @@
 
             // Continue prompt click
             document.getElementById('deploy-continue').addEventListener('click', () => {
-                if (deployStage < 5) {
+                if (deployStage < 6) {
                     goToDeployStage(deployStage + 1);
                 }
             });
@@ -3267,16 +3431,8 @@
                 }
             });
 
-            // Enter headquarters button - hover text switch
+            // Enter threshold button - show confirmation
             const enterBtn = document.getElementById('deploy-enter-btn');
-            enterBtn.addEventListener('mouseenter', () => {
-                enterBtn.textContent = enterBtn.dataset.hover;
-            });
-            enterBtn.addEventListener('mouseleave', () => {
-                enterBtn.textContent = enterBtn.dataset.default;
-            });
-
-            // Enter headquarters button - show confirmation
             enterBtn.addEventListener('click', () => {
                 playStinger();
                 enterBtn.style.display = 'none';
@@ -3286,7 +3442,7 @@
             // Walk away button - hide confirmation
             document.getElementById('deploy-final-cancel').addEventListener('click', () => {
                 document.getElementById('deploy-final-confirm').classList.add('hidden');
-                document.getElementById('deploy-enter-btn').style.display = 'inline-block';
+                document.getElementById('deploy-enter-btn').style.display = 'block';
             });
 
             // Day0 audio player
@@ -3343,13 +3499,34 @@
             });
         }
 
-        // === SEEKER COUNT (Subtle Social Proof) ===
+        // === SEEKER COUNT (Time-based Social Proof) ===
         function updateSeekerCount() {
-            const base = 1200 + Math.floor(Math.random() * 100);
-            document.getElementById('seeker-count').textContent = base.toLocaleString();
+            const hour = new Date().getHours();
+            let base, variance;
+
+            if (hour >= 6 && hour < 12) {
+                // Morning: Low activity (180-380)
+                base = 180;
+                variance = 200;
+            } else if (hour >= 12 && hour < 18) {
+                // Afternoon: Medium activity (450-750)
+                base = 450;
+                variance = 300;
+            } else if (hour >= 18 && hour < 23) {
+                // Evening: High activity (850-1350)
+                base = 850;
+                variance = 500;
+            } else {
+                // Night (11pm-6am): Peak activity (1200-1900)
+                base = 1200;
+                variance = 700;
+            }
+
+            const count = base + Math.floor(Math.random() * variance);
+            document.getElementById('seeker-count').textContent = count.toLocaleString();
         }
 
-        setInterval(updateSeekerCount, 10000);
+        setInterval(updateSeekerCount, 15000);
 
         // === TEXT SCRAMBLE ANIMATION ===
         class TextScramble {
