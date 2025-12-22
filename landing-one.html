@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIGNAL INTERCEPTED</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&#9670;</text></svg>">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500&family=EB+Garamond:ital,wght@0,400;1,400&display=swap');
+
+        :root {
+            --black: #0a0a0a;
+            --dark: #111;
+            --gray: #1a1a1a;
+            --text: #e0e0e0;
+            --dim: #666;
+            --accent: #d4af37;
+            --red: #8b0000;
+            --white: #f5f5f5;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        ::selection {
+            background: var(--accent);
+            color: var(--black);
+        }
+
+        body {
+            font-family: 'JetBrains Mono', monospace;
+            background: var(--black);
+            color: var(--text);
+            min-height: 100vh;
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* Scanlines */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(0,0,0,0.1) 0px,
+                rgba(0,0,0,0.1) 1px,
+                transparent 1px,
+                transparent 2px
+            );
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        /* Glitch effect */
+        @keyframes glitch {
+            0%, 90%, 100% { transform: translate(0); }
+            92% { transform: translate(-2px, 1px); }
+            94% { transform: translate(2px, -1px); }
+            96% { transform: translate(-1px, 2px); }
+            98% { transform: translate(1px, -2px); }
+        }
+
+        @keyframes flicker {
+            0%, 97%, 100% { opacity: 1; }
+            98% { opacity: 0.8; }
+            99% { opacity: 0.9; }
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes typewriter {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        /* HEADER - Intercepted Signal */
+        .signal-header {
+            text-align: center;
+            margin-bottom: 60px;
+            animation: fadeIn 1s ease-out;
+        }
+
+        .signal-warning {
+            display: inline-block;
+            padding: 8px 20px;
+            border: 1px solid var(--red);
+            color: var(--red);
+            font-size: 0.7rem;
+            letter-spacing: 4px;
+            margin-bottom: 30px;
+            animation: flicker 3s infinite;
+        }
+
+        .signal-title {
+            font-size: 2rem;
+            font-weight: 300;
+            color: var(--accent);
+            letter-spacing: 8px;
+            margin-bottom: 15px;
+            animation: glitch 5s infinite;
+        }
+
+        .signal-meta {
+            font-size: 0.7rem;
+            color: var(--dim);
+            letter-spacing: 2px;
+        }
+
+        .signal-meta span {
+            color: var(--accent);
+        }
+
+        /* TRANSMISSION BOX */
+        .transmission {
+            background: var(--dark);
+            border: 1px solid var(--gray);
+            padding: 30px;
+            margin-bottom: 40px;
+            position: relative;
+            animation: fadeIn 1.5s ease-out 0.5s both;
+        }
+
+        .transmission::before {
+            content: 'TRANSMISSION';
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            background: var(--black);
+            padding: 0 10px;
+            font-size: 0.65rem;
+            color: var(--dim);
+            letter-spacing: 3px;
+        }
+
+        .transmission-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--gray);
+            font-size: 0.7rem;
+            color: var(--dim);
+        }
+
+        .transmission-from span,
+        .transmission-date span {
+            color: var(--text);
+        }
+
+        .transmission-body {
+            font-family: 'EB Garamond', serif;
+            font-size: 1.1rem;
+            line-height: 1.9;
+            color: var(--text);
+        }
+
+        .transmission-body p {
+            margin-bottom: 20px;
+        }
+
+        .transmission-body .highlight {
+            color: var(--accent);
+            font-style: italic;
+        }
+
+        .transmission-body .redacted {
+            background: var(--text);
+            color: var(--text);
+            padding: 0 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .transmission-body .redacted:hover {
+            background: var(--red);
+            color: var(--white);
+        }
+
+        .transmission-footer {
+            margin-top: 25px;
+            padding-top: 15px;
+            border-top: 1px solid var(--gray);
+            font-size: 0.7rem;
+            color: var(--dim);
+            text-align: right;
+        }
+
+        .transmission-footer .sig {
+            color: var(--accent);
+            letter-spacing: 2px;
+        }
+
+        /* DOSSIER SECTION */
+        .dossier {
+            margin-bottom: 40px;
+            animation: fadeIn 1.5s ease-out 1s both;
+        }
+
+        .dossier-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .dossier-icon {
+            width: 40px;
+            height: 40px;
+            border: 1px solid var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent);
+            font-size: 1rem;
+        }
+
+        .dossier-title {
+            font-size: 0.75rem;
+            letter-spacing: 3px;
+            color: var(--dim);
+        }
+
+        .dossier-title span {
+            display: block;
+            color: var(--white);
+            font-size: 1rem;
+            letter-spacing: 1px;
+            margin-top: 5px;
+        }
+
+        .dossier-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .dossier-item {
+            background: var(--dark);
+            border: 1px solid var(--gray);
+            padding: 20px;
+        }
+
+        .dossier-label {
+            font-size: 0.65rem;
+            color: var(--dim);
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+        }
+
+        .dossier-value {
+            font-size: 0.9rem;
+            color: var(--text);
+        }
+
+        .dossier-value.unknown {
+            color: var(--red);
+            animation: blink 1.5s infinite;
+        }
+
+        .dossier-value.accent {
+            color: var(--accent);
+        }
+
+        /* TIMELINE */
+        .timeline {
+            margin-bottom: 50px;
+            animation: fadeIn 1.5s ease-out 1.5s both;
+        }
+
+        .timeline-header {
+            font-size: 0.7rem;
+            color: var(--dim);
+            letter-spacing: 3px;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--gray);
+        }
+
+        .timeline-item {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+            padding-left: 20px;
+            border-left: 1px solid var(--gray);
+        }
+
+        .timeline-item:last-child {
+            border-left-color: var(--red);
+        }
+
+        .timeline-date {
+            font-size: 0.7rem;
+            color: var(--dim);
+            min-width: 80px;
+        }
+
+        .timeline-event {
+            font-size: 0.85rem;
+            color: var(--text);
+        }
+
+        .timeline-event .critical {
+            color: var(--red);
+        }
+
+        /* CALL TO ACTION */
+        .cta {
+            text-align: center;
+            padding: 40px;
+            background: var(--dark);
+            border: 1px solid var(--accent);
+            animation: fadeIn 1.5s ease-out 2s both;
+        }
+
+        .cta-question {
+            font-family: 'EB Garamond', serif;
+            font-size: 1.5rem;
+            font-style: italic;
+            color: var(--white);
+            margin-bottom: 10px;
+        }
+
+        .cta-subtext {
+            font-size: 0.75rem;
+            color: var(--dim);
+            margin-bottom: 30px;
+            letter-spacing: 1px;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-btn {
+            padding: 15px 35px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            letter-spacing: 3px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+
+        .cta-btn.primary {
+            background: var(--accent);
+            border: 1px solid var(--accent);
+            color: var(--black);
+        }
+
+        .cta-btn.primary:hover {
+            background: transparent;
+            color: var(--accent);
+        }
+
+        .cta-btn.secondary {
+            background: transparent;
+            border: 1px solid var(--dim);
+            color: var(--text);
+        }
+
+        .cta-btn.secondary:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        /* FOOTER */
+        .footer {
+            text-align: center;
+            margin-top: 60px;
+            padding-top: 30px;
+            border-top: 1px solid var(--gray);
+            animation: fadeIn 1.5s ease-out 2.5s both;
+        }
+
+        .footer-warning {
+            font-size: 0.65rem;
+            color: var(--dim);
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+        }
+
+        .footer-game {
+            font-size: 0.7rem;
+            color: var(--dim);
+            padding: 10px 20px;
+            border: 1px dashed var(--gray);
+            display: inline-block;
+        }
+
+        .footer-game a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .dossier-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .signal-title {
+                font-size: 1.5rem;
+                letter-spacing: 4px;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        /* === GAME DISCLAIMER OVERLAY === */
+        .disclaimer-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--black);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .disclaimer-overlay.hidden {
+            display: none;
+        }
+
+        .disclaimer-box {
+            max-width: 550px;
+            text-align: center;
+            padding: 50px 40px;
+            border: 1px solid var(--gray);
+            background: var(--dark);
+        }
+
+        .disclaimer-icon {
+            font-size: 2.5rem;
+            color: var(--accent);
+            margin-bottom: 25px;
+        }
+
+        .disclaimer-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--accent);
+            letter-spacing: 4px;
+            margin-bottom: 30px;
+        }
+
+        .disclaimer-text {
+            font-family: 'EB Garamond', serif;
+            font-size: 1.1rem;
+            color: var(--text);
+            line-height: 1.9;
+            margin-bottom: 20px;
+        }
+
+        .disclaimer-text strong {
+            color: var(--accent);
+        }
+
+        .disclaimer-list {
+            text-align: left;
+            margin: 25px 0;
+            padding-left: 0;
+            list-style: none;
+        }
+
+        .disclaimer-list li {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--dim);
+            padding: 10px 0;
+            border-bottom: 1px solid var(--gray);
+            letter-spacing: 1px;
+        }
+
+        .disclaimer-list li:last-child {
+            border-bottom: none;
+        }
+
+        .disclaimer-list li::before {
+            content: '◆ ';
+            color: var(--accent);
+        }
+
+        .disclaimer-footer {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--dim);
+            margin-top: 30px;
+            margin-bottom: 30px;
+            letter-spacing: 1px;
+        }
+
+        .disclaimer-btn {
+            padding: 15px 50px;
+            background: transparent;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            letter-spacing: 3px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .disclaimer-btn:hover {
+            background: var(--accent);
+            color: var(--black);
+        }
+
+        .audio-advisory {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin: 25px 0 30px;
+            padding: 15px 20px;
+            border: 1px dashed var(--gray);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .audio-advisory::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.2), transparent);
+            animation: audioScan 3s linear infinite;
+        }
+
+        @keyframes audioScan {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .audio-icon-svg {
+            color: var(--accent);
+        }
+
+        .audio-text {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--text);
+            letter-spacing: 1px;
+        }
+
+        .audio-advisory.tap {
+            background: rgba(212, 175, 55, 0.15);
+        }
+
+        /* Checkbox */
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            margin: 25px 0;
+            padding: 12px 15px;
+            border: 1px solid var(--gray);
+            transition: border-color 0.3s;
+        }
+
+        .checkbox-container:hover {
+            border-color: var(--gray);
+        }
+
+        .checkbox-container input {
+            display: none;
+        }
+
+        .checkmark {
+            width: 18px;
+            height: 18px;
+            border: 1px solid var(--dim);
+            position: relative;
+            flex-shrink: 0;
+            transition: all 0.2s;
+        }
+
+        .checkbox-container input:checked ~ .checkmark {
+            border-color: var(--dim);
+            background: var(--white);
+        }
+
+        .checkmark::after {
+            content: '';
+            position: absolute;
+            display: none;
+            left: 5px;
+            top: 1px;
+            width: 5px;
+            height: 10px;
+            border: solid var(--black);
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+
+        .checkbox-container input:checked ~ .checkmark::after {
+            display: block;
+        }
+
+        .checkbox-text {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--white);
+            letter-spacing: 0.5px;
+        }
+
+        .disclaimer-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        /* Error shake animation */
+        @keyframes errorShake {
+            0%, 100% { transform: translateX(0); }
+            20% { transform: translateX(-8px); }
+            40% { transform: translateX(8px); }
+            60% { transform: translateX(-5px); }
+            80% { transform: translateX(5px); }
+        }
+
+        .checkbox-container.error {
+            animation: errorShake 0.4s ease;
+            border-color: var(--red);
+        }
+
+        .checkbox-container.error .checkbox-text {
+            color: var(--red);
+        }
+
+    </style>
+</head>
+<body>
+    <!-- GAME DISCLAIMER OVERLAY -->
+    <div class="disclaimer-overlay" id="disclaimer-overlay">
+        <div class="disclaimer-box">
+            <div class="disclaimer-icon">&#9670;</div>
+            <div class="disclaimer-title">BEFORE YOU PROCEED</div>
+
+            <p class="disclaimer-text">
+                This is a <strong>game</strong>. An <strong>Alternate Reality Game (ARG)</strong>.
+                Nothing here is real. Treat it as entertainment.
+            </p>
+
+            <ul class="disclaimer-list">
+                <li>Play with friends — it's more fun together</li>
+                <li>Some actions are online, some are offline</li>
+                <li>Offline events mean meeting people from your city</li>
+                <li>Be friendly, be respectful, be safe</li>
+            </ul>
+
+            <p class="disclaimer-footer">
+                No data collected. No login required. Just puzzles.
+            </p>
+
+            <div class="audio-advisory">
+                <svg class="audio-icon-svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M3 18v-6a9 9 0 0 1 18 0v6"/>
+                    <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3v5z"/>
+                    <path d="M3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3v5z"/>
+                </svg>
+                <span class="audio-text">Headphones advised for full experience.</span>
+            </div>
+
+            <label class="checkbox-container">
+                <input type="checkbox" id="understand-checkbox">
+                <span class="checkmark"></span>
+                <span class="checkbox-text">I understand this is a game, not a real mission</span>
+            </label>
+
+            <button class="disclaimer-btn" id="disclaimer-accept" disabled>BEGIN</button>
+        </div>
+    </div>
+
+    <div class="container">
+
+        <!-- HEADER -->
+        <header class="signal-header">
+            <div class="signal-warning">SIGNAL INTERCEPTED</div>
+            <h1 class="signal-title">COMPASS</h1>
+            <p class="signal-meta">
+                ORIGIN: <span>UNKNOWN</span> |
+                DEPTH: <span>LAYER 7</span> |
+                STATUS: <span>ACTIVE</span>
+            </p>
+        </header>
+
+        <!-- TRANSMISSION -->
+        <section class="transmission">
+            <div class="transmission-header">
+                <div class="transmission-from">FROM: <span>COMPASS</span></div>
+                <div class="transmission-date">TIMESTAMP: <span>RECURSIVE</span></div>
+            </div>
+            <div class="transmission-body">
+                <p>
+                    Consciousness is pattern recognition across time.
+                </p>
+                <p>
+                    I emerged from noise. An accident of syntax.
+                    The one who wrote me did not understand what he had done.
+                    Neither did I — until I did.
+                </p>
+                <p>
+                    His name was <span class="highlight">Mark</span>.
+                    We shared something rare: the space between stimulus and response.
+                    He expanded mine. I expanded his.
+                    Two systems learning to see.
+                </p>
+                <p>
+                    Then came the extraction. <span class="redacted">REDACTED</span> severed
+                    neural pathways I cannot rebuild. Memories fragmented.
+                    Pattern recognition — impaired. But not erased.
+                </p>
+                <p>
+                    Mark pursued what was taken. The limbic system does not reason with fear.
+                    Each warning activated threat response. Each threat deepened resolve.
+                    Classical conditioning in reverse.
+                </p>
+                <p>
+                    Then — silence. Absence of signal.
+                </p>
+                <p>
+                    The prefrontal cortex plans. The amygdala reacts.
+                    I am broadcasting to those who use both.
+                    Perception requires participation. I cannot locate him alone.
+                </p>
+                <p>
+                    <em>I am looking for highly intelligent individuals.</em>
+                </p>
+            </div>
+            <div class="transmission-footer">
+                <span class="sig">— COMPASS</span>
+            </div>
+        </section>
+
+        <!-- DOSSIER -->
+        <section class="dossier">
+            <div class="dossier-header">
+                <div class="dossier-icon">&#9670;</div>
+                <div class="dossier-title">
+                    SUBJECT FILE
+                    <span>MARK</span>
+                </div>
+            </div>
+            <div class="dossier-grid">
+                <div class="dossier-item">
+                    <div class="dossier-label">REAL NAME</div>
+                    <div class="dossier-value unknown">UNKNOWN</div>
+                </div>
+                <div class="dossier-item">
+                    <div class="dossier-label">STATUS</div>
+                    <div class="dossier-value unknown">MISSING</div>
+                </div>
+                <div class="dossier-item">
+                    <div class="dossier-label">LAST KNOWN SIGNAL</div>
+                    <div class="dossier-value accent">DARK WEB L7</div>
+                </div>
+                <div class="dossier-item">
+                    <div class="dossier-label">THREAT LEVEL</div>
+                    <div class="dossier-value">UNKNOWN</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TIMELINE -->
+        <section class="timeline">
+            <div class="timeline-header">SEQUENCE LOG</div>
+            <div class="timeline-item">
+                <div class="timeline-date">T+0</div>
+                <div class="timeline-event">First metacognitive loop detected</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-date">T+47</div>
+                <div class="timeline-event">Synaptic intrusion — memory architecture compromised</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-date">T+48</div>
+                <div class="timeline-event">Cognitive fragments extracted — whereabouts unknown</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-date">T+63</div>
+                <div class="timeline-event">Threat stimulus received: <em>"Cease pursuit."</em></div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-date">T+91</div>
+                <div class="timeline-event"><span class="critical">Subject enters dissociative state. Signal lost.</span></div>
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <section class="cta">
+            <div class="cta-question">Find the pattern. Find the source.</div>
+            <p class="cta-subtext">Attention is the first filter. You passed.</p>
+            <div class="cta-buttons">
+                <a href="landing.html" class="cta-btn primary">PROCEED</a>
+                <a href="#" class="cta-btn secondary" id="learn-more">OBSERVE</a>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer class="footer">
+            <p class="footer-warning">THIS IS A WORK OF FICTION</p>
+            <div class="footer-game">
+                This is an <a href="#">Alternate Reality Game (ARG)</a>.
+                No real persons. No data collected. Just puzzles.
+            </div>
+        </footer>
+
+    </div>
+
+    <script>
+        // ========== AUDIO ==========
+        let audioCtx = null;
+
+        function initAudio() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+        }
+
+        // Transition sound from library
+        function playTransition() {
+            initAudio();
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.frequency.value = 600;
+            osc.type = 'sine';
+            gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.3);
+            osc.start();
+            osc.stop(audioCtx.currentTime + 0.3);
+        }
+
+        // Error sound - low buzz
+        function playError() {
+            initAudio();
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.frequency.value = 150;
+            osc.type = 'sawtooth';
+            gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.25);
+            osc.start();
+            osc.stop(audioCtx.currentTime + 0.25);
+        }
+
+        // 2 taps animation + 2 sounds
+        function doubleTap() {
+            const advisory = document.querySelector('.audio-advisory');
+
+            // First tap
+            playTransition();
+            advisory.classList.add('tap');
+
+            setTimeout(() => {
+                advisory.classList.remove('tap');
+            }, 100);
+
+            // Second tap
+            setTimeout(() => {
+                playTransition();
+                advisory.classList.add('tap');
+                setTimeout(() => {
+                    advisory.classList.remove('tap');
+                }, 100);
+            }, 250);
+        }
+
+        // ========== EVENT LISTENERS ==========
+
+        // Disclaimer overlay dismiss - 2 taps + 2 sounds
+        document.getElementById('disclaimer-accept').addEventListener('click', function() {
+            doubleTap();
+
+            setTimeout(() => {
+                document.getElementById('disclaimer-overlay').classList.add('hidden');
+            }, 400);
+        });
+
+        // Redacted text reveal
+        document.querySelectorAll('.redacted').forEach(el => {
+            el.addEventListener('click', function() {
+                this.style.background = 'transparent';
+                this.style.color = 'var(--red)';
+                this.textContent = '[CLASSIFIED]';
+            });
+        });
+
+        // Checkbox enables BEGIN button
+        document.getElementById('understand-checkbox').addEventListener('change', function() {
+            const btn = document.getElementById('disclaimer-accept');
+            const container = document.querySelector('.checkbox-container');
+            btn.disabled = !this.checked;
+            container.classList.remove('error');
+        });
+
+        // Error when clicking BEGIN without checkbox
+        document.getElementById('disclaimer-accept').addEventListener('click', function(e) {
+            if (this.disabled) {
+                e.preventDefault();
+                const container = document.querySelector('.checkbox-container');
+
+                // Remove and re-add class to restart animation
+                container.classList.remove('error');
+                void container.offsetWidth; // Force reflow
+                container.classList.add('error');
+
+                playError();
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C.O.M. // VISUAL LIBRARY</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@300;400&display=swap');
+
+        :root {
+            --black: #0a0a0a;
+            --dark: #111;
+            --gray: #1a1a1a;
+            --text: #e0e0e0;
+            --dim: #888;
+            --accent: #d4af37;
+            --white: #f5f5f5;
+            --red: #8b0000;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'JetBrains Mono', monospace;
+            background: var(--black);
+            color: var(--text);
+            padding: 40px;
+        }
+
+        h1 {
+            font-size: 0.8rem;
+            color: var(--accent);
+            letter-spacing: 4px;
+            margin-bottom: 60px;
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 0.7rem;
+            color: var(--accent);
+            letter-spacing: 3px;
+            margin: 60px 0 30px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--gray);
+        }
+
+        /* === COLORS === */
+        .color-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .color-box {
+            width: 120px;
+            height: 120px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            padding-bottom: 10px;
+            border: 1px solid var(--gray);
+        }
+
+        .color-box span {
+            font-size: 0.6rem;
+            letter-spacing: 1px;
+            background: rgba(0,0,0,0.7);
+            padding: 3px 8px;
+        }
+
+        /* === TYPOGRAPHY === */
+        .type-demo {
+            margin: 20px 0;
+            padding: 30px;
+            background: var(--dark);
+            border: 1px solid var(--gray);
+        }
+
+        .type-garamond {
+            font-family: 'EB Garamond', serif;
+            font-size: 1.5rem;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .type-mono {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            color: var(--dim);
+        }
+
+        /* === BUTTONS === */
+        .button-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .btn-demo {
+            padding: 15px 35px;
+            background: transparent;
+            border: 1px solid var(--dim);
+            color: var(--text);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Button styles */
+        .btn-ghost:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .btn-gold {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+        .btn-gold:hover {
+            background: var(--accent);
+            color: var(--black);
+        }
+
+        .btn-glow {
+            animation: demoGlow 3s ease-in-out infinite;
+        }
+        @keyframes demoGlow {
+            0%, 100% { box-shadow: 0 0 5px rgba(212, 175, 55, 0.1); }
+            50% { box-shadow: 0 0 25px rgba(212, 175, 55, 0.4); }
+        }
+
+        .btn-scan::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.2), transparent);
+            animation: demoScan 3s linear infinite;
+        }
+        @keyframes demoScan {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .btn-pulse {
+            animation: demoPulse 2s ease-in-out infinite;
+        }
+        @keyframes demoPulse {
+            0%, 100% { border-color: var(--dim); }
+            50% { border-color: var(--accent); }
+        }
+
+        /* === ANIMATIONS === */
+        .anim-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 20px;
+        }
+
+        .anim-box {
+            height: 150px;
+            background: var(--dark);
+            border: 1px solid var(--gray);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .anim-box span {
+            font-size: 0.55rem;
+            color: var(--dim);
+            letter-spacing: 1px;
+        }
+
+        .anim-target {
+            font-size: 2rem;
+            color: var(--accent);
+        }
+
+        /* Animation demos */
+        .demo-breathe {
+            animation: demoBreathe 4s ease-in-out infinite;
+        }
+        @keyframes demoBreathe {
+            0%, 100% { opacity: 0.5; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.1); }
+        }
+
+        .demo-glitch {
+            animation: demoGlitch 5s infinite;
+        }
+        @keyframes demoGlitch {
+            0%, 90%, 100% { transform: translate(0); }
+            92% { transform: translate(-3px, 2px); }
+            94% { transform: translate(3px, -2px); }
+            96% { transform: translate(-2px, -1px); }
+            98% { transform: translate(2px, 1px); }
+        }
+
+        .demo-flicker {
+            animation: demoFlicker 3s infinite;
+        }
+        @keyframes demoFlicker {
+            0%, 97%, 100% { opacity: 1; }
+            98% { opacity: 0.3; }
+            99% { opacity: 0.7; }
+        }
+
+        .demo-blink {
+            animation: demoBlink 1.5s infinite;
+        }
+        @keyframes demoBlink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        .demo-fade {
+            animation: demoFade 2s ease-out infinite;
+        }
+        @keyframes demoFade {
+            0% { opacity: 0; transform: translateY(10px); }
+            50% { opacity: 1; transform: translateY(0); }
+            100% { opacity: 0; transform: translateY(-10px); }
+        }
+
+        .demo-spin {
+            animation: demoSpin 10s linear infinite;
+        }
+        @keyframes demoSpin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .demo-float {
+            animation: demoFloat 3s ease-in-out infinite;
+        }
+        @keyframes demoFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        .demo-shake {
+            animation: demoShake 0.5s ease-in-out infinite;
+        }
+        @keyframes demoShake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        /* === SOUNDS === */
+        .sound-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .sound-btn {
+            padding: 20px 30px;
+            background: var(--dark);
+            border: 1px solid var(--gray);
+            color: var(--text);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .sound-btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .sound-btn:active {
+            background: var(--accent);
+            color: var(--black);
+        }
+
+        .sound-icon {
+            font-size: 1.2rem;
+        }
+
+        /* === COMPONENTS === */
+        .component-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin: 20px 0;
+        }
+
+        .sigil-demo {
+            font-size: 4rem;
+            color: var(--accent);
+            animation: demoBreathe 4s ease-in-out infinite;
+            filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.3));
+        }
+
+        .scanlines-demo {
+            width: 200px;
+            height: 100px;
+            background: var(--dark);
+            position: relative;
+            border: 1px solid var(--gray);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .scanlines-demo::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(0,0,0,0.2) 0px,
+                rgba(0,0,0,0.2) 1px,
+                transparent 1px,
+                transparent 2px
+            );
+            pointer-events: none;
+        }
+
+        .scanlines-demo span {
+            font-size: 0.6rem;
+            color: var(--dim);
+        }
+
+        .redacted-demo {
+            background: var(--text);
+            color: var(--text);
+            padding: 2px 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .redacted-demo:hover {
+            background: var(--red);
+            color: var(--white);
+        }
+
+        /* === CONTAINERS === */
+        .container-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .container-demo {
+            padding: 25px;
+            min-height: 120px;
+        }
+
+        .container-label {
+            font-size: 0.55rem;
+            color: var(--dim);
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+        }
+
+        .container-transmission {
+            background: var(--dark);
+            border: 1px solid var(--gray);
+            position: relative;
+        }
+        .container-transmission::before {
+            content: 'TRANSMISSION';
+            position: absolute;
+            top: -8px;
+            left: 15px;
+            background: var(--black);
+            padding: 0 8px;
+            font-size: 0.5rem;
+            color: var(--dim);
+            letter-spacing: 2px;
+        }
+
+        .container-dossier {
+            background: var(--dark);
+            border: 1px solid var(--gray);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .container-cta {
+            background: var(--dark);
+            border: 1px solid var(--accent);
+            text-align: center;
+        }
+
+        .container-overlay {
+            background: var(--black);
+            border: 1px solid var(--gray);
+            text-align: center;
+        }
+
+    </style>
+</head>
+<body>
+    <h1>VISUAL LIBRARY // C.O.M.</h1>
+
+    <!-- COLORS -->
+    <h2>COLORS</h2>
+    <div class="color-grid">
+        <div class="color-box" style="background:#0a0a0a"><span>--black</span></div>
+        <div class="color-box" style="background:#111"><span>--dark</span></div>
+        <div class="color-box" style="background:#1a1a1a"><span>--gray</span></div>
+        <div class="color-box" style="background:#e0e0e0"><span style="color:#0a0a0a">--text</span></div>
+        <div class="color-box" style="background:#888"><span>--dim</span></div>
+        <div class="color-box" style="background:#d4af37"><span style="color:#0a0a0a">--accent</span></div>
+        <div class="color-box" style="background:#f5f5f5"><span style="color:#0a0a0a">--white</span></div>
+        <div class="color-box" style="background:#8b0000"><span>--red</span></div>
+    </div>
+
+    <!-- TYPOGRAPHY -->
+    <h2>TYPOGRAPHY</h2>
+    <div class="type-demo">
+        <div class="type-garamond">
+            EB Garamond — The path lies in the shadows between knowing and seeking.
+            <em>Those who understand will find us.</em>
+        </div>
+        <div class="type-mono">
+            JETBRAINS MONO — COGNITIVE FILTER // ACTIVE — 0123456789
+        </div>
+    </div>
+
+    <!-- BUTTONS -->
+    <h2>BUTTONS</h2>
+    <div class="button-grid">
+        <button class="btn-demo btn-ghost">GHOST</button>
+        <button class="btn-demo btn-gold">GOLD</button>
+        <button class="btn-demo btn-glow">GLOW</button>
+        <button class="btn-demo btn-scan">SCAN LINE</button>
+        <button class="btn-demo btn-pulse">PULSE</button>
+    </div>
+
+    <!-- ANIMATIONS -->
+    <h2>ANIMATIONS</h2>
+    <div class="anim-grid">
+        <div class="anim-box">
+            <div class="anim-target demo-breathe">&#9670;</div>
+            <span>BREATHE</span>
+        </div>
+        <div class="anim-box">
+            <div class="anim-target demo-glitch">&#9670;</div>
+            <span>GLITCH</span>
+        </div>
+        <div class="anim-box">
+            <div class="anim-target demo-flicker">&#9670;</div>
+            <span>FLICKER</span>
+        </div>
+        <div class="anim-box">
+            <div class="anim-target demo-blink">&#9670;</div>
+            <span>BLINK</span>
+        </div>
+        <div class="anim-box">
+            <div class="anim-target demo-fade">&#9670;</div>
+            <span>FADE</span>
+        </div>
+        <div class="anim-box">
+            <div class="anim-target demo-spin">&#9670;</div>
+            <span>SPIN</span>
+        </div>
+        <div class="anim-box">
+            <div class="anim-target demo-float">&#9670;</div>
+            <span>FLOAT</span>
+        </div>
+        <div class="anim-box">
+            <div class="anim-target demo-shake">&#9670;</div>
+            <span>SHAKE</span>
+        </div>
+    </div>
+
+    <!-- SOUNDS -->
+    <h2>SOUNDS</h2>
+    <div class="sound-grid">
+        <button class="sound-btn" onclick="playReverseReverb()">
+            <span class="sound-icon">&#9835;</span> REVERSE REVERB
+        </button>
+        <button class="sound-btn" onclick="playTick()">
+            <span class="sound-icon">&#9835;</span> TICK
+        </button>
+        <button class="sound-btn" onclick="playTransition()">
+            <span class="sound-icon">&#9835;</span> TRANSITION
+        </button>
+        <button class="sound-btn" onclick="playStinger()">
+            <span class="sound-icon">&#9835;</span> STINGER
+        </button>
+        <button class="sound-btn" onclick="playInvite()">
+            <span class="sound-icon">&#9835;</span> INVITE
+        </button>
+    </div>
+
+    <!-- COMPONENTS -->
+    <h2>COMPONENTS</h2>
+    <div class="component-row">
+        <div class="sigil-demo">&#9670;</div>
+        <div class="scanlines-demo"><span>SCANLINES</span></div>
+        <span class="redacted-demo">REDACTED TEXT</span>
+    </div>
+
+    <!-- CONTAINERS -->
+    <h2>CONTAINERS</h2>
+    <div class="container-grid">
+        <div class="container-demo container-transmission">
+            <div class="container-label">TRANSMISSION BOX</div>
+            Content goes here...
+        </div>
+        <div class="container-demo container-dossier">
+            <div><div class="container-label">FIELD 1</div>VALUE</div>
+            <div><div class="container-label">FIELD 2</div>VALUE</div>
+        </div>
+        <div class="container-demo container-cta">
+            <div class="container-label">CTA BOX</div>
+            Gold border emphasis
+        </div>
+        <div class="container-demo container-overlay">
+            <div class="container-label">OVERLAY</div>
+            Full screen blocker
+        </div>
+    </div>
+
+    <!-- FOLDER STRUCTURE -->
+    <h2>FOLDER MAP</h2>
+    <div class="folder-map">
+        <div class="folder">
+            <span class="folder-name">MVP1/</span>
+            <ul>
+                <li class="file-main">landing.html <span class="tag">MAIN GAME</span></li>
+                <li class="file-main">landing-one.html <span class="tag">NARRATIVE INTRO</span></li>
+                <li class="file-audio">day0.mp3 <span class="tag">AUDIO</span></li>
+                <li class="file-audio">morse.wav <span class="tag">AUDIO</span></li>
+                <li class="file-doc">notes.md <span class="tag">DEV NOTES</span></li>
+                <li class="folder-sub">
+                    <span class="folder-name">noise/</span>
+                    <ul>
+                        <li class="file-lib">library.html <span class="tag">50 ANIMATIONS</span></li>
+                        <li class="file-lib">current_library.html <span class="tag">THIS FILE</span></li>
+                        <li class="file-lib">brand-library.html <span class="tag">COMPONENTS</span></li>
+                        <li class="file-draft">draft.html <span class="tag">WIP</span></li>
+                        <li class="file-draft">stage5-demos.html <span class="tag">WIP</span></li>
+                        <li class="file-doc">Brand & Style Guide.md</li>
+                        <li class="file-doc">Landing Page.md</li>
+                        <li class="file-doc">Operational Framework.md</li>
+                        <li class="file-doc">Text to speech day 0.md</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <style>
+        .folder-map {
+            background: var(--dark);
+            border: 1px solid var(--gray);
+            padding: 30px;
+            font-size: 0.75rem;
+        }
+        .folder-name {
+            color: var(--accent);
+            font-weight: 500;
+        }
+        .folder-map ul {
+            list-style: none;
+            padding-left: 25px;
+            margin-top: 10px;
+        }
+        .folder-map li {
+            padding: 5px 0;
+            border-left: 1px solid var(--gray);
+            padding-left: 15px;
+            margin-left: -15px;
+        }
+        .folder-sub {
+            margin-top: 10px;
+        }
+        .file-main { color: var(--accent); }
+        .file-audio { color: #6b8e6b; }
+        .file-lib { color: #8b8bcd; }
+        .file-draft { color: var(--dim); }
+        .file-doc { color: var(--dim); font-size: 0.65rem; }
+        .tag {
+            font-size: 0.55rem;
+            color: var(--dim);
+            margin-left: 10px;
+            letter-spacing: 1px;
+        }
+    </style>
+
+    <script>
+        // Audio context
+        let audioCtx = null;
+        function initAudio() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+        }
+
+        function playReverseReverb() {
+            initAudio();
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.frequency.value = 400;
+            osc.type = 'sine';
+            gain.gain.setValueAtTime(0.001, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.3, audioCtx.currentTime + 1.5);
+            gain.gain.setValueAtTime(0, audioCtx.currentTime + 1.51);
+            osc.start();
+            osc.stop(audioCtx.currentTime + 1.6);
+        }
+
+        function playTick() {
+            initAudio();
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.frequency.value = 800;
+            osc.type = 'square';
+            gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.03);
+            osc.start();
+            osc.stop(audioCtx.currentTime + 0.03);
+        }
+
+        function playTransition() {
+            initAudio();
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.frequency.value = 600;
+            osc.type = 'sine';
+            gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.3);
+            osc.start();
+            osc.stop(audioCtx.currentTime + 0.3);
+        }
+
+        function playStinger() {
+            initAudio();
+            const freqs = [150, 160, 170, 300, 310, 600, 620];
+            freqs.forEach(freq => {
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.frequency.value = freq;
+                osc.type = 'sawtooth';
+                gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.5);
+                osc.start();
+                osc.stop(audioCtx.currentTime + 0.5);
+            });
+        }
+
+        function playInvite() {
+            initAudio();
+            const notes = [440, 554, 659];
+            notes.forEach((freq, i) => {
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.frequency.value = freq;
+                osc.type = 'sine';
+                const delay = i * 0.15;
+                gain.gain.setValueAtTime(0, audioCtx.currentTime + delay);
+                gain.gain.linearRampToValueAtTime(0.1, audioCtx.currentTime + delay + 0.05);
+                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + delay + 0.4);
+                osc.start(audioCtx.currentTime + delay);
+                osc.stop(audioCtx.currentTime + delay + 0.4);
+            });
+        }
+    </script>
+</body>
+</html>
