@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C.O.M. - Step 5</title>
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&#9670;</text></svg>">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <div id="phase-briefing" class="phase">
+        <!-- EXACT HTML STRUCTURE FROM LIBRARY -->
+        <div class="scramble-demo-container">
+            <div class="scramble-demo-text">
+                <span class="scramble-text" id="scramble-demo-1" data-text="Before to proceed, before to judge"></span>
+            </div>
+            <div class="scramble-demo-text" style="margin-top: 15px;">
+                <span class="scramble-text" id="scramble-demo-2"
+                    data-text="The path lies in the shadows between knowing and seeking."></span>
+                <div class="briefing-formula">Apohoria + Noise + Propaganda</div>
+            </div>
+            <br>
+            <button class="btn-demo btn-gold" id="briefing-continue">PROCEED</button>
+        </div>
+    </div>
+
+    <script>
+        // === EXACT JS LOGIC FROM LIBRARY (INLINED) ===
+
+        // TextScramble Class
+        class TextScramble {
+            constructor(el) {
+                this.el = el;
+                this.chars = '!<>-_\\/[]{}—=+*^?#_ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+                this.update = this.update.bind(this);
+            }
+
+            setText(newText) {
+                const oldText = this.el.innerText;
+                const length = Math.max(oldText.length, newText.length);
+                const promise = new Promise(resolve => this.resolve = resolve);
+                this.queue = [];
+
+                for (let i = 0; i < length; i++) {
+                    const from = oldText[i] || '';
+                    const to = newText[i] || '';
+                    const start = Math.floor(Math.random() * 40);
+                    const end = start + Math.floor(Math.random() * 40);
+                    this.queue.push({ from, to, start, end });
+                }
+
+                cancelAnimationFrame(this.frameRequest);
+                this.frame = 0;
+                this.update();
+                return promise;
+            }
+
+            update() {
+                let output = '';
+                let complete = 0;
+
+                for (let i = 0, n = this.queue.length; i < n; i++) {
+                    let { from, to, start, end, char } = this.queue[i];
+
+                    if (this.frame >= end) {
+                        complete++;
+                        output += to;
+                    } else if (this.frame >= start) {
+                        if (!char || Math.random() < 0.28) {
+                            char = this.randomChar();
+                            this.queue[i].char = char;
+                        }
+                        output += '<span class="scramble-char scrambling">' + char + '</span>';
+                    } else {
+                        output += from;
+                    }
+                }
+
+                this.el.innerHTML = output;
+
+                if (complete === this.queue.length) {
+                    this.resolve();
+                } else {
+                    this.frameRequest = requestAnimationFrame(this.update);
+                    this.frame++;
+                }
+            }
+
+            randomChar() {
+                return this.chars[Math.floor(Math.random() * this.chars.length)];
+            }
+        }
+
+        // Init and Replay Logic
+        function initScrambleDemo() {
+            const el1 = document.getElementById('scramble-demo-1');
+            const el2 = document.getElementById('scramble-demo-2');
+
+            // Logic from library: Create new instances each time or reuse? 
+            // Library created new instances in initScrambleDemo.
+            const scrambler1 = new TextScramble(el1);
+            const scrambler2 = new TextScramble(el2);
+
+            // Library logic: 
+            scrambler1.setText(el1.getAttribute('data-text'));
+            setTimeout(() => {
+                scrambler2.setText(el2.getAttribute('data-text'));
+            }, 800);
+        }
+
+        function replayScramble() {
+            const el1 = document.getElementById('scramble-demo-1');
+            const el2 = document.getElementById('scramble-demo-2');
+
+            // Clear text first (Essential library logic)
+            el1.innerHTML = '';
+            el2.innerHTML = '';
+
+            // Re-run scramble with small delay
+            setTimeout(() => initScrambleDemo(), 100);
+        }
+
+        // Auto-init on load
+        document.addEventListener('DOMContentLoaded', initScrambleDemo);
+
+        // Navigation
+        document.getElementById('briefing-continue').addEventListener('click', () => {
+            window.location.href = 'step6-calibration.html';
+        });
+    </script>
+</body>
+
+</html>

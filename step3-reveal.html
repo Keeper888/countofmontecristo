@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C.O.M. - Step 3</title>
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&#9670;</text></svg>">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <!-- PHASE 3: THE REVELATION -->
+    <div id="phase-reveal" class="phase">
+        <div class="reveal-container">
+            <div class="reveal-sigil">&#9670;</div>
+
+            <div class="reveal-title">You Have Proven Worthy</div>
+
+            <div class="reveal-text">
+                You solved what 94% could not. This was not luck.
+                You possess the pattern recognition we seek.
+            </div>
+
+            <div class="reveal-quote">
+                "Intelligence is not the ability to store information,
+                but to know where to find it."
+                <br><br>
+                <span style="color: var(--dim);">- A. Einstein</span>
+            </div>
+
+            <div class="reveal-text">
+                We are assembling a network. Not of followers, but of minds.
+                Each node is selected. Each connection, deliberate.
+            </div>
+
+            <div class="classified-block">
+                <div class="classified-line">
+                    <span class="classified-key">CLEARANCE:</span>
+                    <span class="classified-val gold">GRANTED</span>
+                </div>
+                <div class="classified-line">
+                    <span class="classified-key">DESIGNATION:</span>
+                    <span class="classified-val" id="designation">NODE-0000</span>
+                </div>
+                <div class="classified-line">
+                    <span class="classified-key">NETWORK:</span>
+                    <span class="classified-val">C.O.M. COLLECTIVE</span>
+                </div>
+                <div class="classified-line">
+                    <span class="classified-key">STATUS:</span>
+                    <span class="classified-val">AWAITING SECURE HANDSHAKE</span>
+                </div>
+            </div>
+
+            <button class="continue-btn" id="continue-btn">PROCEED TO SECURE CHANNEL</button>
+        </div>
+    </div>
+
+    <script>
+        // Generate designation
+        function generateDesignation() {
+            return 'NODE-' + String(Math.floor(Math.random() * 9000) + 1000);
+        }
+
+        // Set designation on load
+        document.getElementById('designation').textContent = generateDesignation();
+
+        // Continue button - for now just alert (would normally navigate to next page)
+        document.getElementById('continue-btn').addEventListener('click', () => {
+            window.location.href = 'step4-channel.html';
+        });
+    </script>
+</body>
+
+</html>

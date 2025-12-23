@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C.O.M. - Step 2</title>
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&#9670;</text></svg>">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <!-- PHASE 2: THE TEST -->
+    <div id="phase-test" class="phase">
+        <div class="test-container">
+            <div class="test-header">COGNITIVE FILTER // ACTIVE</div>
+
+            <div class="test-question">Prove you see what others cannot.</div>
+            <div class="test-hint">The signal is hidden in plain sight. Only pattern recognition will save you.</div>
+
+            <div class="cipher-display" id="cipher">
+                .- .. / . ... -.-. .- .--. . -..
+            </div>
+
+            <div class="input-container">
+                <input type="text" class="answer-input" id="answer" placeholder="ENTER DECODED MESSAGE"
+                    autocomplete="off" spellcheck="false">
+            </div>
+
+            <button class="submit-btn" id="submit">VERIFY</button>
+
+            <div class="feedback" id="feedback"></div>
+
+            <div class="hint-section">
+                <div class="hint-readme-popup hidden" id="hint-readme-popup">
+                    <div class="readme-box">
+                        <span class="readme-title">Cell Expansion Protocol</span>
+                        <span class="readme-text">What you share next binds you. Each agent you recruit becomes part of
+                            your operation. Their success reflects on you. Their failure, the same. The network sees all
+                            connections. Choose only those you would trust with silence.</span>
+                        <span class="readme-warning">You cannot invite the same person twice.</span>
+                        <button class="readme-btn" id="readme-accept">I Understand</button>
+                    </div>
+                </div>
+                <div class="hint-prompt" id="hint-prompt">
+                    <span class="hint-icon">◇</span>
+                    <span class="hint-text">Share with another agent to unlock hint 1</span>
+                </div>
+                <div class="hint-revealed hidden" id="hint-revealed">
+                    <span class="hint-label">INTEL 1:</span>
+                    <span class="hint-content">"Each dot and dash speaks. The silence between is the space."</span>
+
+                    <div class="hint-prompt hint-prompt-2" id="hint-prompt-2">
+                        <span class="hint-icon">◇</span>
+                        <span class="hint-text">Share again to unlock hint 2</span>
+                    </div>
+                </div>
+
+                <div class="hint-audio hidden" id="hint-audio">
+                    <span class="hint-label">INTEL 2:</span>
+                    <div class="audio-player">
+                        <button class="play-btn" id="play-btn">▶</button>
+                        <div class="audio-progress">
+                            <div class="audio-bar" id="audio-bar"></div>
+                        </div>
+                        <span class="audio-time" id="audio-time">0:00</span>
+                    </div>
+                    <audio id="morse-audio" src="morse.wav" preload="auto"></audio>
+
+                    <div class="hint-prompt hint-prompt-3" id="hint-prompt-3">
+                        <span class="hint-icon">◇</span>
+                        <span class="hint-text">Reveal answer (forfeit entry)</span>
+                    </div>
+                </div>
+
+                <div class="hint-confirm hidden" id="hint-confirm">
+                    <div class="confirm-box">
+                        <span class="confirm-title">Final Warning</span>
+                        <span class="confirm-text">Revealing the answer will mark you as unworthy. You will be excluded
+                            from the network. This cannot be undone.</span>
+                        <div class="confirm-buttons">
+                            <button class="confirm-btn cancel" id="confirm-cancel">Go back</button>
+                            <button class="confirm-btn forfeit" id="confirm-forfeit">Forfeit</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hint-forfeited hidden" id="hint-forfeited">
+                    <span class="forfeit-label">DISQUALIFIED</span>
+                    <span class="forfeit-answer">The answer was: AI ESCAPED</span>
+                    <span class="forfeit-text">You chose the easy path. The network is not for you.</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // CONFIG
+        const CONFIG = {
+            answer: 'ai escaped',
+            altAnswers: ['aiescaped', 'ai has escaped', 'the ai escaped', 'the ai has escaped']
+        };
+
+        // ELEMENTS
+        const answerInput = document.getElementById('answer');
+        const submitBtn = document.getElementById('submit');
+        const feedback = document.getElementById('feedback');
+
+        // ANSWER CHECKING
+        function checkAnswer() {
+            const answer = answerInput.value.trim().toLowerCase();
+
+            if (!answer) {
+                feedback.textContent = '';
+                return;
+            }
+
+            if (answer === CONFIG.answer || CONFIG.altAnswers.map(a => a.toLowerCase()).includes(answer)) {
+                feedback.textContent = 'VERIFIED';
+                feedback.className = 'feedback';
+                feedback.style.color = 'var(--accent)';
+
+                setTimeout(() => {
+                    window.location.href = 'step3-reveal.html';
+                }, 1000);
+            } else {
+                if (answer.includes('ai') || answer.includes('escaped') || answer.includes('escape')) {
+                    feedback.textContent = 'PARTIAL MATCH DETECTED';
+                    feedback.className = 'feedback partial';
+                } else {
+                    feedback.textContent = 'INCORRECT';
+                    feedback.className = 'feedback error';
+                }
+            }
+        }
+
+        submitBtn.addEventListener('click', checkAnswer);
+        answerInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') checkAnswer();
+        });
+
+        // HINT SYSTEM
+        const hintPrompt = document.getElementById('hint-prompt');
+        const hintRevealed = document.getElementById('hint-revealed');
+        const hintPrompt2 = document.getElementById('hint-prompt-2');
+        const hintAudio = document.getElementById('hint-audio');
+        const hintReadmePopup = document.getElementById('hint-readme-popup');
+        const readmeAccept = document.getElementById('readme-accept');
+        let readmeAccepted = false;
+
+        const shareData = {
+            title: 'Can you decode this?',
+            text: 'I found something strange. A signal in the noise. Can you decode it?',
+            url: window.location.href
+        };
+
+        async function handleShare(callback) {
+            try {
+                if (navigator.share) {
+                    await navigator.share(shareData);
+                    callback();
+                } else {
+                    await navigator.clipboard.writeText(window.location.href);
+                    setTimeout(callback, 1500);
+                }
+            } catch (err) {
+                callback();
+            }
+        }
+
+        hintPrompt.addEventListener('click', () => {
+            if (!readmeAccepted) {
+                hintPrompt.classList.add('hidden');
+                hintReadmePopup.classList.remove('hidden');
+                return;
+            }
+
+            hintPrompt.querySelector('.hint-text').textContent = 'Link copied. Share it.';
+            handleShare(() => {
+                hintPrompt.classList.add('hidden');
+                hintRevealed.classList.remove('hidden');
+            });
+        });
+
+        readmeAccept.addEventListener('click', () => {
+            readmeAccepted = true;
+            hintReadmePopup.classList.add('hidden');
+            hintPrompt.classList.remove('hidden');
+            hintPrompt.querySelector('.hint-text').textContent = 'Link copied. Share it.';
+            handleShare(() => {
+                hintPrompt.classList.add('hidden');
+                hintRevealed.classList.remove('hidden');
+            });
+        });
+
+        hintPrompt2.addEventListener('click', () => {
+            hintPrompt2.querySelector('.hint-text').textContent = 'Link copied. Share it.';
+            handleShare(() => {
+                hintPrompt2.classList.add('hidden');
+                hintAudio.classList.remove('hidden');
+            });
+        });
+
+        // FORFEIT SYSTEM
+        const hintPrompt3 = document.getElementById('hint-prompt-3');
+        const hintConfirm = document.getElementById('hint-confirm');
+        const hintForfeited = document.getElementById('hint-forfeited');
+        const confirmCancel = document.getElementById('confirm-cancel');
+        const confirmForfeit = document.getElementById('confirm-forfeit');
+
+        hintPrompt3.addEventListener('click', () => {
+            hintPrompt3.classList.add('hidden');
+            hintConfirm.classList.remove('hidden');
+        });
+
+        confirmCancel.addEventListener('click', () => {
+            hintConfirm.classList.add('hidden');
+            hintPrompt3.classList.remove('hidden');
+        });
+
+        confirmForfeit.addEventListener('click', () => {
+            hintConfirm.classList.add('hidden');
+            hintAudio.classList.add('hidden');
+            hintRevealed.classList.add('hidden');
+            hintForfeited.classList.remove('hidden');
+            answerInput.disabled = true;
+            submitBtn.disabled = true;
+        });
+
+        // AUDIO PLAYER
+        const audio = document.getElementById('morse-audio');
+        const playBtn = document.getElementById('play-btn');
+        const audioBar = document.getElementById('audio-bar');
+        const audioTime = document.getElementById('audio-time');
+        const audioProgress = document.querySelector('.audio-progress');
+
+        let isPlaying = false;
+
+        playBtn.addEventListener('click', () => {
+            if (isPlaying) {
+                audio.pause();
+                playBtn.textContent = '▶';
+            } else {
+                audio.play();
+                playBtn.textContent = '▮▮';
+            }
+            isPlaying = !isPlaying;
+        });
+
+        audio.addEventListener('timeupdate', () => {
+            const progress = (audio.currentTime / audio.duration) * 100;
+            audioBar.style.width = progress + '%';
+            const mins = Math.floor(audio.currentTime / 60);
+            const secs = Math.floor(audio.currentTime % 60);
+            audioTime.textContent = mins + ':' + String(secs).padStart(2, '0');
+        });
+
+        audio.addEventListener('ended', () => {
+            isPlaying = false;
+            playBtn.textContent = '▶';
+            audioBar.style.width = '0%';
+        });
+
+        audioProgress.addEventListener('click', (e) => {
+            const rect = audioProgress.getBoundingClientRect();
+            const pos = (e.clientX - rect.left) / rect.width;
+            audio.currentTime = pos * audio.duration;
+        });
+    </script>
+</body>
+
+</html>

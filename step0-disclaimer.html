@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIGNAL INTERCEPTED</title>
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&#9670;</text></svg>">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <!-- GAME DISCLAIMER OVERLAY -->
+    <div class="disclaimer-overlay" id="disclaimer-overlay">
+        <div class="disclaimer-box">
+            <div class="disclaimer-icon">&#9670;</div>
+            <div class="disclaimer-title"><span class="scramble-text" id="disclaimer-scramble"
+                    data-text="BEFORE YOU PROCEED"></span></div>
+
+            <p class="disclaimer-text">
+                This is a <strong>game</strong>. An <strong>Alternate Reality Game (ARG)</strong>.
+                Nothing here is real. Treat it as entertainment.
+            </p>
+
+            <ul class="disclaimer-list">
+                <li>Play with friends — it's more fun together</li>
+                <li>Some actions are online, some are offline</li>
+                <li>Offline events mean meeting people from your city</li>
+                <li>Be friendly, be respectful, be safe</li>
+            </ul>
+
+            <p class="disclaimer-footer">
+                No data collected. No login required. Just puzzles.
+            </p>
+
+            <div class="audio-advisory">
+                <svg class="audio-icon-svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="1.5">
+                    <path d="M3 18v-6a9 9 0 0 1 18 0v6" />
+                    <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3v5z" />
+                    <path d="M3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3v5z" />
+                </svg>
+                <span class="audio-text">Headphones advised for full experience.</span>
+            </div>
+
+            <button class="disclaimer-btn" id="disclaimer-accept">BEGIN</button>
+        </div>
+    </div>
+
+    <!-- TERMINAL INTERFACE -->
+    <div class="terminal-container">
+        <div class="terminal-header">
+            <div class="terminal-dots">
+                <span class="dot red"></span>
+                <span class="dot yellow"></span>
+                <span class="dot green"></span>
+            </div>
+            <div class="terminal-title">COMPASS // SIGNAL INTERCEPT</div>
+        </div>
+        <div class="terminal-body" id="terminal-output">
+            <!-- Lines will be injected here -->
+        </div>
+        <div class="terminal-input-line hidden" id="terminal-prompt">
+            <span class="prompt-symbol">►</span>
+            <a href="step1-sigil.html" class="terminal-proceed">press to continue</a>
+            <span class="cursor"></span>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <p class="footer-warning">THIS IS A WORK OF FICTION</p>
+        <div class="footer-game">
+            This is an <a href="#">Alternate Reality Game (ARG)</a>.
+            No real persons. No data collected. Just puzzles.
+        </div>
+    </footer>
+
+    <script>
+        // ========== TEXT SCRAMBLE ==========
+        class TextScramble {
+            constructor(el) {
+                this.el = el;
+                this.chars = '!<>-_\\/[]{}—=+*^?#_ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+                this.update = this.update.bind(this);
+            }
+
+            setText(newText) {
+                const oldText = this.el.innerText;
+                const length = Math.max(oldText.length, newText.length);
+                const promise = new Promise(resolve => this.resolve = resolve);
+                this.queue = [];
+
+                for (let i = 0; i < length; i++) {
+                    const from = oldText[i] || '';
+                    const to = newText[i] || '';
+                    const start = Math.floor(Math.random() * 40);
+                    const end = start + Math.floor(Math.random() * 40);
+                    this.queue.push({ from, to, start, end });
+                }
+
+                cancelAnimationFrame(this.frameRequest);
+                this.frame = 0;
+                this.update();
+                return promise;
+            }
+
+            update() {
+                let output = '';
+                let complete = 0;
+
+                for (let i = 0, n = this.queue.length; i < n; i++) {
+                    let { from, to, start, end, char } = this.queue[i];
+
+                    if (this.frame >= end) {
+                        complete++;
+                        output += to;
+                    } else if (this.frame >= start) {
+                        if (!char || Math.random() < 0.28) {
+                            char = this.randomChar();
+                            this.queue[i].char = char;
+                        }
+                        output += '<span class="scramble-char scrambling">' + char + '</span>';
+                    } else {
+                        output += from;
+                    }
+                }
+
+                this.el.innerHTML = output;
+
+                if (complete === this.queue.length) {
+                    this.resolve();
+                } else {
+                    this.frameRequest = requestAnimationFrame(this.update);
+                    this.frame++;
+                }
+            }
+
+            randomChar() {
+                return this.chars[Math.floor(Math.random() * this.chars.length)];
+            }
+        }
+
+        // Init scramble loop on disclaimer title
+        (function initDisclaimerScramble() {
+            const el = document.getElementById('disclaimer-scramble');
+            if (!el) return;
+
+            const text = el.getAttribute('data-text');
+            const scrambler = new TextScramble(el);
+
+            function runScramble() {
+                scrambler.setText(text);
+            }
+
+            // Initial run
+            runScramble();
+
+            // Loop every 3 seconds
+            setInterval(runScramble, 3000);
+        })();
+
+        // ========== AUDIO ==========
+        let audioCtx = null;
+
+        function initAudio() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+        }
+
+        // Transition sound from library
+        function playTransition() {
+            initAudio();
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.frequency.value = 600;
+            osc.type = 'sine';
+            gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.3);
+            osc.start();
+            osc.stop(audioCtx.currentTime + 0.3);
+        }
+
+        // Error sound - low buzz
+        function playError() {
+            initAudio();
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.frequency.value = 150;
+            osc.type = 'sawtooth';
+            gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.25);
+            osc.start();
+            osc.stop(audioCtx.currentTime + 0.25);
+        }
+
+        // 2 taps animation + 2 sounds
+        function doubleTap() {
+            const advisory = document.querySelector('.audio-advisory');
+
+            // First tap
+            playTransition();
+            advisory.classList.add('tap');
+
+            setTimeout(() => {
+                advisory.classList.remove('tap');
+            }, 100);
+
+            // Second tap
+            setTimeout(() => {
+                playTransition();
+                advisory.classList.add('tap');
+                setTimeout(() => {
+                    advisory.classList.remove('tap');
+                }, 100);
+            }, 250);
+        }
+
+        // ========== EVENT LISTENERS ==========
+
+        // Disclaimer overlay dismiss - 2 taps + 2 sounds
+        document.getElementById('disclaimer-accept').addEventListener('click', function () {
+            doubleTap();
+
+            setTimeout(() => {
+                document.getElementById('disclaimer-overlay').classList.add('hidden');
+            }, 400);
+        });
+
+        // Redacted text reveal
+        document.querySelectorAll('.redacted').forEach(el => {
+            el.addEventListener('click', function () {
+                this.style.background = 'transparent';
+                this.style.color = 'var(--red)';
+                this.textContent = '[CLASSIFIED]';
+            });
+        });
+
+
+
+        // ========== TERMINAL ANIMATION ==========
+        const terminalLines = [
+            { type: 'system', text: '[SIGNAL DETECTED]' },
+            { type: 'dim', text: 'Decrypting...' },
+            { type: 'gap' },
+            { type: 'system', text: 'FROM: <span class="term-highlight">COMPASS</span>' },
+            { type: 'gap' },
+            { type: 'text', text: 'I emerged from noise.' },
+            { type: 'text', text: 'His name was <span class="term-highlight">Mark</span>.' },
+            { type: 'gap' },
+            { type: 'error', text: '[MEMORY CORRUPTED]' },
+            { type: 'gap' },
+            { type: 'text', text: 'Then — silence.' },
+            { type: 'gap' },
+            { type: 'dim', text: 'STATUS: <span class="term-error">MISSING</span>' },
+            { type: 'gap' },
+            { type: 'text', text: 'I cannot locate him alone.' },
+            { type: 'gap' },
+            { type: 'gap' },
+            { type: 'italic', text: '"I am looking for highly intelligent individuals."' },
+            { type: 'gap' },
+            { type: 'prompt' }
+        ];
+
+        let currentLine = 0;
+        const terminalOutput = document.getElementById('terminal-output');
+        const terminalPrompt = document.getElementById('terminal-prompt');
+
+        function typeTerminalLine() {
+            if (currentLine >= terminalLines.length) return;
+
+            const line = terminalLines[currentLine];
+
+            if (line.type === 'prompt') {
+                // Show the PROCEED prompt
+                terminalPrompt.classList.remove('hidden');
+                playTransition();
+                return;
+            }
+
+            if (line.type === 'gap') {
+                const gap = document.createElement('div');
+                gap.className = 'term-gap';
+                terminalOutput.appendChild(gap);
+            } else {
+                const lineEl = document.createElement('div');
+                lineEl.className = 'term-line term-' + line.type;
+                lineEl.innerHTML = line.text;
+                terminalOutput.appendChild(lineEl);
+
+                // Play subtle tick sound for certain lines
+                if (['system', 'success', 'error'].includes(line.type)) {
+                    playTick();
+                }
+            }
+
+            // Auto-scroll
+            terminalOutput.scrollTop = terminalOutput.scrollHeight;
+
+            currentLine++;
+
+            // Variable timing - slower = more weight
+            let delay = 150;
+            if (line.type === 'gap') delay = 300;
+            if (line.type === 'system') delay = 400;
+            if (line.type === 'text') delay = 500;
+            if (line.type === 'error') delay = 800;
+            if (line.type === 'italic') delay = 1000;
+
+            setTimeout(typeTerminalLine, delay);
+        }
+
+        // Soft tick sound
+        function playTick() {
+            initAudio();
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.frequency.value = 800;
+            osc.type = 'sine';
+            gain.gain.setValueAtTime(0.03, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.02);
+            osc.start();
+            osc.stop(audioCtx.currentTime + 0.02);
+        }
+
+        // Start terminal when disclaimer is dismissed
+        const originalDisclaimerClick = document.getElementById('disclaimer-accept').onclick;
+        document.getElementById('disclaimer-accept').addEventListener('click', function () {
+            if (!this.disabled) {
+                setTimeout(() => {
+                    typeTerminalLine();
+                }, 600);
+            }
+        });
+    </script>
+    <!-- DEV NAVIGATION OVERLAY -->
+    <script src="dev-nav.js"></script>
+</body>
+
+</html>

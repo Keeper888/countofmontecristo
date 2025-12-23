@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C.O.M. - Step 4</title>
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&#9670;</text></svg>">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <!-- PHASE 4: THE CHANNEL -->
+    <div id="phase-channel" class="phase">
+        <div class="channel-container">
+            <div class="channel-header">FINAL STEP</div>
+
+            <div class="channel-sigil">&#9670;</div>
+
+            <div class="channel-title">Join The Network</div>
+
+            <div class="channel-text">
+                You have been assigned a unique entry token.
+                Use it to verify your identity in the secure channel.
+                This token is your unique identifier, it replaces the login. Do not share it.
+            </div>
+
+            <div class="token-display" id="token-display">
+                <div class="token-label">YOUR ENTRY TOKEN</div>
+                <div class="token-value" id="token">COM-XXXX-XXXX</div>
+                <div class="token-copy" id="token-copy">CLICK TO COPY</div>
+            </div>
+
+            <div class="warning-box">
+                Entry is final. If you are not ready, close this page now.
+            </div>
+
+            <button class="telegram-link" id="enter-channel-btn">
+                &#9654; ENTER SECURE CHANNEL
+            </button>
+
+            <div class="contract-modal hidden" id="contract-modal">
+                <div class="contract-box">
+                    <div class="contract-header">RECRUITMENT PROTOCOL // CLASSIFICATION: EYES ONLY</div>
+
+                    <div class="contract-body">
+                        <p>You are being considered for recruitment into an operation that does not officially exist.
+                        </p>
+
+                        <p>We are not seeking followers. We are seeking cognitive anomalies. Individuals whose pattern
+                            recognition, reasoning depth, and adaptive intelligence exceed standard deviation by
+                            significant margins.</p>
+
+                        <p>By proceeding, you consent to the following evaluations:</p>
+
+                        <div class="contract-list">
+                            <div class="contract-item">Reasoning depth analysis</div>
+                            <div class="contract-item">Cognitive adaptability index</div>
+                            <div class="contract-item">Cross-domain synthesis capability</div>
+                            <div class="contract-item">Critical analysis under uncertainty</div>
+                            <div class="contract-item">Psychological resilience markers</div>
+                            <div class="contract-item">Pattern extraction from noise</div>
+                        </div>
+
+                        <p>Your neural signature has already been logged. Your behavioral patterns are being analyzed.
+                            This is not a game. This is a filter.</p>
+
+                        <p class="contract-warning"><strong class="protocol-label">DECLINE:</strong> Your file will be
+                            closed. Permanently.<br><br><strong class="protocol-label">ACCEPT BUT FAIL:</strong> You
+                            will be assigned to support roles. No field operations.<br><br><strong
+                                class="protocol-label">ACCEPT AND PASS:</strong> Full clearance. Welcome to the inner
+                            circle.</p>
+                    </div>
+
+                    <div class="contract-buttons">
+                        <button class="contract-btn decline" id="contract-decline">DECLINE</button>
+                        <button class="contract-btn accept" id="contract-accept">I ACCEPT THE TERMS</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-runes">
+                &#5765; &#5791; &#5792; &#5794; &#5765;
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Generate token
+        function generateToken() {
+            const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+            let token = 'COM-';
+            for (let i = 0; i < 4; i++) token += chars[Math.floor(Math.random() * chars.length)];
+            token += '-';
+            for (let i = 0; i < 4; i++) token += chars[Math.floor(Math.random() * chars.length)];
+            return token;
+        }
+
+        // Set token
+        const token = generateToken();
+        document.getElementById('token').textContent = token;
+
+        // Copy token
+        document.getElementById('token-copy').addEventListener('click', () => {
+            navigator.clipboard.writeText(token).then(() => {
+                const copyEl = document.getElementById('token-copy');
+                copyEl.textContent = 'COPIED';
+                copyEl.classList.add('copied');
+                setTimeout(() => {
+                    copyEl.textContent = 'CLICK TO COPY';
+                    copyEl.classList.remove('copied');
+                }, 2000);
+            });
+        });
+
+        // Modal handling
+        const modal = document.getElementById('contract-modal');
+        const enterBtn = document.getElementById('enter-channel-btn');
+        const declineBtn = document.getElementById('contract-decline');
+        const acceptBtn = document.getElementById('contract-accept');
+
+        enterBtn.addEventListener('click', () => {
+            modal.classList.remove('hidden');
+        });
+
+        declineBtn.addEventListener('click', () => {
+            modal.classList.add('hidden');
+            enterBtn.textContent = '✕ ACCESS REVOKED';
+            enterBtn.style.background = '#3d0000';
+            enterBtn.style.borderColor = '#8b0000';
+            enterBtn.style.color = '#cc4444';
+            enterBtn.disabled = true;
+            enterBtn.style.cursor = 'not-allowed';
+        });
+
+        acceptBtn.addEventListener('click', () => {
+            modal.classList.add('hidden');
+            // Navigate to next step
+            window.location.href = 'step5-briefing.html';
+        });
+    </script>
+</body>
+
+</html>

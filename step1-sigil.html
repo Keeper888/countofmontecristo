@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C.O.M. - Step 1</title>
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&#9670;</text></svg>">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <!-- SUBTLE COUNTER -->
+    <div class="counter-subtle">
+        <span id="seeker-count">1,247</span> seekers before you
+    </div>
+
+    <!-- PHASE 1: THE SIGIL -->
+    <div id="phase-sigil" class="phase">
+        <div class="rune-border rune-left">&#5765;&#5791;&#5792;&#5794;&#5765;&#5791;</div>
+        <div class="rune-border rune-right">&#5765;&#5791;&#5792;&#5794;&#5765;&#5791;</div>
+
+        <div class="sigil-container">
+            <div class="sigil">&#9670;</div>
+
+            <div class="epigraph" id="epigraph">
+                <span class="scramble-text"
+                    data-text="The path lies in the shadows between knowing and seeking."></span><br>
+                <span class="scramble-text"
+                    data-text="Those who understand will find us. Those who do not, were never meant to."></span>
+            </div>
+            <div class="epigraph-source" id="epigraph-source">- First Transmission, Day 0</div>
+
+            <div class="instruction">// INITIATE CONTACT //</div>
+        </div>
+    </div>
+
+    <script>
+        // TEXT SCRAMBLE CLASS
+        class TextScramble {
+            constructor(el) {
+                this.el = el;
+                this.chars = '!<>-_\\/[]{}—=+*^?#_ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+                this.update = this.update.bind(this);
+            }
+
+            setText(newText) {
+                const oldText = this.el.innerText;
+                const length = Math.max(oldText.length, newText.length);
+                const promise = new Promise(resolve => this.resolve = resolve);
+                this.queue = [];
+
+                for (let i = 0; i < length; i++) {
+                    const from = oldText[i] || '';
+                    const to = newText[i] || '';
+                    const start = Math.floor(Math.random() * 40);
+                    const end = start + Math.floor(Math.random() * 40);
+                    this.queue.push({ from, to, start, end });
+                }
+
+                cancelAnimationFrame(this.frameRequest);
+                this.frame = 0;
+                this.update();
+                return promise;
+            }
+
+            update() {
+                let output = '';
+                let complete = 0;
+
+                for (let i = 0, n = this.queue.length; i < n; i++) {
+                    let { from, to, start, end, char } = this.queue[i];
+
+                    if (this.frame >= end) {
+                        complete++;
+                        output += to;
+                    } else if (this.frame >= start) {
+                        if (!char || Math.random() < 0.28) {
+                            char = this.randomChar();
+                            this.queue[i].char = char;
+                        }
+                        output += '<span class="scramble-char scrambling">' + char + '</span>';
+                    } else {
+                        output += from;
+                    }
+                }
+
+                this.el.innerHTML = output;
+
+                if (complete === this.queue.length) {
+                    this.resolve();
+                } else {
+                    this.frameRequest = requestAnimationFrame(this.update);
+                    this.frame++;
+                }
+            }
+
+            randomChar() {
+                return this.chars[Math.floor(Math.random() * this.chars.length)];
+            }
+        }
+
+        // INIT TEXT SCRAMBLE
+        function initTextScramble() {
+            const elements = document.querySelectorAll('.scramble-text');
+            let delay = 0;
+
+            elements.forEach((el, index) => {
+                const text = el.getAttribute('data-text');
+                const scrambler = new TextScramble(el);
+
+                setTimeout(() => {
+                    scrambler.setText(text);
+                }, delay);
+
+                delay += 800;
+            });
+
+            // Also animate the source
+            setTimeout(() => {
+                const source = document.getElementById('epigraph-source');
+                const sourceScrambler = new TextScramble(source);
+                sourceScrambler.setText('- First Transmission, Day 0');
+            }, delay + 500);
+        }
+
+        // UPDATE SEEKER COUNT
+        function updateSeekerCount() {
+            const count = document.getElementById('seeker-count');
+            const base = 1247;
+            const variance = Math.floor(Math.random() * 20);
+            count.textContent = (base + variance).toLocaleString();
+        }
+
+        // INIT ON LOAD
+        document.addEventListener('DOMContentLoaded', () => {
+            updateSeekerCount();
+            initTextScramble();
+        });
+
+        // CLICK TO PROCEED
+        document.getElementById('phase-sigil').addEventListener('click', () => {
+            window.location.href = 'step2-test.html';
+        });
+    </script>
+</body>
+
+</html>

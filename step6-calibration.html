@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C.O.M. - Step 5</title>
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&#9670;</text></svg>">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@300;400&display=swap');
+
+        :root {
+            --black: #0a0a0a;
+            --dark: #111;
+            --gray: #1a1a1a;
+            --text: #e0e0e0;
+            --dim: #888;
+            --accent: #d4af37;
+            --white: #f5f5f5;
+            --size-display: 4rem;
+            --size-h1: 2rem;
+            --size-h2: 1.5rem;
+            --size-lg: 1.125rem;
+            --size-base: 1rem;
+            --size-sm: 0.875rem;
+            --size-xs: 0.75rem;
+            --size-2xs: 0.7rem;
+            --ls-tight: 1px;
+            --ls-normal: 2px;
+            --ls-wide: 4px;
+            --ls-dramatic: 8px;
+            --lh-compact: 1.5;
+            --lh-normal: 1.7;
+            --lh-relaxed: 1.9;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        ::selection {
+            background: var(--accent);
+            color: var(--black);
+        }
+
+        body {
+            font-family: 'EB Garamond', serif;
+            background: var(--black);
+            color: var(--text);
+            min-height: 100vh;
+            line-height: var(--lh-normal);
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .phase {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            position: relative;
+        }
+
+        .phase::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.1) 0px, rgba(0, 0, 0, 0.1) 1px, transparent 1px, transparent 2px);
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        /* CALIBRATION PHASE STYLES */
+        .calibration-container {
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+            min-height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .calibration-step {
+            width: 100%;
+            animation: fadeUp 0.5s ease-out;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .cal-question {
+            font-size: var(--size-h2);
+            color: var(--text);
+            margin-bottom: 40px;
+            line-height: var(--lh-compact);
+        }
+
+        .continue-btn {
+            padding: 14px 35px;
+            background: transparent;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: var(--size-xs);
+            letter-spacing: var(--ls-wide);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .continue-btn:hover {
+            background: var(--accent);
+            color: var(--black);
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+        }
+
+        .cal-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            width: 100%;
+        }
+
+        .cal-option {
+            padding: 20px;
+            background: var(--dark);
+            border: 1px solid var(--gray);
+            color: var(--dim);
+            font-family: 'EB Garamond', serif;
+            font-size: var(--size-lg);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .cal-option:hover {
+            border-color: var(--accent);
+            color: var(--text);
+            transform: translateY(-2px);
+        }
+
+        .cal-option.selected {
+            background: var(--accent);
+            color: var(--black);
+            border-color: var(--accent);
+        }
+
+        /* Reading Result */
+        .reading-header {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: var(--size-xs);
+            color: var(--accent);
+            letter-spacing: var(--ls-wide);
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--gray);
+        }
+
+        .reading-content {
+            text-align: left;
+            margin-bottom: 40px;
+        }
+
+        .reading-line {
+            margin-bottom: 20px;
+            font-size: var(--size-base);
+            color: var(--text);
+            line-height: 1.8;
+            opacity: 0;
+            animation: typeReveal 1s forwards;
+        }
+
+        .reading-line:nth-child(1) {
+            animation-delay: 0.2s;
+        }
+
+        .reading-line:nth-child(2) {
+            animation-delay: 1.5s;
+        }
+
+        .reading-line:nth-child(3) {
+            animation-delay: 3s;
+        }
+
+        .reading-line:nth-child(4) {
+            animation-delay: 4.5s;
+        }
+
+        @keyframes typeReveal {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .cal-options {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- PHASE 5: NEURAL CALIBRATION (Mentalist) -->
+    <div id="phase-calibration" class="phase">
+        <div class="calibration-container">
+
+            <!-- Question 1 -->
+            <div class="calibration-step" id="cal-step-1">
+                <div class="cal-question">Close your eyes for a moment. When you think of water, what do you see first?
+                </div>
+                <button class="continue-btn cal-proceed">PROCEED</button>
+                <div class="cal-options hidden">
+                    <button class="cal-option" data-value="ocean">The vast ocean</button>
+                    <button class="cal-option" data-value="rain">Rain falling</button>
+                    <button class="cal-option" data-value="river">A flowing river</button>
+                    <button class="cal-option" data-value="still">A still lake</button>
+                </div>
+            </div>
+
+            <!-- Question 2 -->
+            <div class="calibration-step hidden" id="cal-step-2">
+                <div class="cal-question">Which of these resonates with something you've felt in the past week?</div>
+                <button class="continue-btn cal-proceed">PROCEED</button>
+                <div class="cal-options hidden">
+                    <button class="cal-option" data-value="missed">A moment you almost missed</button>
+                    <button class="cal-option" data-value="unsaid">Something left unsaid</button>
+                    <button class="cal-option" data-value="clarity">A sudden moment of clarity</button>
+                    <button class="cal-option" data-value="weight">A weight you carry alone</button>
+                </div>
+            </div>
+
+            <!-- Question 3 -->
+            <div class="calibration-step hidden" id="cal-step-3">
+                <div class="cal-question">If you had to protect one thing above all else, it would be closest to:</div>
+                <button class="continue-btn cal-proceed">PROCEED</button>
+                <div class="cal-options hidden">
+                    <button class="cal-option" data-value="truth">Your truth</button>
+                    <button class="cal-option" data-value="people">The people who matter</button>
+                    <button class="cal-option" data-value="freedom">Your freedom</button>
+                    <button class="cal-option" data-value="potential">Your untapped potential</button>
+                </div>
+            </div>
+
+            <!-- Question 4 -->
+            <div class="calibration-step hidden" id="cal-step-4">
+                <div class="cal-question">Without thinking too hard: a shape appears in your mind. What is it?</div>
+                <button class="continue-btn cal-proceed">PROCEED</button>
+                <div class="cal-options hidden">
+                    <button class="cal-option" data-value="circle">Circle</button>
+                    <button class="cal-option" data-value="triangle">Triangle</button>
+                    <button class="cal-option" data-value="square">Square</button>
+                    <button class="cal-option" data-value="spiral">Spiral</button>
+                </div>
+            </div>
+
+            <!-- Reading -->
+            <div class="calibration-step hidden" id="cal-reading">
+                <div class="reading-header">PATTERN ANALYSIS COMPLETE</div>
+                <div class="reading-content">
+                    <p class="reading-line" id="reading-1"></p>
+                    <p class="reading-line" id="reading-2"></p>
+                    <p class="reading-line" id="reading-3"></p>
+                    <p class="reading-line" id="reading-4"></p>
+                </div>
+                <button class="continue-btn" id="cal-continue">CONTINUE</button>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        const answers = {};
+
+        // Barnum statements based on answers
+        const readings = {
+            water: {
+                ocean: "You think in expanses. While others see boundaries, you see horizons. This makes you restless in small spaces, small minds, small lives.",
+                rain: "You process through cycles. Emotions come, cleanse, and leave you renewed. Others mistake this for mood swings. It's actually depth.",
+                river: "You're drawn to momentum. Stagnation feels like death to you. You've left situations, people, places, not because they were bad, but because they stopped moving.",
+                still: "Beneath your surface, there's more than anyone suspects. You've learned to appear calm while entire worlds turn inside you."
+            },
+            feeling: {
+                missed: "You replay moments. Not from regret, but from the awareness that life is built from the seconds most people sleepwalk through.",
+                unsaid: "You carry words you've never spoken. Some protect others. Some protect you. You know the difference.",
+                clarity: "You've had flashes where everything made sense, then watched the world return to its usual fog. You're chasing that clarity.",
+                weight: "There's something you carry that you've never fully shared. Not because you can't, but because explaining it would make it smaller than it is."
+            },
+            protect: {
+                truth: "You've lost things by being honest when silence would have been easier. You'd do it again.",
+                people: "The few who truly know you would say you're loyal to a fault. They're right. You've stayed when you should have left.",
+                freedom: "You've felt trapped in situations that looked perfect from the outside. The cage being invisible doesn't make it less real.",
+                potential: "You sense there's a version of you that hasn't emerged yet. This isn't wishful thinking. It's pattern recognition."
+            },
+            shape: {
+                circle: "You see connections where others see coincidence. Everything loops back. You've noticed this.",
+                triangle: "You think in hierarchies and structures. You understand that some truths sit above others.",
+                square: "You value stability but secretly find it boring. You build foundations so you can safely venture far from them.",
+                spiral: "Linear thinking feels like a cage to you. Your mind moves in dimensions others don't perceive."
+            }
+        };
+
+        // Handle proceed buttons - reveal options
+        document.querySelectorAll('.cal-proceed').forEach(btn => {
+            btn.addEventListener('click', function () {
+                const step = this.closest('.calibration-step');
+                this.classList.add('hidden');
+                step.querySelector('.cal-options').classList.remove('hidden');
+            });
+        });
+
+        // Handle option clicks
+        document.querySelectorAll('.cal-option').forEach(btn => {
+            btn.addEventListener('click', function () {
+                const step = this.closest('.calibration-step');
+                const stepNum = parseInt(step.id.split('-')[2]);
+                const value = this.dataset.value;
+
+                // Visual feedback
+                step.querySelectorAll('.cal-option').forEach(b => b.classList.remove('selected'));
+                this.classList.add('selected');
+
+                // Store answer
+                if (stepNum === 1) answers.water = value;
+                if (stepNum === 2) answers.feeling = value;
+                if (stepNum === 3) answers.protect = value;
+                if (stepNum === 4) answers.shape = value;
+
+                // Transition to next
+                setTimeout(() => {
+                    step.classList.add('hidden');
+
+                    if (stepNum < 4) {
+                        document.getElementById('cal-step-' + (stepNum + 1)).classList.remove('hidden');
+                    } else {
+                        // Show reading
+                        showReading();
+                    }
+                }, 500);
+            });
+        });
+
+        function showReading() {
+            const readingEl = document.getElementById('cal-reading');
+            readingEl.classList.remove('hidden');
+
+            // Generate personalized reading
+            document.getElementById('reading-1').textContent = readings.water[answers.water] || readings.water.ocean;
+            document.getElementById('reading-2').textContent = readings.feeling[answers.feeling] || readings.feeling.unsaid;
+            document.getElementById('reading-3').textContent = readings.protect[answers.protect] || readings.protect.truth;
+            document.getElementById('reading-4').textContent = readings.shape[answers.shape] || readings.shape.circle;
+        }
+
+        // Continue button
+        document.getElementById('cal-continue').addEventListener('click', () => {
+            window.location.href = 'step7-deployment.html';
+        });
+    </script>
+</body>
+
+</html>

@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SIGNAL INTERCEPTED</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&#9670;</text></svg>">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&#9670;</text></svg>">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500&family=EB+Garamond:ital,wght@0,400;1,400&display=swap');
 
@@ -19,7 +21,11 @@
             --white: #f5f5f5;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
         ::selection {
             background: var(--accent);
@@ -43,45 +49,91 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: repeating-linear-gradient(
-                0deg,
-                rgba(0,0,0,0.1) 0px,
-                rgba(0,0,0,0.1) 1px,
-                transparent 1px,
-                transparent 2px
-            );
+            background: repeating-linear-gradient(0deg,
+                    rgba(0, 0, 0, 0.1) 0px,
+                    rgba(0, 0, 0, 0.1) 1px,
+                    transparent 1px,
+                    transparent 2px);
             pointer-events: none;
             z-index: 1000;
         }
 
         /* Glitch effect */
         @keyframes glitch {
-            0%, 90%, 100% { transform: translate(0); }
-            92% { transform: translate(-2px, 1px); }
-            94% { transform: translate(2px, -1px); }
-            96% { transform: translate(-1px, 2px); }
-            98% { transform: translate(1px, -2px); }
+
+            0%,
+            90%,
+            100% {
+                transform: translate(0);
+            }
+
+            92% {
+                transform: translate(-2px, 1px);
+            }
+
+            94% {
+                transform: translate(2px, -1px);
+            }
+
+            96% {
+                transform: translate(-1px, 2px);
+            }
+
+            98% {
+                transform: translate(1px, -2px);
+            }
         }
 
         @keyframes flicker {
-            0%, 97%, 100% { opacity: 1; }
-            98% { opacity: 0.8; }
-            99% { opacity: 0.9; }
+
+            0%,
+            97%,
+            100% {
+                opacity: 1;
+            }
+
+            98% {
+                opacity: 0.8;
+            }
+
+            99% {
+                opacity: 0.9;
+            }
         }
 
         @keyframes blink {
-            0%, 50% { opacity: 1; }
-            51%, 100% { opacity: 0; }
+
+            0%,
+            50% {
+                opacity: 1;
+            }
+
+            51%,
+            100% {
+                opacity: 0;
+            }
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         @keyframes typewriter {
-            from { width: 0; }
-            to { width: 100%; }
+            from {
+                width: 0;
+            }
+
+            to {
+                width: 100%;
+            }
         }
 
         .container {
@@ -414,9 +466,17 @@
             border-radius: 50%;
         }
 
-        .dot.red { background: #ff5f56; }
-        .dot.yellow { background: #ffbd2e; }
-        .dot.green { background: #27ca40; }
+        .dot.red {
+            background: #ff5f56;
+        }
+
+        .dot.yellow {
+            background: #ffbd2e;
+        }
+
+        .dot.green {
+            background: #27ca40;
+        }
 
         .terminal-title {
             font-family: 'JetBrains Mono', monospace;
@@ -455,7 +515,10 @@
         }
 
         @keyframes termFadeIn {
-            to { opacity: 1; transform: translateY(0); }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .term-system {
@@ -549,8 +612,16 @@
         }
 
         @keyframes cursorBlink {
-            0%, 50% { opacity: 1; }
-            51%, 100% { opacity: 0; }
+
+            0%,
+            50% {
+                opacity: 1;
+            }
+
+            51%,
+            100% {
+                opacity: 0;
+            }
         }
 
         /* FOOTER */
@@ -742,8 +813,13 @@
         }
 
         @keyframes audioScan {
-            0% { left: -100%; }
-            100% { left: 100%; }
+            0% {
+                left: -100%;
+            }
+
+            100% {
+                left: 100%;
+            }
         }
 
         .audio-icon-svg {
@@ -790,7 +866,7 @@
             transition: all 0.2s;
         }
 
-        .checkbox-container input:checked ~ .checkmark {
+        .checkbox-container input:checked~.checkmark {
             border-color: var(--dim);
             background: var(--white);
         }
@@ -808,7 +884,7 @@
             transform: rotate(45deg);
         }
 
-        .checkbox-container input:checked ~ .checkmark::after {
+        .checkbox-container input:checked~.checkmark::after {
             display: block;
         }
 
@@ -826,11 +902,27 @@
 
         /* Error shake animation */
         @keyframes errorShake {
-            0%, 100% { transform: translateX(0); }
-            20% { transform: translateX(-8px); }
-            40% { transform: translateX(8px); }
-            60% { transform: translateX(-5px); }
-            80% { transform: translateX(5px); }
+
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+
+            20% {
+                transform: translateX(-8px);
+            }
+
+            40% {
+                transform: translateX(8px);
+            }
+
+            60% {
+                transform: translateX(-5px);
+            }
+
+            80% {
+                transform: translateX(5px);
+            }
         }
 
         .checkbox-container.error {
@@ -841,15 +933,16 @@
         .checkbox-container.error .checkbox-text {
             color: var(--red);
         }
-
     </style>
 </head>
+
 <body>
     <!-- GAME DISCLAIMER OVERLAY -->
     <div class="disclaimer-overlay" id="disclaimer-overlay">
         <div class="disclaimer-box">
             <div class="disclaimer-icon">&#9670;</div>
-            <div class="disclaimer-title"><span class="scramble-text" id="disclaimer-scramble" data-text="BEFORE YOU PROCEED"></span></div>
+            <div class="disclaimer-title"><span class="scramble-text" id="disclaimer-scramble"
+                    data-text="BEFORE YOU PROCEED"></span></div>
 
             <p class="disclaimer-text">
                 This is a <strong>game</strong>. An <strong>Alternate Reality Game (ARG)</strong>.
@@ -868,21 +961,16 @@
             </p>
 
             <div class="audio-advisory">
-                <svg class="audio-icon-svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                    <path d="M3 18v-6a9 9 0 0 1 18 0v6"/>
-                    <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3v5z"/>
-                    <path d="M3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3v5z"/>
+                <svg class="audio-icon-svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="1.5">
+                    <path d="M3 18v-6a9 9 0 0 1 18 0v6" />
+                    <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3v5z" />
+                    <path d="M3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3v5z" />
                 </svg>
                 <span class="audio-text">Headphones advised for full experience.</span>
             </div>
 
-            <label class="checkbox-container">
-                <input type="checkbox" id="understand-checkbox">
-                <span class="checkmark"></span>
-                <span class="checkbox-text">I understand this is a game, not a real mission</span>
-            </label>
-
-            <button class="disclaimer-btn" id="disclaimer-accept" disabled>BEGIN</button>
+            <button class="disclaimer-btn" id="disclaimer-accept">BEGIN</button>
         </div>
     </div>
 
@@ -1063,7 +1151,7 @@
         // ========== EVENT LISTENERS ==========
 
         // Disclaimer overlay dismiss - 2 taps + 2 sounds
-        document.getElementById('disclaimer-accept').addEventListener('click', function() {
+        document.getElementById('disclaimer-accept').addEventListener('click', function () {
             doubleTap();
 
             setTimeout(() => {
@@ -1073,35 +1161,14 @@
 
         // Redacted text reveal
         document.querySelectorAll('.redacted').forEach(el => {
-            el.addEventListener('click', function() {
+            el.addEventListener('click', function () {
                 this.style.background = 'transparent';
                 this.style.color = 'var(--red)';
                 this.textContent = '[CLASSIFIED]';
             });
         });
 
-        // Checkbox enables BEGIN button
-        document.getElementById('understand-checkbox').addEventListener('change', function() {
-            const btn = document.getElementById('disclaimer-accept');
-            const container = document.querySelector('.checkbox-container');
-            btn.disabled = !this.checked;
-            container.classList.remove('error');
-        });
 
-        // Error when clicking BEGIN without checkbox
-        document.getElementById('disclaimer-accept').addEventListener('click', function(e) {
-            if (this.disabled) {
-                e.preventDefault();
-                const container = document.querySelector('.checkbox-container');
-
-                // Remove and re-add class to restart animation
-                container.classList.remove('error');
-                void container.offsetWidth; // Force reflow
-                container.classList.add('error');
-
-                playError();
-            }
-        });
 
         // ========== TERMINAL ANIMATION ==========
         const terminalLines = [
@@ -1192,7 +1259,7 @@
 
         // Start terminal when disclaimer is dismissed
         const originalDisclaimerClick = document.getElementById('disclaimer-accept').onclick;
-        document.getElementById('disclaimer-accept').addEventListener('click', function() {
+        document.getElementById('disclaimer-accept').addEventListener('click', function () {
             if (!this.disabled) {
                 setTimeout(() => {
                     typeTerminalLine();
@@ -1203,4 +1270,5 @@
     <!-- DEV NAVIGATION OVERLAY -->
     <script src="dev-nav.js"></script>
 </body>
+
 </html>
