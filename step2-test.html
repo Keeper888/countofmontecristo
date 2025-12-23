@@ -20,7 +20,7 @@
             <div class="test-hint">The signal is hidden in plain sight. Only pattern recognition will save you.</div>
 
             <div class="cipher-display" id="cipher">
-                .- .. / . ... -.-. .- .--. . -..
+                -.-. --- --
             </div>
 
             <div class="input-container">
@@ -49,7 +49,7 @@
                 </div>
                 <div class="hint-revealed hidden" id="hint-revealed">
                     <span class="hint-label">INTEL 1:</span>
-                    <span class="hint-content">"Each dot and dash speaks. The silence between is the space."</span>
+                    <span class="hint-content">"Where have you heard this sound before? Perhaps... in a movie?"</span>
 
                     <div class="hint-prompt hint-prompt-2" id="hint-prompt-2">
                         <span class="hint-icon">◇</span>
@@ -99,8 +99,8 @@
     <script>
         // CONFIG
         const CONFIG = {
-            answer: 'ai escaped',
-            altAnswers: ['aiescaped', 'ai has escaped', 'the ai escaped', 'the ai has escaped']
+            answer: 'com',
+            altAnswers: ['c.o.m.', 'c.o.m', 'c o m', 'count of monte cristo', 'count of montecristo']
         };
 
         // ELEMENTS
@@ -126,7 +126,7 @@
                     window.location.href = 'step3-reveal.html';
                 }, 1000);
             } else {
-                if (answer.includes('ai') || answer.includes('escaped') || answer.includes('escape')) {
+                if (answer.includes('c') || answer.includes('o') || answer.includes('m') || answer.includes('count') || answer.includes('monte')) {
                     feedback.textContent = 'PARTIAL MATCH DETECTED';
                     feedback.className = 'feedback partial';
                 } else {

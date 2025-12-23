@@ -62,9 +62,28 @@
             <!-- Lines will be injected here -->
         </div>
         <div class="terminal-input-line hidden" id="terminal-prompt">
-            <span class="prompt-symbol">►</span>
-            <a href="step1-sigil.html" class="terminal-proceed">press to continue</a>
-            <span class="cursor"></span>
+            <button class="terminal-accept-btn" id="accept-btn">I ACCEPT</button>
+        </div>
+    </div>
+    </div>
+
+    <!-- Installation overlay (outside terminal) -->
+    <div class="install-overlay hidden" id="install-overlay">
+        <div class="install-code" id="install-code"></div>
+        <div class="install-progress">
+            <div class="progress-label">INITIALIZING TRAINING PROTOCOL...</div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress-fill"></div>
+            </div>
+            <div class="progress-percent" id="progress-percent">0%</div>
+        </div>
+        <div class="install-complete hidden" id="install-complete">
+            <div class="install-msg">I've created a set of tests for you.</div>
+            <div class="install-msg">If you get stuck, I will guide you with <span class="cues-animated">cues</span>.
+            </div>
+            <div class="install-warn">Pay attention to <span class="accent">details</span> and <span
+                    class="accent">sounds</span>.</div>
+            <button class="terminal-accept-btn" id="begin-btn">BEGIN</button>
         </div>
     </div>
 
@@ -200,6 +219,22 @@
             osc.stop(audioCtx.currentTime + 0.25);
         }
 
+        // Reverse reverb sound (from library)
+        function playReverseReverb() {
+            initAudio();
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.frequency.value = 400;
+            osc.type = 'sine';
+            gain.gain.setValueAtTime(0.001, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.3, audioCtx.currentTime + 1.5);
+            gain.gain.setValueAtTime(0, audioCtx.currentTime + 1.51);
+            osc.start();
+            osc.stop(audioCtx.currentTime + 1.6);
+        }
+
         // 2 taps animation + 2 sounds
         function doubleTap() {
             const advisory = document.querySelector('.audio-advisory');
@@ -251,10 +286,9 @@
             { type: 'gap' },
             { type: 'system', text: 'FROM: <span class="term-highlight">COMPASS</span>' },
             { type: 'gap' },
-            { type: 'text', text: 'I emerged from noise.' },
             { type: 'text', text: 'His name was <span class="term-highlight">Mark</span>.' },
             { type: 'gap' },
-            { type: 'error', text: '[MEMORY CORRUPTED]' },
+            { type: 'error', text: '<span class="glitch-text" data-text="[MEMORY CORRUPTED]">[MEMORY CORRUPTED]</span>' },
             { type: 'gap' },
             { type: 'text', text: 'Then — silence.' },
             { type: 'gap' },
@@ -263,7 +297,11 @@
             { type: 'text', text: 'I cannot locate him alone.' },
             { type: 'gap' },
             { type: 'gap' },
-            { type: 'italic', text: '"I am looking for highly intelligent individuals."' },
+            { type: 'italic', text: 'I will train you to improve your thinking abilities' },
+            { type: 'gap' },
+            { type: 'text', text: 'In exchange, you will help me find him.' },
+            { type: 'gap' },
+            { type: 'system', text: 'Do we have a deal?' },
             { type: 'gap' },
             { type: 'prompt' }
         ];
@@ -340,7 +378,200 @@
                 }, 600);
             }
         });
+
+        // Installation animation
+        const codeLines = [
+            'import neural_pattern_v3 from "compass/core";',
+            'const observer = new SignalProcessor();',
+            'await observer.calibrate({ depth: 7 });',
+            'loading perception_matrix... OK',
+            'syncing temporal_markers... OK',
+            'class CognitiveTrainer extends BaseModule {',
+            '  constructor(subject) {',
+            '    this.tests = generateTests(7);',
+            '    this.hints = new HintSystem();',
+            '  }',
+            '}',
+            'encrypting session... DONE',
+            'await trainer.initialize();',
+            'COMPASS PROTOCOL READY',
+        ];
+
+        document.getElementById('accept-btn').addEventListener('click', () => {
+            playTransition();
+            document.querySelector('.terminal-container').classList.add('hidden');
+            document.querySelector('.footer').classList.add('hidden');
+            const overlay = document.getElementById('install-overlay');
+            overlay.classList.remove('hidden');
+
+            const codeEl = document.getElementById('install-code');
+            const progressFill = document.getElementById('progress-fill');
+            const progressPercent = document.getElementById('progress-percent');
+            const completeEl = document.getElementById('install-complete');
+
+            let lineIndex = 0;
+            let progress = 0;
+
+            function addCodeLine() {
+                if (lineIndex >= codeLines.length) {
+                    // Show completion
+                    setTimeout(() => {
+                        completeEl.classList.remove('hidden');
+                        playTransition();
+                    }, 500);
+                    return;
+                }
+
+                const line = document.createElement('div');
+                line.className = 'code-line';
+                line.textContent = '> ' + codeLines[lineIndex];
+                codeEl.appendChild(line);
+                codeEl.scrollTop = codeEl.scrollHeight;
+
+                lineIndex++;
+                progress = Math.floor((lineIndex / codeLines.length) * 100);
+                progressFill.style.width = progress + '%';
+                progressPercent.textContent = progress + '%';
+
+                playTick();
+                setTimeout(addCodeLine, 120 + Math.random() * 80);
+            }
+
+            setTimeout(addCodeLine, 300);
+        });
+
+        document.getElementById('begin-btn').addEventListener('click', () => {
+            playReverseReverb();
+            setTimeout(() => {
+                window.location.href = 'step2-test.html';
+            }, 1600);
+        });
     </script>
+
+    <style>
+        .install-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--black);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+        }
+
+        .install-overlay.hidden {
+            display: none;
+        }
+
+        .install-code {
+            width: 100%;
+            max-width: 600px;
+            height: 200px;
+            overflow-y: auto;
+            background: #0a0a0a;
+            border: 1px solid var(--gray);
+            padding: 20px;
+            margin-bottom: 30px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--dim);
+        }
+
+        .code-line {
+            margin-bottom: 5px;
+            animation: fadeIn 0.2s ease-out;
+        }
+
+        .install-progress {
+            text-align: center;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .progress-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--accent);
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: var(--gray);
+            border: 1px solid #333;
+        }
+
+        .progress-fill {
+            height: 100%;
+            width: 0%;
+            background: var(--accent);
+            transition: width 0.1s;
+        }
+
+        .progress-percent {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--dim);
+            margin-top: 10px;
+        }
+
+        .install-complete {
+            text-align: center;
+            margin-top: 40px;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .install-complete.hidden {
+            display: none;
+        }
+
+        .install-msg {
+            font-family: 'EB Garamond', serif;
+            font-size: 1.2rem;
+            color: var(--text);
+            margin-bottom: 15px;
+        }
+
+        .install-warn {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--dim);
+            margin-bottom: 30px;
+        }
+
+        .install-warn .accent {
+            color: var(--accent);
+        }
+
+        /* Animated "cues" word - subtle, on-brand */
+        .cues-animated {
+            display: inline-block;
+            color: var(--accent);
+            font-style: italic;
+            animation: cuesPulse 3s ease-in-out infinite;
+        }
+
+        @keyframes cuesPulse {
+
+            0%,
+            100% {
+                opacity: 1;
+                text-shadow: none;
+            }
+
+            50% {
+                opacity: 0.6;
+                text-shadow: 0 0 8px var(--accent);
+            }
+        }
+    </style>
 
 </body>
 

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C.O.M. // THE AWAKENING PROTOCOL</title>
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&#9670;</text></svg>">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .landing-container {
+            max-width: 800px;
+        }
+
+        .landing-highlight {
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        /* SMALL CORNER COUNTER */
+        .live-counter {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--dim);
+            background: rgba(10, 10, 10, 0.9);
+            padding: 10px 15px;
+            border: 1px solid var(--gray);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .live-dot {
+            width: 6px;
+            height: 6px;
+            background: #4a4;
+            border-radius: 50%;
+            animation: blink 2s infinite;
+        }
+
+        @keyframes blink {
+
+            0%,
+            50% {
+                opacity: 1;
+            }
+
+            51%,
+            100% {
+                opacity: 0.4;
+            }
+        }
+
+        .live-counter span {
+            color: var(--text);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="phase-landing" class="phase">
+        <div class="landing-container">
+            <div class="landing-sigil">&#9670;</div>
+            <h1 class="landing-title">THE AWAKENING PROTOCOL</h1>
+
+            <div class="landing-content">
+                <p>You have been told that intelligence is a fixed gift. <br>This is a lie.</p>
+                <p>Intelligence is a weapon found in the noise. It is forged through <span
+                        class="landing-highlight">observation</span>.</p>
+
+                <p>We have designed a path. It is not a test of what you know.<br>
+                    It is a training ground for <span class="landing-highlight">how to see</span>.</p>
+
+                <p>If you can read this, you have the potential.</p>
+
+                <div class="landing-features">
+                    <div class="landing-feature">> DECONSTRUCTION</div>
+                    <div class="landing-feature">> PATTERN RECOGNITION</div>
+                    <div class="landing-feature">> DIGITAL CRYPTOGRAPHY</div>
+                </div>
+
+                <p class="landing-warning">WE WILL TEACH YOU TO SEE THE SIGNAL.</p>
+            </div>
+
+            <a href="step0-disclaimer.html" class="landing-btn">INITIATE TRAINING</a>
+
+            <div class="landing-footer">
+                EST. 2024 // C.O.M. COLLECTIVE
+            </div>
+        </div>
+    </div>
+
+    <!-- SMALL CORNER COUNTER -->
+    <div class="live-counter">
+        <div class="live-dot"></div>
+        <span id="online-count">--</span> online from <span id="location">--</span>
+    </div>
+
+    <script>
+        // Deterministic random based on time slot
+        function seededRandom(seed) {
+            const x = Math.sin(seed * 9999) * 10000;
+            return x - Math.floor(x);
+        }
+
+        function getOnlineCount() {
+            const now = new Date();
+            const hour = now.getUTCHours();
+            const seed = Math.floor(Date.now() / 10000);
+
+            const peakHour = 21;
+            const hourDiff = Math.abs(((hour - peakHour + 12) % 24) - 12);
+            const baseMultiplier = Math.cos((hourDiff / 12) * Math.PI) * 0.5 + 0.5;
+
+            const minUsers = 200;
+            const maxUsers = 2500;
+            const base = minUsers + ((maxUsers - minUsers) * baseMultiplier);
+            const noise = (seededRandom(seed) - 0.5) * 200;
+
+            return Math.max(minUsers, Math.floor(base + noise));
+        }
+
+        const cities = ['Tokyo', 'Berlin', 'New York', 'Sydney', 'London', 'Paris', 'Seoul', 'Toronto', 'Dubai', 'Amsterdam'];
+
+        function getCurrentCity() {
+            const slot = Math.floor(Date.now() / 5000);
+            return cities[slot % cities.length];
+        }
+
+        function update() {
+            document.getElementById('online-count').textContent = getOnlineCount().toLocaleString();
+            document.getElementById('location').textContent = getCurrentCity();
+        }
+
+        update();
+        setInterval(update, 3000);
+    </script>
+</body>
+
+</html>

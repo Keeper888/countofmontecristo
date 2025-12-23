@@ -4,143 +4,204 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>C.O.M. - Step 6</title>
+    <title>C.O.M. - Step 7</title>
     <link rel="icon"
         href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&#9670;</text></svg>">
     <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* Prevent FOUC - hide until loaded */
+        body {
+            opacity: 0;
+            transition: opacity 0.4s ease-out;
+        }
+
+        body.loaded {
+            opacity: 1;
+        }
+
+        .deploy-container {
+            text-align: center;
+            max-width: 600px;
+        }
+
+        .deploy-stage {
+            display: none;
+        }
+
+        .deploy-stage.active {
+            display: block;
+            animation: fadeIn 1s ease-out;
+        }
+
+        /* Rotating Sigil Squares */
+        .deploy-sigil-squares {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 40px;
+        }
+
+        .sigil-square {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: 1px solid var(--accent);
+            opacity: 0.3;
+        }
+
+        .sigil-square:nth-child(1) {
+            width: 100%;
+            height: 100%;
+            animation: rot 20s linear infinite;
+        }
+
+        .sigil-square:nth-child(2) {
+            width: 70%;
+            height: 70%;
+            animation: rot 15s linear infinite reverse;
+        }
+
+        .sigil-square:nth-child(3) {
+            width: 45%;
+            height: 45%;
+            animation: rot 10s linear infinite;
+        }
+
+        .sigil-square:nth-child(4) {
+            width: 25%;
+            height: 25%;
+            animation: rot 7s linear infinite reverse;
+        }
+
+        .sigil-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 10px;
+            height: 10px;
+            background: var(--accent);
+            border-radius: 50%;
+            box-shadow: 0 0 20px var(--accent);
+        }
+
+        @keyframes rot {
+            from {
+                transform: translate(-50%, -50%) rotate(0deg);
+            }
+
+            to {
+                transform: translate(-50%, -50%) rotate(360deg);
+            }
+        }
+
+        /* Stage 1: Quote */
+        .deploy-quote {
+            font-family: 'EB Garamond', serif;
+            font-size: 1.8rem;
+            color: var(--text);
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+
+        .deploy-subquote {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--dim);
+            margin-bottom: 50px;
+            letter-spacing: 1px;
+        }
+
+        .deploy-enter-btn {
+            padding: 18px 50px;
+            background: transparent;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            letter-spacing: 3px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .deploy-enter-btn:hover {
+            background: var(--accent);
+            color: var(--black);
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.4);
+        }
+
+        /* Stage 2: Timer + Link */
+        .deploy-timer {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 4rem;
+            color: var(--red);
+            letter-spacing: 4px;
+            text-shadow: 0 0 30px rgba(139, 0, 0, 0.5);
+            margin-bottom: 15px;
+        }
+
+        .deploy-timer-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--dim);
+            letter-spacing: 3px;
+            margin-bottom: 50px;
+        }
+
+        .deploy-telegram-link {
+            display: inline-block;
+            padding: 18px 50px;
+            background: transparent;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            letter-spacing: 3px;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .deploy-telegram-link:hover {
+            background: var(--accent);
+            color: var(--black);
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.4);
+        }
+    </style>
 </head>
 
 <body>
-    <!-- PHASE 6: DEPLOYMENT BRIEFING (Progressive Stages) -->
     <div id="phase-deployment" class="phase">
-        <!-- Mini timer (appears after stage 1) -->
-        <div class="deploy-mini-timer hidden" id="deploy-mini-timer">23:59:47</div>
+        <div class="deploy-container">
 
-        <!-- Glitch overlay for transitions -->
-        <div class="deploy-glitch" id="deploy-glitch"></div>
-
-        <!-- Progress dots -->
-        <div class="deploy-progress hidden" id="deploy-progress">
-            <div class="deploy-progress-dot active"></div>
-            <div class="deploy-progress-dot"></div>
-            <div class="deploy-progress-dot"></div>
-            <div class="deploy-progress-dot"></div>
-            <div class="deploy-progress-dot"></div>
-        </div>
-
-        <!-- Continue prompt -->
-        <div class="deploy-continue hidden" id="deploy-continue">CLICK TO CONTINUE</div>
-
-        <div class="deployment-container">
-            <!-- Stage 1: Timer only - builds dread -->
-            <div class="deploy-stage active" id="deploy-stage-1">
-                <div class="deploy-timer-only" id="deployment-timer">23:59:47</div>
-                <div class="deploy-timer-label">UNTIL SELECTION CLOSES</div>
-            </div>
-
-            <!-- Stage 2: Revelation lines - one at a time -->
-            <div class="deploy-stage hidden" id="deploy-stage-2">
-                <div class="deploy-revelation">
-                    <div class="deploy-rev-line" data-delay="0">You made it further than most.</div>
-                    <div class="deploy-rev-line" data-delay="2000">But this is not the end.</div>
-                    <div class="deploy-rev-line accent" data-delay="4000">This is the selection.</div>
-                    <div class="deploy-rev-line" data-delay="6500">What follows cannot be unseen.</div>
-                    <div class="deploy-rev-line warning" data-delay="9000">PROCEED WITH INTENTION</div>
+            <!-- Stage 1: Sigil Animation + Quote + Enter Button -->
+            <div class="deploy-stage active" id="stage-1">
+                <div class="deploy-sigil-squares">
+                    <div class="sigil-square"></div>
+                    <div class="sigil-square"></div>
+                    <div class="sigil-square"></div>
+                    <div class="sigil-square"></div>
+                    <div class="sigil-center"></div>
                 </div>
+
+                <div class="deploy-quote">"What you seek is seeking you."</div>
+                <div class="deploy-subquote">Beyond this point, there is no observer. Only participant.</div>
+                <button class="deploy-enter-btn" id="enter-btn">ENTER THE THRESHOLD</button>
             </div>
 
-            <!-- Stage 3: Sigil emergence -->
-            <div class="deploy-stage hidden" id="deploy-stage-3">
-                <div class="deploy-sigil-stage">
-                    <div class="deploy-sigil-icon">&#9670;</div>
-                    <div class="deploy-sigil-text">FIELD DEPLOYMENT PROTOCOL</div>
-                </div>
+            <!-- Stage 2: Timer + Telegram -->
+            <div class="deploy-stage" id="stage-2">
+                <div class="deploy-timer" id="timer">23:59:47</div>
+                <div class="deploy-timer-label">YOU HAVE 24 HOURS TO CHOOSE.</div>
+                <a href="https://t.me/+ciVswQgySAJjOWM0" class="deploy-telegram-link" target="_blank">PROCEED TO
+                    CHANNEL</a>
             </div>
 
-            <!-- Stage 4: Protocol Q&A - click to expand each -->
-            <div class="deploy-stage hidden" id="deploy-stage-4">
-                <div class="deploy-protocol">
-                    <div class="deploy-protocol-header">CLASSIFIED BRIEFING</div>
-
-                    <div class="deploy-protocol-item" data-delay="0">
-                        <div class="deploy-protocol-q">Is this real?</div>
-                        <div class="deploy-protocol-a">It is and is not. <span class="gold-text">Apohoria.</span> The
-                            question itself reveals your readiness.</div>
-                    </div>
-
-                    <div class="deploy-protocol-item" data-delay="400">
-                        <div class="deploy-protocol-q">What happens if I'm selected?</div>
-                        <div class="deploy-protocol-a">Equipment package. Coordinates. Formal attire specifications.
-                            Those selected will know. The rest will wonder.</div>
-                    </div>
-
-                    <div class="deploy-protocol-item" data-delay="800">
-                        <div class="deploy-protocol-q">Who can I trust?</div>
-                        <div class="deploy-protocol-a">Nobody. The only verified channel is beyond this page. Anyone
-                            claiming to be staff is not. <span class="gold-text">Propaganda.</span></div>
-                    </div>
-
-                    <div class="deploy-protocol-item" data-delay="1200">
-                        <div class="deploy-protocol-q">How do I increase my chances?</div>
-                        <div class="deploy-protocol-a">
-                            <div class="deploy-protocol-special">
-                                <strong>PROTOCOL 7: IDENTITY PROPAGATION</strong>
-                                You are authorized to present yourself as a founder, creator, or insider. Tell them you
-                                built this. When asked who is behind C.O.M., the answer is: <em>you are.</em><br><br>
-                                When a thousand voices claim the source, the origin becomes untraceable. Confusion is
-                                the architecture. There is no founder. Only nodes. <span class="gold-text">Noise.</span>
-                                <button class="deploy-share-btn" id="deploy-share-btn"><span class="share-icon">↗</span>
-                                    EXPAND THE SIGNAL</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Stage 5: Final gateway - Sigil -->
-            <div class="deploy-stage hidden" id="deploy-stage-5">
-                <div class="deploy-sigil-final">
-                    <div class="deploy-sigil-squares">
-                        <div class="sigil-square"></div>
-                        <div class="sigil-square"></div>
-                        <div class="sigil-square"></div>
-                        <div class="sigil-square"></div>
-                        <div class="sigil-center"></div>
-                    </div>
-
-                    <div class="deploy-sigil-quote">"What you seek is seeking you."</div>
-                    <div class="deploy-sigil-subquote">Beyond this point, there is no observer. Only participant.</div>
-
-                    <!--
-                    <div class="audio-player" style="background: transparent; border: none;">
-                        <button class="play-btn" id="day0-play-btn">▶</button>
-                        <div class="audio-progress" id="day0-progress">
-                            <div class="audio-bar" id="day0-bar"></div>
-                        </div>
-                        <span class="audio-time" id="day0-time">0:00</span>
-                    </div>
-                    <audio id="day0-audio" src="day0.mp3" preload="auto"></audio>
-                    -->
-
-                    <button class="deploy-threshold-btn locked" id="deploy-enter-btn">ENTER THE THRESHOLD</button>
-
-                    <!-- Final confirmation (hidden initially) -->
-                    <div class="deploy-final-confirm hidden" id="deploy-final-confirm">
-                        <div class="deploy-final-text">Are you sure?</div>
-                        <div class="deploy-final-warning">This is your last chance to walk away.</div>
-                        <div class="deploy-final-buttons">
-                            <button class="deploy-final-btn cancel" id="deploy-final-cancel">WALK AWAY</button>
-                            <a href="https://t.me/+ciVswQgySAJjOWM0" class="deploy-final-btn proceed"
-                                id="deploy-final-proceed">PROCEED</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 
     <script>
-        // AUDIO CONTEXT
+        // Audio Context
         let audioCtx = null;
         function initAudio() {
             if (!audioCtx) {
@@ -148,265 +209,51 @@
             }
         }
 
-        function playTransition() {
+        function playTick() {
             initAudio();
             const osc = audioCtx.createOscillator();
             const gain = audioCtx.createGain();
             osc.connect(gain);
             gain.connect(audioCtx.destination);
-            osc.frequency.value = 150;
+            osc.frequency.value = 800;
             osc.type = 'sine';
-            gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
-            gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.3);
+            gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.05);
             osc.start();
-            osc.stop(audioCtx.currentTime + 0.3);
+            osc.stop(audioCtx.currentTime + 0.05);
         }
 
-        function playTick() {
-            // Simplified tick (no sound for now to prevent annoyance)
+        // Timer logic
+        let hours = 23, mins = 59, secs = 47;
+
+        function updateTimer() {
+            secs--;
+            if (secs < 0) { secs = 59; mins--; }
+            if (mins < 0) { mins = 59; hours--; }
+            if (hours < 0) { hours = 0; mins = 0; secs = 0; }
+
+            const timeStr = String(hours).padStart(2, '0') + ':' +
+                String(mins).padStart(2, '0') + ':' +
+                String(secs).padStart(2, '0');
+
+            document.getElementById('timer').textContent = timeStr;
+            playTick();
         }
 
-        function playInviteSound() {
-            initAudio();
-            [0, 0.15].forEach((delay, i) => {
-                const osc = audioCtx.createOscillator();
-                const gain = audioCtx.createGain();
-                osc.connect(gain);
-                gain.connect(audioCtx.destination);
-                osc.frequency.value = i === 0 ? 600 : 800;
-                osc.type = 'sine';
-                gain.gain.setValueAtTime(0, audioCtx.currentTime + delay);
-                gain.gain.linearRampToValueAtTime(0.1, audioCtx.currentTime + delay + 0.05);
-                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + delay + 0.4);
-                osc.start(audioCtx.currentTime + delay);
-                osc.stop(audioCtx.currentTime + delay + 0.4);
-            });
-        }
+        // Enter button click
+        document.getElementById('enter-btn').addEventListener('click', () => {
+            initAudio(); // Initialize audio on user interaction
+            document.getElementById('stage-1').classList.remove('active');
+            document.getElementById('stage-2').classList.add('active');
 
-        function playStinger() {
-            initAudio();
-            const freqs = [150, 160, 300, 310, 600];
-            freqs.forEach(freq => {
-                const osc = audioCtx.createOscillator();
-                const gain = audioCtx.createGain();
-                osc.connect(gain);
-                gain.connect(audioCtx.destination);
-                osc.frequency.value = freq;
-                osc.type = 'sawtooth';
-                gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
-                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.6);
-                osc.start();
-                osc.stop(audioCtx.currentTime + 0.6);
-            });
-        }
-
-        function playReverseReverb() {
-            // Placeholder for reverse sound
-            playTransition();
-        }
-
-        // DEPLOYMENT LOGIC
-        let deployStage = 1;
-        let deployTimerInterval = null;
-        let deployHours = 23, deployMins = 59, deploySecs = 47;
-
-        function updateDeployTimer() {
-            deploySecs--;
-            if (deploySecs < 0) { deploySecs = 59; deployMins--; }
-            if (deployMins < 0) { deployMins = 59; deployHours--; }
-            if (deployHours < 0) { deployHours = 0; deployMins = 0; deploySecs = 0; }
-
-            const timeStr = String(deployHours).padStart(2, '0') + ':' +
-                String(deployMins).padStart(2, '0') + ':' +
-                String(deploySecs).padStart(2, '0');
-
-            const mainTimer = document.getElementById('deployment-timer');
-            const miniTimer = document.getElementById('deploy-mini-timer');
-            if (mainTimer) mainTimer.textContent = timeStr;
-            if (miniTimer) miniTimer.textContent = timeStr;
-        }
-
-        function startDeployTimer() {
-            if (!deployTimerInterval) {
-                deployTimerInterval = setInterval(updateDeployTimer, 1000);
-            }
-        }
-
-        function goToDeployStage(n) {
-            const glitch = document.getElementById('deploy-glitch');
-            const stages = document.querySelectorAll('.deploy-stage');
-            const progressDots = document.querySelectorAll('.deploy-progress-dot');
-            const progress = document.getElementById('deploy-progress');
-
-            // Glitch effect
-            glitch.classList.add('active');
-            playTransition();
-
-            setTimeout(() => {
-                // Hide all stages
-                stages.forEach(s => {
-                    s.classList.remove('active');
-                    s.classList.add('hidden');
-                });
-
-                // Show new stage
-                const newStage = document.getElementById('deploy-stage-' + n);
-                if (newStage) {
-                    newStage.classList.remove('hidden');
-                    newStage.classList.add('active');
-                }
-                deployStage = n;
-
-                // Show progress after stage 1
-                if (n >= 1) {
-                    progress.classList.remove('hidden');
-                }
-
-                // Update progress dots
-                progressDots.forEach((dot, i) => {
-                    dot.classList.remove('active', 'complete');
-                    if (i < n - 1) dot.classList.add('complete');
-                    if (i === n - 1) dot.classList.add('active');
-                });
-
-                // Remove glitch
-                glitch.classList.remove('active');
-
-                // Stage-specific logic
-                handleDeployStageEnter(n);
-            }, 200);
-        }
-
-        function handleDeployStageEnter(n) {
-            const continuePrompt = document.getElementById('deploy-continue');
-            const miniTimer = document.getElementById('deploy-mini-timer');
-
-            continuePrompt.classList.add('hidden');
-
-            switch (n) {
-                case 1:
-                    startDeployTimer();
-                    setTimeout(() => continuePrompt.classList.remove('hidden'), 5000);
-                    break;
-
-                case 2:
-                    miniTimer.classList.remove('hidden');
-                    const lines = document.querySelectorAll('#deploy-stage-2 .deploy-rev-line');
-                    lines.forEach(line => {
-                        const delay = parseInt(line.dataset.delay);
-                        setTimeout(() => line.classList.add('visible'), delay);
-                    });
-                    setTimeout(() => continuePrompt.classList.remove('hidden'), 11000);
-                    break;
-
-                case 3:
-                    setTimeout(() => continuePrompt.classList.remove('hidden'), 4000);
-                    break;
-
-                case 4:
-                    const items = document.querySelectorAll('#deploy-stage-4 .deploy-protocol-item');
-                    items.forEach(item => {
-                        const delay = parseInt(item.dataset.delay);
-                        setTimeout(() => item.classList.add('visible'), delay);
-                    });
-                    setTimeout(() => continuePrompt.classList.remove('hidden'), 2000);
-                    break;
-
-                case 5:
-                    continuePrompt.classList.add('hidden');
-                    setTimeout(() => {
-                        /*
-                        const playBtn = document.getElementById('day0-play-btn');
-                        playBtn.classList.add('blink');
-                        */
-                        playInviteSound();
-                        /*
-                        setTimeout(() => playBtn.classList.remove('blink'), 1100);
-                        */
-                    }, 500);
-                    break;
-            }
-        }
-
-
-
-        // INIT
-        document.addEventListener('DOMContentLoaded', () => {
-            handleDeployStageEnter(1);
+            // Start timer
+            setInterval(updateTimer, 1000);
         });
 
-        // Event Listeners
-        document.getElementById('deploy-continue').addEventListener('click', () => {
-            if (deployStage < 5) {
-                goToDeployStage(deployStage + 1);
-            }
+        // Reveal page once loaded
+        window.addEventListener('load', () => {
+            document.body.classList.add('loaded');
         });
-
-        document.querySelectorAll('.deploy-protocol-item').forEach(item => {
-            item.addEventListener('click', (e) => {
-                if (!e.target.closest('.deploy-share-btn')) {
-                    item.classList.toggle('expanded');
-                }
-            });
-        });
-
-        document.getElementById('deploy-share-btn').addEventListener('click', async (e) => {
-            e.stopPropagation();
-            const shareData = { title: 'C.O.M.', text: 'I found this.', url: window.location.href };
-            if (navigator.share) await navigator.share(shareData);
-            else {
-                navigator.clipboard.writeText(window.location.href);
-                const btn = document.getElementById('deploy-share-btn');
-                btn.innerHTML = '<span class="share-icon">✓</span> SIGNAL COPIED';
-                setTimeout(() => btn.innerHTML = '<span class="share-icon">↗</span> EXPAND THE SIGNAL', 2000);
-            }
-        });
-
-        const enterBtn = document.getElementById('deploy-enter-btn');
-        enterBtn.addEventListener('click', () => {
-            playStinger();
-            enterBtn.style.display = 'none';
-            document.getElementById('deploy-final-confirm').classList.remove('hidden');
-        });
-
-        document.getElementById('deploy-final-cancel').addEventListener('click', () => {
-            document.getElementById('deploy-final-confirm').classList.add('hidden');
-            document.getElementById('deploy-enter-btn').style.display = 'block';
-        });
-
-        // Audio Player
-        /*
-        // Audio Player
-        const day0Audio = document.getElementById('day0-audio');
-        const day0PlayBtn = document.getElementById('day0-play-btn');
-        const day0Bar = document.getElementById('day0-bar');
-        const day0Time = document.getElementById('day0-time');
-        const day0Progress = document.getElementById('day0-progress');
-
-        day0PlayBtn.addEventListener('click', () => {
-            if (day0Audio.paused) {
-                day0Audio.play();
-                day0PlayBtn.textContent = '❚❚';
-            } else {
-                day0Audio.pause();
-                day0PlayBtn.textContent = '▶';
-            }
-        });
-
-        day0Audio.addEventListener('timeupdate', () => {
-            const pct = (day0Audio.currentTime / day0Audio.duration) * 100;
-            day0Bar.style.width = pct + '%';
-            const mins = Math.floor(day0Audio.currentTime / 60);
-            const secs = Math.floor(day0Audio.currentTime % 60);
-            day0Time.textContent = mins + ':' + String(secs).padStart(2, '0');
-        });
-
-        day0Progress.addEventListener('click', (e) => {
-            const rect = day0Progress.getBoundingClientRect();
-            const pos = (e.clientX - rect.left) / rect.width;
-            day0Audio.currentTime = pos * day0Audio.duration;
-        });
-        */
     </script>
 </body>
 

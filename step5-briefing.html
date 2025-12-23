@@ -126,9 +126,35 @@
         // Auto-init on load
         document.addEventListener('DOMContentLoaded', initScrambleDemo);
 
+        // Audio context
+        let audioCtx = null;
+        function initAudio() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+        }
+
+        function playReverseReverb() {
+            initAudio();
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.frequency.value = 400;
+            osc.type = 'sine';
+            gain.gain.setValueAtTime(0.001, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.3, audioCtx.currentTime + 1.5);
+            gain.gain.setValueAtTime(0, audioCtx.currentTime + 1.51);
+            osc.start();
+            osc.stop(audioCtx.currentTime + 1.6);
+        }
+
         // Navigation
         document.getElementById('briefing-continue').addEventListener('click', () => {
-            window.location.href = 'step6-calibration.html';
+            playReverseReverb();
+            setTimeout(() => {
+                window.location.href = 'step6-calibration.html';
+            }, 1600);
         });
     </script>
 </body>
