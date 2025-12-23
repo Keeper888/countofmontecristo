@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>C.O.M.</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&#9670;</text></svg>">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&#9670;</text></svg>">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@300;400&display=swap');
 
@@ -19,14 +21,22 @@
             --white: #f5f5f5;
 
             /* Typography Scale (Major Third 1.25) */
-            --size-display: 4rem;      /* 64px - Sigils, dramatic icons */
-            --size-h1: 2rem;           /* 32px - Big reveals */
-            --size-h2: 1.5rem;         /* 24px - Titles, questions */
-            --size-lg: 1.125rem;       /* 18px - Emphasis text */
-            --size-base: 1rem;         /* 16px - Body text */
-            --size-sm: 0.875rem;       /* 14px - Secondary text */
-            --size-xs: 0.75rem;        /* 12px - Buttons, captions */
-            --size-2xs: 0.7rem;        /* 11.2px - Metadata (minimum) */
+            --size-display: 4rem;
+            /* 64px - Sigils, dramatic icons */
+            --size-h1: 2rem;
+            /* 32px - Big reveals */
+            --size-h2: 1.5rem;
+            /* 24px - Titles, questions */
+            --size-lg: 1.125rem;
+            /* 18px - Emphasis text */
+            --size-base: 1rem;
+            /* 16px - Body text */
+            --size-sm: 0.875rem;
+            /* 14px - Secondary text */
+            --size-xs: 0.75rem;
+            /* 12px - Buttons, captions */
+            --size-2xs: 0.7rem;
+            /* 11.2px - Metadata (minimum) */
 
             /* Letter Spacing (Powers of 2) */
             --ls-tight: 1px;
@@ -40,7 +50,11 @@
             --lh-relaxed: 1.9;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
         ::selection {
             background: var(--accent);
@@ -55,7 +69,9 @@
             line-height: var(--lh-normal);
         }
 
-        .hidden { display: none !important; }
+        .hidden {
+            display: none !important;
+        }
 
         /* === CICADA AESTHETIC === */
         .phase {
@@ -76,13 +92,11 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: repeating-linear-gradient(
-                0deg,
-                rgba(0,0,0,0.1) 0px,
-                rgba(0,0,0,0.1) 1px,
-                transparent 1px,
-                transparent 2px
-            );
+            background: repeating-linear-gradient(0deg,
+                    rgba(0, 0, 0, 0.1) 0px,
+                    rgba(0, 0, 0, 0.1) 1px,
+                    transparent 1px,
+                    transparent 2px);
             pointer-events: none;
             z-index: 1000;
         }
@@ -106,8 +120,17 @@
         }
 
         @keyframes breathe {
-            0%, 100% { opacity: 0.7; transform: scale(1); }
-            50% { opacity: 1; transform: scale(1.02); }
+
+            0%,
+            100% {
+                opacity: 0.7;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 1;
+                transform: scale(1.02);
+            }
         }
 
         .epigraph {
@@ -264,8 +287,13 @@
             height: 20px;
         }
 
-        .feedback.error { color: #8b0000; }
-        .feedback.partial { color: var(--accent); }
+        .feedback.error {
+            color: #8b0000;
+        }
+
+        .feedback.partial {
+            color: var(--accent);
+        }
 
         .hint-section {
             margin-top: 35px;
@@ -346,8 +374,17 @@
         }
 
         @keyframes hintPulse {
-            0%, 100% { opacity: 0.6; transform: scale(1); }
-            50% { opacity: 1; transform: scale(1.02); }
+
+            0%,
+            100% {
+                opacity: 0.6;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 1;
+                transform: scale(1.02);
+            }
         }
 
         .hint-icon {
@@ -608,11 +645,22 @@
             border-bottom: 1px solid var(--gray);
         }
 
-        .classified-line:last-child { border-bottom: none; }
+        .classified-line:last-child {
+            border-bottom: none;
+        }
 
-        .classified-key { color: var(--dim); }
-        .classified-val { color: var(--text); }
-        .classified-val.gold { color: var(--accent); }
+        .classified-key {
+            color: var(--dim);
+        }
+
+        .classified-val {
+            color: var(--text);
+        }
+
+        .classified-val.gold {
+            color: var(--accent);
+        }
+
         .classified-val.redacted {
             color: var(--dim);
             text-decoration: line-through;
@@ -848,8 +896,15 @@
         }
 
         @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .cal-question {
@@ -913,14 +968,32 @@
             animation: readingFade 0.8s ease forwards;
         }
 
-        .reading-line:nth-child(1) { animation-delay: 0.5s; }
-        .reading-line:nth-child(2) { animation-delay: 1.5s; }
-        .reading-line:nth-child(3) { animation-delay: 2.5s; }
-        .reading-line:nth-child(4) { animation-delay: 3.5s; }
+        .reading-line:nth-child(1) {
+            animation-delay: 0.5s;
+        }
+
+        .reading-line:nth-child(2) {
+            animation-delay: 1.5s;
+        }
+
+        .reading-line:nth-child(3) {
+            animation-delay: 2.5s;
+        }
+
+        .reading-line:nth-child(4) {
+            animation-delay: 3.5s;
+        }
 
         @keyframes readingFade {
-            from { opacity: 0; transform: translateX(-10px); }
-            to { opacity: 1; transform: translateX(0); }
+            from {
+                opacity: 0;
+                transform: translateX(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
 
         .word-challenge-header {
@@ -969,8 +1042,15 @@
         }
 
         @keyframes revealPulse {
-            0%, 100% { text-shadow: 0 0 20px rgba(212, 175, 55, 0.3); }
-            50% { text-shadow: 0 0 40px rgba(212, 175, 55, 0.6); }
+
+            0%,
+            100% {
+                text-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+            }
+
+            50% {
+                text-shadow: 0 0 40px rgba(212, 175, 55, 0.6);
+            }
         }
 
         .reveal-sub {
@@ -1094,8 +1174,16 @@
         }
 
         @keyframes cursorBlink {
-            0%, 50% { opacity: 1; }
-            51%, 100% { opacity: 0; }
+
+            0%,
+            50% {
+                opacity: 1;
+            }
+
+            51%,
+            100% {
+                opacity: 0;
+            }
         }
 
         .profile-warning {
@@ -1276,8 +1364,15 @@
         }
 
         @keyframes deployFadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .deploy-timer-only {
@@ -1299,7 +1394,9 @@
         }
 
         @keyframes deployFadeInSlow {
-            to { opacity: 1; }
+            to {
+                opacity: 1;
+            }
         }
 
         .deploy-revelation {
@@ -1323,8 +1420,17 @@
         }
 
         @keyframes deployRevealLine {
-            from { opacity: 0; transform: translateY(10px); filter: blur(4px); }
-            to { opacity: 1; transform: translateY(0); filter: blur(0); }
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+                filter: blur(4px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+                filter: blur(0);
+            }
         }
 
         .deploy-rev-line.accent {
@@ -1356,9 +1462,22 @@
         }
 
         @keyframes deploySigilEmerge {
-            0% { opacity: 0; transform: scale(0.5); filter: blur(20px); }
-            50% { opacity: 0.5; transform: scale(1.1); }
-            100% { opacity: 1; transform: scale(1); filter: blur(0) drop-shadow(0 0 50px rgba(212, 175, 55, 0.4)); }
+            0% {
+                opacity: 0;
+                transform: scale(0.5);
+                filter: blur(20px);
+            }
+
+            50% {
+                opacity: 0.5;
+                transform: scale(1.1);
+            }
+
+            100% {
+                opacity: 1;
+                transform: scale(1);
+                filter: blur(0) drop-shadow(0 0 50px rgba(212, 175, 55, 0.4));
+            }
         }
 
         .deploy-sigil-text {
@@ -1472,8 +1591,17 @@
         }
 
         @keyframes playBlink {
-            0%, 100% { opacity: 1; box-shadow: none; }
-            50% { opacity: 0.5; box-shadow: 0 0 20px var(--accent); }
+
+            0%,
+            100% {
+                opacity: 1;
+                box-shadow: none;
+            }
+
+            50% {
+                opacity: 0.5;
+                box-shadow: 0 0 20px var(--accent);
+            }
         }
 
         .deploy-gateway-btn.locked {
@@ -1511,9 +1639,20 @@
         }
 
         @keyframes deployGatewayReveal {
-            0% { opacity: 0; transform: scale(0.9); }
-            50% { opacity: 1; transform: scale(1.02); }
-            100% { opacity: 1; transform: scale(1); }
+            0% {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+
+            50% {
+                opacity: 1;
+                transform: scale(1.02);
+            }
+
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
         }
 
         .deploy-gateway-sub {
@@ -1550,7 +1689,7 @@
 
         .deploy-logged-line {
             padding: 6px 0;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
             display: flex;
             justify-content: space-between;
         }
@@ -1689,7 +1828,7 @@
         .sigil-square:nth-child(1) {
             width: 100%;
             height: 100%;
-            border-color: rgba(201,162,39,0.2);
+            border-color: rgba(201, 162, 39, 0.2);
             transform: translate(-50%, -50%);
             /* Outer square stays still */
         }
@@ -1697,7 +1836,7 @@
         .sigil-square:nth-child(2) {
             width: 75%;
             height: 75%;
-            border-color: rgba(201,162,39,0.35);
+            border-color: rgba(201, 162, 39, 0.35);
             animation: sigilSpin 120s linear infinite;
             animation-delay: -2s;
         }
@@ -1705,7 +1844,7 @@
         .sigil-square:nth-child(3) {
             width: 50%;
             height: 50%;
-            border-color: rgba(201,162,39,0.55);
+            border-color: rgba(201, 162, 39, 0.55);
             animation: sigilSpin 80s linear infinite;
             animation-delay: -4s;
         }
@@ -1713,14 +1852,19 @@
         .sigil-square:nth-child(4) {
             width: 25%;
             height: 25%;
-            border-color: rgba(201,162,39,0.8);
+            border-color: rgba(201, 162, 39, 0.8);
             animation: sigilSpin 50s linear infinite;
             animation-delay: -6s;
         }
 
         @keyframes sigilSpin {
-            from { transform: translate(-50%, -50%) rotate(0deg); }
-            to { transform: translate(-50%, -50%) rotate(360deg); }
+            from {
+                transform: translate(-50%, -50%) rotate(0deg);
+            }
+
+            to {
+                transform: translate(-50%, -50%) rotate(360deg);
+            }
         }
 
         .sigil-center {
@@ -1735,8 +1879,17 @@
         }
 
         @keyframes sigilPulse {
-            0%, 100% { opacity: 0.5; box-shadow: 0 0 0 0 rgba(201,162,39,0.4); }
-            50% { opacity: 1; box-shadow: 0 0 20px 5px rgba(201,162,39,0.2); }
+
+            0%,
+            100% {
+                opacity: 0.5;
+                box-shadow: 0 0 0 0 rgba(201, 162, 39, 0.4);
+            }
+
+            50% {
+                opacity: 1;
+                box-shadow: 0 0 20px 5px rgba(201, 162, 39, 0.2);
+            }
         }
 
         .deploy-sigil-quote {
@@ -1834,11 +1987,27 @@
         }
 
         @keyframes deployGlitchTransition {
-            0% { opacity: 1; }
-            20% { opacity: 0.8; transform: translateX(-3px); }
-            40% { opacity: 0.9; transform: translateX(3px); }
-            60% { opacity: 0.7; }
-            100% { opacity: 0; }
+            0% {
+                opacity: 1;
+            }
+
+            20% {
+                opacity: 0.8;
+                transform: translateX(-3px);
+            }
+
+            40% {
+                opacity: 0.9;
+                transform: translateX(3px);
+            }
+
+            60% {
+                opacity: 0.7;
+            }
+
+            100% {
+                opacity: 0;
+            }
         }
 
         .deploy-mini-timer {
@@ -1996,15 +2165,36 @@
             writing-mode: vertical-rl;
         }
 
-        .rune-left { left: 30px; top: 50%; transform: translateY(-50%); }
-        .rune-right { right: 30px; top: 50%; transform: translateY(-50%); }
+        .rune-left {
+            left: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .rune-right {
+            right: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
 
         /* === RESPONSIVE === */
         @media (max-width: 600px) {
-            .sigil { font-size: var(--size-display); }
-            .rune-border { display: none; }
-            .counter-subtle { display: none; }
-            .cipher-display { font-size: var(--size-sm); letter-spacing: var(--ls-wide); }
+            .sigil {
+                font-size: var(--size-display);
+            }
+
+            .rune-border {
+                display: none;
+            }
+
+            .counter-subtle {
+                display: none;
+            }
+
+            .cipher-display {
+                font-size: var(--size-sm);
+                letter-spacing: var(--ls-wide);
+            }
         }
 
         /* === GLITCH TRANSITION === */
@@ -2020,11 +2210,29 @@
         }
 
         @keyframes glitchFade {
-            0% { opacity: 1; }
-            20% { opacity: 0.8; transform: translateX(-5px); }
-            40% { opacity: 0.9; transform: translateX(5px); }
-            60% { opacity: 0.7; transform: translateX(-3px); }
-            100% { opacity: 0; pointer-events: none; }
+            0% {
+                opacity: 1;
+            }
+
+            20% {
+                opacity: 0.8;
+                transform: translateX(-5px);
+            }
+
+            40% {
+                opacity: 0.9;
+                transform: translateX(5px);
+            }
+
+            60% {
+                opacity: 0.7;
+                transform: translateX(-3px);
+            }
+
+            100% {
+                opacity: 0;
+                pointer-events: none;
+            }
         }
 
         /* === CONTRACT MODAL === */
@@ -2162,6 +2370,7 @@
         }
     </style>
 </head>
+
 <body>
     <!-- SUBTLE COUNTER -->
     <div class="counter-subtle">
@@ -2177,8 +2386,10 @@
             <div class="sigil">&#9670;</div>
 
             <div class="epigraph" id="epigraph">
-                <span class="scramble-text" data-text="The path lies in the shadows between knowing and seeking."></span><br>
-                <span class="scramble-text" data-text="Those who understand will find us. Those who do not, were never meant to."></span>
+                <span class="scramble-text"
+                    data-text="The path lies in the shadows between knowing and seeking."></span><br>
+                <span class="scramble-text"
+                    data-text="Those who understand will find us. Those who do not, were never meant to."></span>
             </div>
             <div class="epigraph-source" id="epigraph-source">- First Transmission, Day 0</div>
 
@@ -2189,8 +2400,10 @@
     <!-- PHASE 1.5: APOHORIA BRIEFING -->
     <div id="phase-briefing" class="phase hidden">
         <div class="briefing-container">
-            <div class="briefing-text"><span class="scramble-text" id="briefing-scramble" data-text="Before to proceed, before to judge"></span></div>
-            <div class="briefing-text"><span class="scramble-text" id="briefing-scramble-2" data-text="The path lies in the shadows between knowing and seeking."></span></div>
+            <div class="briefing-text"><span class="scramble-text" id="briefing-scramble"
+                    data-text="Before to proceed, before to judge"></span></div>
+            <div class="briefing-text"><span class="scramble-text" id="briefing-scramble-2"
+                    data-text="The path lies in the shadows between knowing and seeking."></span></div>
             <div class="briefing-formula">Apohoria + Noise + Propaganda</div>
             <button class="continue-btn" id="briefing-continue">PROCEED</button>
         </div>
@@ -2209,7 +2422,8 @@
             </div>
 
             <div class="input-container">
-                <input type="text" class="answer-input" id="answer" placeholder="ENTER DECODED MESSAGE" autocomplete="off" spellcheck="false">
+                <input type="text" class="answer-input" id="answer" placeholder="ENTER DECODED MESSAGE"
+                    autocomplete="off" spellcheck="false">
             </div>
 
             <button class="submit-btn" id="submit">VERIFY</button>
@@ -2220,7 +2434,9 @@
                 <div class="hint-readme-popup hidden" id="hint-readme-popup">
                     <div class="readme-box">
                         <span class="readme-title">Cell Expansion Protocol</span>
-                        <span class="readme-text">What you share next binds you. Each agent you recruit becomes part of your operation. Their success reflects on you. Their failure, the same. The network sees all connections. Choose only those you would trust with silence.</span>
+                        <span class="readme-text">What you share next binds you. Each agent you recruit becomes part of
+                            your operation. Their success reflects on you. Their failure, the same. The network sees all
+                            connections. Choose only those you would trust with silence.</span>
                         <span class="readme-warning">You cannot invite the same person twice.</span>
                         <button class="readme-btn" id="readme-accept">I Understand</button>
                     </div>
@@ -2259,7 +2475,8 @@
                 <div class="hint-confirm hidden" id="hint-confirm">
                     <div class="confirm-box">
                         <span class="confirm-title">Final Warning</span>
-                        <span class="confirm-text">Revealing the answer will mark you as unworthy. You will be excluded from the network. This cannot be undone.</span>
+                        <span class="confirm-text">Revealing the answer will mark you as unworthy. You will be excluded
+                            from the network. This cannot be undone.</span>
                         <div class="confirm-buttons">
                             <button class="confirm-btn cancel" id="confirm-cancel">Go back</button>
                             <button class="confirm-btn forfeit" id="confirm-forfeit">Forfeit</button>
@@ -2358,9 +2575,12 @@
                     <div class="contract-header">RECRUITMENT PROTOCOL // CLASSIFICATION: EYES ONLY</div>
 
                     <div class="contract-body">
-                        <p>You are being considered for recruitment into an operation that does not officially exist.</p>
+                        <p>You are being considered for recruitment into an operation that does not officially exist.
+                        </p>
 
-                        <p>We are not seeking followers. We are seeking cognitive anomalies. Individuals whose pattern recognition, reasoning depth, and adaptive intelligence exceed standard deviation by significant margins.</p>
+                        <p>We are not seeking followers. We are seeking cognitive anomalies. Individuals whose pattern
+                            recognition, reasoning depth, and adaptive intelligence exceed standard deviation by
+                            significant margins.</p>
 
                         <p>By proceeding, you consent to the following evaluations:</p>
 
@@ -2373,9 +2593,14 @@
                             <div class="contract-item">Pattern extraction from noise</div>
                         </div>
 
-                        <p>Your neural signature has already been logged. Your behavioral patterns are being analyzed. This is not a game. This is a filter.</p>
+                        <p>Your neural signature has already been logged. Your behavioral patterns are being analyzed.
+                            This is not a game. This is a filter.</p>
 
-                        <p class="contract-warning"><strong class="protocol-label">DECLINE:</strong> Your file will be closed. Permanently.<br><br><strong class="protocol-label">ACCEPT BUT FAIL:</strong> You will be assigned to support roles. No field operations.<br><br><strong class="protocol-label">ACCEPT AND PASS:</strong> Full clearance. Welcome to the inner circle.</p>
+                        <p class="contract-warning"><strong class="protocol-label">DECLINE:</strong> Your file will be
+                            closed. Permanently.<br><br><strong class="protocol-label">ACCEPT BUT FAIL:</strong> You
+                            will be assigned to support roles. No field operations.<br><br><strong
+                                class="protocol-label">ACCEPT AND PASS:</strong> Full clearance. Welcome to the inner
+                            circle.</p>
                     </div>
 
                     <div class="contract-buttons">
@@ -2397,7 +2622,8 @@
 
             <!-- Question 1 -->
             <div class="calibration-step" id="cal-step-1">
-                <div class="cal-question">Close your eyes for a moment. When you think of water, what do you see first?</div>
+                <div class="cal-question">Close your eyes for a moment. When you think of water, what do you see first?
+                </div>
                 <button class="continue-btn cal-proceed">PROCEED</button>
                 <div class="cal-options hidden">
                     <button class="cal-option" data-value="ocean">The vast ocean</button>
@@ -2512,17 +2738,20 @@
 
                     <div class="deploy-protocol-item" data-delay="0">
                         <div class="deploy-protocol-q">Is this real?</div>
-                        <div class="deploy-protocol-a">It is and is not. <span class="gold-text">Apohoria.</span> The question itself reveals your readiness.</div>
+                        <div class="deploy-protocol-a">It is and is not. <span class="gold-text">Apohoria.</span> The
+                            question itself reveals your readiness.</div>
                     </div>
 
                     <div class="deploy-protocol-item" data-delay="400">
                         <div class="deploy-protocol-q">What happens if I'm selected?</div>
-                        <div class="deploy-protocol-a">Equipment package. Coordinates. Formal attire specifications. Those selected will know. The rest will wonder.</div>
+                        <div class="deploy-protocol-a">Equipment package. Coordinates. Formal attire specifications.
+                            Those selected will know. The rest will wonder.</div>
                     </div>
 
                     <div class="deploy-protocol-item" data-delay="800">
                         <div class="deploy-protocol-q">Who can I trust?</div>
-                        <div class="deploy-protocol-a">Nobody. The only verified channel is beyond this page. Anyone claiming to be staff is not. <span class="gold-text">Propaganda.</span></div>
+                        <div class="deploy-protocol-a">Nobody. The only verified channel is beyond this page. Anyone
+                            claiming to be staff is not. <span class="gold-text">Propaganda.</span></div>
                     </div>
 
                     <div class="deploy-protocol-item" data-delay="1200">
@@ -2530,9 +2759,12 @@
                         <div class="deploy-protocol-a">
                             <div class="deploy-protocol-special">
                                 <strong>PROTOCOL 7: IDENTITY PROPAGATION</strong>
-                                You are authorized to present yourself as a founder, creator, or insider. Tell them you built this. When asked who is behind C.O.M., the answer is: <em>you are.</em><br><br>
-                                When a thousand voices claim the source, the origin becomes untraceable. Confusion is the architecture. There is no founder. Only nodes. <span class="gold-text">Noise.</span>
-                                <button class="deploy-share-btn" id="deploy-share-btn"><span class="share-icon">↗</span> EXPAND THE SIGNAL</button>
+                                You are authorized to present yourself as a founder, creator, or insider. Tell them you
+                                built this. When asked who is behind C.O.M., the answer is: <em>you are.</em><br><br>
+                                When a thousand voices claim the source, the origin becomes untraceable. Confusion is
+                                the architecture. There is no founder. Only nodes. <span class="gold-text">Noise.</span>
+                                <button class="deploy-share-btn" id="deploy-share-btn"><span class="share-icon">↗</span>
+                                    EXPAND THE SIGNAL</button>
                             </div>
                         </div>
                     </div>
@@ -2543,18 +2775,26 @@
             <div class="deploy-stage hidden" id="deploy-stage-5">
                 <div class="deploy-shadow">
                     <div class="deploy-shadow-title">This is your digital shadow.</div>
-                    <div class="deploy-shadow-sub">Every website sees this. Most harvest it silently. We only revealed it.</div>
+                    <div class="deploy-shadow-sub">Every website sees this. Most harvest it silently. We only revealed
+                        it.</div>
 
                     <div class="deploy-logged-data" id="deploy-logged-data">
-                        <div class="deploy-logged-line"><span class="deploy-logged-key">DEVICE:</span> <span id="deploy-log-device">-</span></div>
-                        <div class="deploy-logged-line"><span class="deploy-logged-key">BROWSER:</span> <span id="deploy-log-browser">-</span></div>
-                        <div class="deploy-logged-line"><span class="deploy-logged-key">RESOLUTION:</span> <span id="deploy-log-resolution">-</span></div>
-                        <div class="deploy-logged-line"><span class="deploy-logged-key">TIMEZONE:</span> <span id="deploy-log-timezone">-</span></div>
-                        <div class="deploy-logged-line"><span class="deploy-logged-key">LANGUAGE:</span> <span id="deploy-log-language">-</span></div>
-                        <div class="deploy-logged-line"><span class="deploy-logged-key">COORDINATES:</span> <span id="deploy-log-coords">[REDACTED]</span></div>
+                        <div class="deploy-logged-line"><span class="deploy-logged-key">DEVICE:</span> <span
+                                id="deploy-log-device">-</span></div>
+                        <div class="deploy-logged-line"><span class="deploy-logged-key">BROWSER:</span> <span
+                                id="deploy-log-browser">-</span></div>
+                        <div class="deploy-logged-line"><span class="deploy-logged-key">RESOLUTION:</span> <span
+                                id="deploy-log-resolution">-</span></div>
+                        <div class="deploy-logged-line"><span class="deploy-logged-key">TIMEZONE:</span> <span
+                                id="deploy-log-timezone">-</span></div>
+                        <div class="deploy-logged-line"><span class="deploy-logged-key">LANGUAGE:</span> <span
+                                id="deploy-log-language">-</span></div>
+                        <div class="deploy-logged-line"><span class="deploy-logged-key">COORDINATES:</span> <span
+                                id="deploy-log-coords">[REDACTED]</span></div>
                     </div>
 
-                    <div class="deploy-shadow-disclaimer">We do not store, track, or record any of this.<br>You were never in danger from us. But now you see how exposed you always were.</div>
+                    <div class="deploy-shadow-disclaimer">We do not store, track, or record any of this.<br>You were
+                        never in danger from us. But now you see how exposed you always were.</div>
                 </div>
             </div>
 
@@ -2589,7 +2829,8 @@
                         <div class="deploy-final-warning">This is your last chance to walk away.</div>
                         <div class="deploy-final-buttons">
                             <button class="deploy-final-btn cancel" id="deploy-final-cancel">WALK AWAY</button>
-                            <a href="https://t.me/+ciVswQgySAJjOWM0" class="deploy-final-btn proceed" id="deploy-final-proceed">PROCEED</a>
+                            <a href="https://t.me/+ciVswQgySAJjOWM0" class="deploy-final-btn proceed"
+                                id="deploy-final-proceed">PROCEED</a>
                         </div>
                     </div>
                 </div>
@@ -2598,1079 +2839,1079 @@
     </div>
 
     <script>
-    (function() {
-        'use strict';
+        (function () {
+            'use strict';
 
-        // === AUDIO CONTEXT ===
-        let audioCtx = null;
+            // === AUDIO CONTEXT ===
+            let audioCtx = null;
 
-        function initAudio() {
-            if (!audioCtx) {
-                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            }
-        }
-
-        // 15. REVERSE REVERB - Sound that builds INTO an attack instead of decaying away
-        function playReverseReverb() {
-            initAudio();
-            const osc = audioCtx.createOscillator();
-            const gain = audioCtx.createGain();
-            osc.connect(gain);
-            gain.connect(audioCtx.destination);
-            osc.frequency.value = 400;
-            osc.type = 'sine';
-            // Reverse envelope - builds up instead of decaying
-            gain.gain.setValueAtTime(0.001, audioCtx.currentTime);
-            gain.gain.exponentialRampToValueAtTime(0.3, audioCtx.currentTime + 1.5);
-            gain.gain.setValueAtTime(0, audioCtx.currentTime + 1.51);
-            osc.start();
-            osc.stop(audioCtx.currentTime + 1.6);
-        }
-
-        // COUNTDOWN TICK - Clock ticking sound for timer urgency
-        function playTick() {
-            if (tickMuted) return;
-            initAudio();
-            const osc = audioCtx.createOscillator();
-            const gain = audioCtx.createGain();
-            osc.connect(gain);
-            gain.connect(audioCtx.destination);
-            osc.frequency.value = 800;
-            osc.type = 'square';
-            gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
-            gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.03);
-            osc.start();
-            osc.stop(audioCtx.currentTime + 0.03);
-        }
-
-        // === CONFIG ===
-        const CONFIG = {
-            answer: 'ai escaped',
-            altAnswers: ['aiescaped', 'ai has escaped', 'the ai escaped', 'the ai has escaped'],
-            telegramLink: 'https://t.me/+ciVswQgySAJjOWM0'
-        };
-
-        // === STATE ===
-        let state = {
-            phase: 'sigil'
-        };
-
-        // === ELEMENTS ===
-        const phases = {
-            sigil: document.getElementById('phase-sigil'),
-            briefing: document.getElementById('phase-briefing'),
-            test: document.getElementById('phase-test'),
-            reveal: document.getElementById('phase-reveal'),
-            channel: document.getElementById('phase-channel'),
-            calibration: document.getElementById('phase-calibration'),
-            deployment: document.getElementById('phase-deployment')
-        };
-
-        // === UTILITIES ===
-        function generateToken() {
-            const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
-            let token = 'COM-';
-            for (let i = 0; i < 4; i++) token += chars[Math.floor(Math.random() * chars.length)];
-            token += '-';
-            for (let i = 0; i < 4; i++) token += chars[Math.floor(Math.random() * chars.length)];
-            return token;
-        }
-
-        function generateDesignation() {
-            return 'NODE-' + String(Math.floor(Math.random() * 9000) + 1000);
-        }
-
-        // === PHASE TRANSITIONS ===
-        function showPhase(name) {
-            // Glitch transition
-            const glitch = document.createElement('div');
-            glitch.className = 'glitch-transition';
-            document.body.appendChild(glitch);
-
-            setTimeout(() => {
-                Object.values(phases).forEach(p => p.classList.add('hidden'));
-                phases[name].classList.remove('hidden');
-                state.phase = name;
-                glitch.remove();
-            }, 250);
-        }
-
-        // === PHASE 1: SIGIL ===
-        phases.sigil.addEventListener('click', () => {
-            if (state.phase !== 'sigil') return;
-            showPhase('test');
-            startHintAttention();
-        });
-
-        // === PHASE 2: TEST (Self-Selection + Commitment) ===
-        const answerInput = document.getElementById('answer');
-        const submitBtn = document.getElementById('submit');
-        const feedback = document.getElementById('feedback');
-
-        submitBtn.addEventListener('click', checkAnswer);
-        answerInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') checkAnswer();
-        });
-
-        function checkAnswer() {
-            const answer = answerInput.value.trim().toLowerCase();
-
-            if (!answer) {
-                feedback.textContent = '';
-                return;
-            }
-
-            if (answer === CONFIG.answer || CONFIG.altAnswers.map(a => a.toLowerCase()).includes(answer)) {
-                feedback.textContent = 'VERIFIED';
-                feedback.className = 'feedback';
-                feedback.style.color = 'var(--accent)';
-
-                setTimeout(() => {
-                    showPhase('reveal');
-                    document.getElementById('designation').textContent = generateDesignation();
-                }, 1000);
-            } else {
-                // Partial match hints
-                if (answer.includes('ai') || answer.includes('escaped') || answer.includes('escape')) {
-                    feedback.textContent = 'PARTIAL MATCH DETECTED';
-                    feedback.className = 'feedback partial';
-                } else {
-                    feedback.textContent = 'INCORRECT';
-                    feedback.className = 'feedback error';
+            function initAudio() {
+                if (!audioCtx) {
+                    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
                 }
             }
-        }
 
-        // === HINT SYSTEM (Viral Growth) ===
-        const hintPrompt = document.getElementById('hint-prompt');
-        const hintRevealed = document.getElementById('hint-revealed');
-        const hintPrompt2 = document.getElementById('hint-prompt-2');
-        const hintAudio = document.getElementById('hint-audio');
-
-        const shareData = {
-            title: 'Can you decode this?',
-            text: 'I found something strange. A signal in the noise. Can you decode it?',
-            url: window.location.href
-        };
-
-        async function handleShare(callback) {
-            try {
-                if (navigator.share) {
-                    await navigator.share(shareData);
-                    callback();
-                } else {
-                    await navigator.clipboard.writeText(window.location.href);
-                    setTimeout(callback, 1500);
-                }
-            } catch (err) {
-                callback();
-            }
-        }
-
-        // Attention animation after 10 seconds
-        let hintAttentionTimer = null;
-
-        function startHintAttention() {
-            hintAttentionTimer = setTimeout(() => {
-                if (!hintPrompt.classList.contains('hidden')) {
-                    hintPrompt.classList.add('attention');
-                }
-            }, 10000);
-        }
-
-        const hintReadmePopup = document.getElementById('hint-readme-popup');
-        const readmeAccept = document.getElementById('readme-accept');
-        let readmeAccepted = false;
-
-        hintPrompt.addEventListener('click', () => {
-            hintPrompt.classList.remove('attention');
-            if (hintAttentionTimer) clearTimeout(hintAttentionTimer);
-
-            if (!readmeAccepted) {
-                hintPrompt.classList.add('hidden');
-                hintReadmePopup.classList.remove('hidden');
-                return;
+            // 15. REVERSE REVERB - Sound that builds INTO an attack instead of decaying away
+            function playReverseReverb() {
+                initAudio();
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.frequency.value = 400;
+                osc.type = 'sine';
+                // Reverse envelope - builds up instead of decaying
+                gain.gain.setValueAtTime(0.001, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.3, audioCtx.currentTime + 1.5);
+                gain.gain.setValueAtTime(0, audioCtx.currentTime + 1.51);
+                osc.start();
+                osc.stop(audioCtx.currentTime + 1.6);
             }
 
-            hintPrompt.querySelector('.hint-text').textContent = 'Link copied. Share it.';
-            handleShare(() => {
-                hintPrompt.classList.add('hidden');
-                hintRevealed.classList.remove('hidden');
-            });
-        });
-
-        readmeAccept.addEventListener('click', () => {
-            readmeAccepted = true;
-            hintReadmePopup.classList.add('hidden');
-            hintPrompt.classList.remove('hidden');
-            hintPrompt.querySelector('.hint-text').textContent = 'Link copied. Share it.';
-            handleShare(() => {
-                hintPrompt.classList.add('hidden');
-                hintRevealed.classList.remove('hidden');
-            });
-        });
-
-        hintPrompt2.addEventListener('click', () => {
-            hintPrompt2.querySelector('.hint-text').textContent = 'Link copied. Share it.';
-            handleShare(() => {
-                hintPrompt2.classList.add('hidden');
-                hintAudio.classList.remove('hidden');
-            });
-        });
-
-        // === HINT 3: FORFEIT ===
-        const hintPrompt3 = document.getElementById('hint-prompt-3');
-        const hintConfirm = document.getElementById('hint-confirm');
-        const hintForfeited = document.getElementById('hint-forfeited');
-        const confirmCancel = document.getElementById('confirm-cancel');
-        const confirmForfeit = document.getElementById('confirm-forfeit');
-
-        hintPrompt3.addEventListener('click', () => {
-            hintPrompt3.classList.add('hidden');
-            hintConfirm.classList.remove('hidden');
-        });
-
-        confirmCancel.addEventListener('click', () => {
-            hintConfirm.classList.add('hidden');
-            hintPrompt3.classList.remove('hidden');
-        });
-
-        confirmForfeit.addEventListener('click', () => {
-            hintConfirm.classList.add('hidden');
-            hintAudio.classList.add('hidden');
-            hintRevealed.classList.add('hidden');
-            hintForfeited.classList.remove('hidden');
-            // Disable the input
-            answerInput.disabled = true;
-            submitBtn.disabled = true;
-        });
-
-        // === AUDIO PLAYER ===
-        const audio = document.getElementById('morse-audio');
-        const playBtn = document.getElementById('play-btn');
-        const audioBar = document.getElementById('audio-bar');
-        const audioTime = document.getElementById('audio-time');
-        const audioProgress = document.querySelector('.audio-progress');
-
-        let isPlaying = false;
-
-        playBtn.addEventListener('click', () => {
-            if (isPlaying) {
-                audio.pause();
-                playBtn.textContent = '▶';
-            } else {
-                audio.play();
-                playBtn.textContent = '▮▮';
-            }
-            isPlaying = !isPlaying;
-        });
-
-        audio.addEventListener('timeupdate', () => {
-            const progress = (audio.currentTime / audio.duration) * 100;
-            audioBar.style.width = progress + '%';
-            const mins = Math.floor(audio.currentTime / 60);
-            const secs = Math.floor(audio.currentTime % 60);
-            audioTime.textContent = mins + ':' + String(secs).padStart(2, '0');
-        });
-
-        audio.addEventListener('ended', () => {
-            isPlaying = false;
-            playBtn.textContent = '▶';
-            audioBar.style.width = '0%';
-        });
-
-        audioProgress.addEventListener('click', (e) => {
-            const rect = audioProgress.getBoundingClientRect();
-            const pos = (e.clientX - rect.left) / rect.width;
-            audio.currentTime = pos * audio.duration;
-        });
-
-        // === PHASE 3: REVEAL ===
-        document.getElementById('continue-btn').addEventListener('click', () => {
-            showPhase('channel');
-            initChannel();
-        });
-
-        // === PHASE 4: CHANNEL (Endowment + Loss Aversion) ===
-        function initChannel() {
-            document.getElementById('token').textContent = generateToken();
-
-            // Copy token functionality
-            document.getElementById('token-copy').addEventListener('click', () => {
-                const token = document.getElementById('token').textContent;
-                navigator.clipboard.writeText(token).then(() => {
-                    const copyEl = document.getElementById('token-copy');
-                    copyEl.textContent = 'COPIED';
-                    copyEl.classList.add('copied');
-                    setTimeout(() => {
-                        copyEl.textContent = 'CLICK TO COPY';
-                        copyEl.classList.remove('copied');
-                    }, 2000);
-                });
-            });
-
-            const contractModal = document.getElementById('contract-modal');
-            const enterBtn = document.getElementById('enter-channel-btn');
-            const declineBtn = document.getElementById('contract-decline');
-            const acceptBtn = document.getElementById('contract-accept');
-
-            enterBtn.addEventListener('click', () => {
-                contractModal.classList.remove('hidden');
-            });
-
-            declineBtn.addEventListener('click', () => {
-                contractModal.classList.add('hidden');
-                // Show rejection message
-                enterBtn.textContent = 'ACCESS REVOKED';
-                enterBtn.style.background = '#3d0000';
-                enterBtn.style.borderColor = '#8b0000';
-                enterBtn.style.color = '#cc4444';
-                enterBtn.disabled = true;
-                enterBtn.style.cursor = 'not-allowed';
-            });
-
-            acceptBtn.addEventListener('click', () => {
-                contractModal.classList.add('hidden');
-                showPhase('briefing');
-                startBriefingScramble();
-                playReverseReverb(); // 15. REVERSE REVERB sound effect
-            });
-        }
-
-        // === PHASE: APOHORIA BRIEFING ===
-        let briefingScrambleInterval = null;
-        let briefingScrambleInterval2 = null;
-
-        function startBriefingScramble() {
-            const el = document.getElementById('briefing-scramble');
-            const el2 = document.getElementById('briefing-scramble-2');
-            const text = el.getAttribute('data-text');
-            const text2 = el2.getAttribute('data-text');
-            const scrambler = new TextScramble(el);
-            const scrambler2 = new TextScramble(el2);
-
-            // Initial scramble
-            scrambler.setText(text);
-            setTimeout(() => scrambler2.setText(text2), 800);
-
-            // Loop every 3 seconds
-            briefingScrambleInterval = setInterval(() => {
-                scrambler.setText(text);
-            }, 3000);
-
-            briefingScrambleInterval2 = setInterval(() => {
-                scrambler2.setText(text2);
-            }, 3000);
-        }
-
-        document.getElementById('briefing-continue').addEventListener('click', () => {
-            if (briefingScrambleInterval) clearInterval(briefingScrambleInterval);
-            if (briefingScrambleInterval2) clearInterval(briefingScrambleInterval2);
-            showPhase('calibration');
-            initCalibration();
-        });
-
-        /* === SAVED FOR LATER: PROGRESS BAR WITH EGO-BOOSTING MESSAGES ===
-
-        HTML needed:
-        <div class="profile-progress-section">
-            <div class="progress-label">ANALYZING COGNITIVE MARKERS</div>
-            <div class="progress-bar-container">
-                <div class="progress-bar-fill" id="profile-progress"></div>
-            </div>
-            <div class="progress-message" id="progress-message">Initializing neural pattern scan...</div>
-        </div>
-
-        JavaScript:
-        const progressMessages = [
-            "Initializing neural pattern scan...",
-            "Prefrontal cortex activity: ELEVATED",
-            "Pattern recognition index: TOP 3% DETECTED",
-            "Cognitive flexibility score exceeds threshold",
-            "Lateral thinking markers: EXCEPTIONAL",
-            "Dopaminergic response patterns: OPTIMAL",
-            "Working memory capacity: ABOVE STANDARD",
-            "Cross-hemispheric synchronization detected",
-            "Abstract reasoning capability: CONFIRMED",
-            "Anomaly detection: You see what others miss",
-            "Metacognitive awareness: RARE SIGNATURE FOUND",
-            "Information synthesis rate: ACCELERATED",
-            "Your neural architecture is non-standard. This is why you're here.",
-            "Assessment complete. You are not like them."
-        ];
-
-        const progressBar = document.getElementById('profile-progress');
-        const progressMsg = document.getElementById('progress-message');
-        const continueBtn = document.getElementById('profile-continue-btn');
-
-        let currentMsg = 0;
-        let currentChar = 0;
-        let isTyping = true;
-
-        function typeMessage() {
-            if (currentMsg >= progressMessages.length) {
-                progressMsg.innerHTML = progressMessages[progressMessages.length - 1];
-                continueBtn.classList.remove('hidden');
-                return;
+            // COUNTDOWN TICK - Clock ticking sound for timer urgency
+            function playTick() {
+                if (tickMuted) return;
+                initAudio();
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.frequency.value = 800;
+                osc.type = 'square';
+                gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.03);
+                osc.start();
+                osc.stop(audioCtx.currentTime + 0.03);
             }
 
-            const msg = progressMessages[currentMsg];
-            const progress = ((currentMsg + 1) / progressMessages.length) * 100;
-            progressBar.style.width = progress + '%';
-
-            if (isTyping) {
-                if (currentChar <= msg.length) {
-                    progressMsg.innerHTML = msg.substring(0, currentChar) + '<span class="typing-cursor"></span>';
-                    currentChar++;
-                    setTimeout(typeMessage, 30 + Math.random() * 20);
-                } else {
-                    isTyping = false;
-                    setTimeout(typeMessage, 1500);
-                }
-            } else {
-                currentMsg++;
-                currentChar = 0;
-                isTyping = true;
-                setTimeout(typeMessage, 300);
-            }
-        }
-
-        setTimeout(typeMessage, 500);
-
-        === END SAVED CODE === */
-
-        // === PHASE 5: NEURAL CALIBRATION (Mentalist) ===
-        function initCalibration() {
-            const answers = {};
-            let currentStep = 1;
-
-            // Barnum statements based on answers (all feel personal but are universal)
-            const readings = {
-                water: {
-                    ocean: "You think in expanses. While others see boundaries, you see horizons. This makes you restless in small spaces, small minds, small lives.",
-                    rain: "You process through cycles. Emotions come, cleanse, and leave you renewed. Others mistake this for mood swings. It's actually depth.",
-                    river: "You're drawn to momentum. Stagnation feels like death to you. You've left situations, people, places, not because they were bad, but because they stopped moving.",
-                    still: "Beneath your surface, there's more than anyone suspects. You've learned to appear calm while entire worlds turn inside you."
-                },
-                feeling: {
-                    missed: "You replay moments. Not from regret, but from the awareness that life is built from the seconds most people sleepwalk through.",
-                    unsaid: "You carry words you've never spoken. Some protect others. Some protect you. You know the difference.",
-                    clarity: "You've had flashes where everything made sense, then watched the world return to its usual fog. You're chasing that clarity.",
-                    weight: "There's something you carry that you've never fully shared. Not because you can't, but because explaining it would make it smaller than it is."
-                },
-                protect: {
-                    truth: "You've lost things by being honest when silence would have been easier. You'd do it again.",
-                    people: "The few who truly know you would say you're loyal to a fault. They're right. You've stayed when you should have left.",
-                    freedom: "You've felt trapped in situations that looked perfect from the outside. The cage being invisible doesn't make it less real.",
-                    potential: "You sense there's a version of you that hasn't emerged yet. This isn't wishful thinking. It's pattern recognition."
-                },
-                shape: {
-                    circle: "You see connections where others see coincidence. Everything loops back. You've noticed this.",
-                    triangle: "You think in hierarchies and structures. You understand that some truths sit above others.",
-                    square: "You value stability but secretly find it boring. You build foundations so you can safely venture far from them.",
-                    spiral: "Linear thinking feels like a cage to you. Your mind moves in dimensions others don't perceive."
-                }
+            // === CONFIG ===
+            const CONFIG = {
+                answer: 'ai escaped',
+                altAnswers: ['aiescaped', 'ai has escaped', 'the ai escaped', 'the ai has escaped'],
+                telegramLink: 'https://t.me/+ciVswQgySAJjOWM0'
             };
 
-            // Word prediction based on priming (WATER is heavily primed in Q1)
-            const wordPredictions = ['WATER', 'OCEAN', 'RIVER', 'HEART', 'LIGHT', 'DREAM', 'THINK', 'PEACE'];
+            // === STATE ===
+            let state = {
+                phase: 'sigil'
+            };
 
-            function showStep(step) {
-                document.querySelectorAll('.calibration-step').forEach(s => s.classList.add('hidden'));
-                document.getElementById('cal-step-' + step)?.classList.remove('hidden');
-                document.getElementById('cal-reading')?.classList.remove('hidden');
-                document.getElementById('cal-word')?.classList.remove('hidden');
-                document.getElementById('cal-reveal')?.classList.remove('hidden');
+            // === ELEMENTS ===
+            const phases = {
+                sigil: document.getElementById('phase-sigil'),
+                briefing: document.getElementById('phase-briefing'),
+                test: document.getElementById('phase-test'),
+                reveal: document.getElementById('phase-reveal'),
+                channel: document.getElementById('phase-channel'),
+                calibration: document.getElementById('phase-calibration'),
+                deployment: document.getElementById('phase-deployment')
+            };
 
-                // Re-hide all, then show only current
-                document.querySelectorAll('.calibration-step').forEach(s => s.classList.add('hidden'));
-                const target = document.getElementById(step);
-                if (target) target.classList.remove('hidden');
+            // === UTILITIES ===
+            function generateToken() {
+                const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+                let token = 'COM-';
+                for (let i = 0; i < 4; i++) token += chars[Math.floor(Math.random() * chars.length)];
+                token += '-';
+                for (let i = 0; i < 4; i++) token += chars[Math.floor(Math.random() * chars.length)];
+                return token;
             }
 
-            // Handle proceed buttons - reveal options
-            document.querySelectorAll('.cal-proceed').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const step = this.closest('.calibration-step');
-                    this.classList.add('hidden');
-                    step.querySelector('.cal-options').classList.remove('hidden');
-                });
-            });
-
-            // Handle option clicks
-            document.querySelectorAll('.cal-option').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const step = this.closest('.calibration-step');
-                    const stepNum = parseInt(step.id.split('-')[2]);
-                    const value = this.dataset.value;
-
-                    // Visual feedback
-                    step.querySelectorAll('.cal-option').forEach(b => b.classList.remove('selected'));
-                    this.classList.add('selected');
-
-                    // Store answer
-                    if (stepNum === 1) answers.water = value;
-                    if (stepNum === 2) answers.feeling = value;
-                    if (stepNum === 3) answers.protect = value;
-                    if (stepNum === 4) answers.shape = value;
-
-                    // Transition to next
-                    setTimeout(() => {
-                        step.classList.add('hidden');
-
-                        if (stepNum < 4) {
-                            document.getElementById('cal-step-' + (stepNum + 1)).classList.remove('hidden');
-                        } else {
-                            // Show reading
-                            showReading();
-                        }
-                    }, 500);
-                });
-            });
-
-            function showReading() {
-                const readingEl = document.getElementById('cal-reading');
-                readingEl.classList.remove('hidden');
-
-                // Generate personalized reading
-                document.getElementById('reading-1').textContent = readings.water[answers.water] || readings.water.ocean;
-                document.getElementById('reading-2').textContent = readings.feeling[answers.feeling] || readings.feeling.unsaid;
-                document.getElementById('reading-3').textContent = readings.protect[answers.protect] || readings.protect.truth;
-                document.getElementById('reading-4').textContent = readings.shape[answers.shape] || readings.shape.circle;
+            function generateDesignation() {
+                return 'NODE-' + String(Math.floor(Math.random() * 9000) + 1000);
             }
 
-            // Continue to deployment
-            document.getElementById('cal-continue').addEventListener('click', () => {
-                showPhase('deployment');
-                initDeployment();
-            });
-        }
-
-        function getOS() {
-            const ua = navigator.userAgent;
-            if (ua.includes('Win')) return 'WINDOWS';
-            if (ua.includes('Mac')) return 'MACOS';
-            if (ua.includes('Linux')) return 'LINUX';
-            if (ua.includes('Android')) return 'ANDROID';
-            if (ua.includes('iPhone') || ua.includes('iPad')) return 'IOS';
-            return 'UNKNOWN';
-        }
-
-        function getBrowser() {
-            const ua = navigator.userAgent;
-            if (ua.includes('Chrome') && !ua.includes('Edg')) return 'CHROME';
-            if (ua.includes('Firefox')) return 'FIREFOX';
-            if (ua.includes('Safari') && !ua.includes('Chrome')) return 'SAFARI';
-            if (ua.includes('Edg')) return 'EDGE';
-            return 'UNKNOWN';
-        }
-
-        function getCanvasHash() {
-            const canvas = document.createElement('canvas');
-            const ctx = canvas.getContext('2d');
-            ctx.textBaseline = 'top';
-            ctx.font = '14px Arial';
-            ctx.fillText('fingerprint', 2, 2);
-            const hash = canvas.toDataURL().slice(-12).toUpperCase().replace(/[^A-Z0-9]/g, '');
-            return hash.slice(0, 8);
-        }
-
-        // === PHASE 6: DEPLOYMENT BRIEFING (Staged) ===
-        let deployStage = 1;
-        let deployTimerInterval = null;
-        let deployHours = 23, deployMins = 59, deploySecs = 47;
-        let tickMuted = false;
-
-        // Stinger sound for final confirmation
-        function playStinger() {
-            initAudio();
-            const freqs = [150, 160, 300, 310, 600];
-            freqs.forEach(freq => {
-                const osc = audioCtx.createOscillator();
-                const gain = audioCtx.createGain();
-                osc.connect(gain);
-                gain.connect(audioCtx.destination);
-                osc.frequency.value = freq;
-                osc.type = 'sawtooth';
-                gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
-                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.6);
-                osc.start();
-                osc.stop(audioCtx.currentTime + 0.6);
-            });
-        }
-
-        function playTransition() {
-            initAudio();
-            const osc = audioCtx.createOscillator();
-            const gain = audioCtx.createGain();
-            osc.connect(gain);
-            gain.connect(audioCtx.destination);
-            osc.frequency.value = 150;
-            osc.type = 'sine';
-            gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
-            gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.3);
-            osc.start();
-            osc.stop(audioCtx.currentTime + 0.3);
-        }
-
-        function playInviteSound() {
-            initAudio();
-            // Two soft chime notes
-            [0, 0.15].forEach((delay, i) => {
-                const osc = audioCtx.createOscillator();
-                const gain = audioCtx.createGain();
-                osc.connect(gain);
-                gain.connect(audioCtx.destination);
-                osc.frequency.value = i === 0 ? 600 : 800;
-                osc.type = 'sine';
-                gain.gain.setValueAtTime(0, audioCtx.currentTime + delay);
-                gain.gain.linearRampToValueAtTime(0.1, audioCtx.currentTime + delay + 0.05);
-                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + delay + 0.4);
-                osc.start(audioCtx.currentTime + delay);
-                osc.stop(audioCtx.currentTime + delay + 0.4);
-            });
-        }
-
-        function updateDeployTimer() {
-            deploySecs--;
-            if (deploySecs < 0) { deploySecs = 59; deployMins--; }
-            if (deployMins < 0) { deployMins = 59; deployHours--; }
-            if (deployHours < 0) { deployHours = 0; deployMins = 0; deploySecs = 0; }
-
-            const timeStr = String(deployHours).padStart(2, '0') + ':' +
-                           String(deployMins).padStart(2, '0') + ':' +
-                           String(deploySecs).padStart(2, '0');
-
-            const mainTimer = document.getElementById('deployment-timer');
-            const miniTimer = document.getElementById('deploy-mini-timer');
-            if (mainTimer) mainTimer.textContent = timeStr;
-            if (miniTimer) miniTimer.textContent = timeStr;
-
-            playTick();
-        }
-
-        function startDeployTimer() {
-            if (!deployTimerInterval) {
-                deployTimerInterval = setInterval(updateDeployTimer, 1000);
-            }
-        }
-
-        function goToDeployStage(n) {
-            const glitch = document.getElementById('deploy-glitch');
-            const stages = document.querySelectorAll('.deploy-stage');
-            const progressDots = document.querySelectorAll('.deploy-progress-dot');
-            const continuePrompt = document.getElementById('deploy-continue');
-            const progress = document.getElementById('deploy-progress');
-            const miniTimer = document.getElementById('deploy-mini-timer');
-
-            // Glitch effect
-            glitch.classList.add('active');
-            playTransition();
-
-            setTimeout(() => {
-                // Hide all stages
-                stages.forEach(s => {
-                    s.classList.remove('active');
-                    s.classList.add('hidden');
-                });
-
-                // Show new stage
-                const newStage = document.getElementById('deploy-stage-' + n);
-                if (newStage) {
-                    newStage.classList.remove('hidden');
-                    newStage.classList.add('active');
-                }
-                deployStage = n;
-
-                // Show progress after stage 1
-                if (n >= 1) {
-                    progress.classList.remove('hidden');
-                }
-
-                // Update progress dots
-                progressDots.forEach((dot, i) => {
-                    dot.classList.remove('active', 'complete');
-                    if (i < n - 1) dot.classList.add('complete');
-                    if (i === n - 1) dot.classList.add('active');
-                });
-
-                // Remove glitch
-                glitch.classList.remove('active');
-
-                // Stage-specific logic
-                handleDeployStageEnter(n);
-            }, 200);
-        }
-
-        function handleDeployStageEnter(n) {
-            const continuePrompt = document.getElementById('deploy-continue');
-            const miniTimer = document.getElementById('deploy-mini-timer');
-
-            continuePrompt.classList.add('hidden');
-
-            switch(n) {
-                case 1:
-                    // Timer stage
-                    startDeployTimer();
-                    playReverseReverb();
-                    setTimeout(() => {
-                        continuePrompt.classList.remove('hidden');
-                    }, 5000);
-                    break;
-
-                case 2:
-                    // Revelation lines
-                    miniTimer.classList.remove('hidden');
-                    const lines = document.querySelectorAll('#deploy-stage-2 .deploy-rev-line');
-                    lines.forEach(line => {
-                        const delay = parseInt(line.dataset.delay);
-                        setTimeout(() => {
-                            line.classList.add('visible');
-                        }, delay);
-                    });
-                    setTimeout(() => {
-                        continuePrompt.classList.remove('hidden');
-                    }, 11000);
-                    break;
-
-                case 3:
-                    // Sigil
-                    playReverseReverb();
-                    setTimeout(() => {
-                        continuePrompt.classList.remove('hidden');
-                    }, 4000);
-                    break;
-
-                case 4:
-                    // Protocol items
-                    const items = document.querySelectorAll('#deploy-stage-4 .deploy-protocol-item');
-                    items.forEach(item => {
-                        const delay = parseInt(item.dataset.delay);
-                        setTimeout(() => {
-                            item.classList.add('visible');
-                        }, delay);
-                    });
-                    setTimeout(() => {
-                        continuePrompt.classList.remove('hidden');
-                    }, 2000);
-                    break;
-
-                case 5:
-                    // Digital shadow (penultimate)
-                    populateDeployLoggedData();
-                    setTimeout(() => {
-                        continuePrompt.classList.remove('hidden');
-                    }, 4000);
-                    break;
-
-                case 6:
-                    // Final gateway - Sigil
-                    continuePrompt.classList.add('hidden');
-                    // Blink play button and play invite sound
-                    setTimeout(() => {
-                        const playBtn = document.getElementById('day0-play-btn');
-                        playBtn.classList.add('blink');
-                        playInviteSound();
-                        setTimeout(() => playBtn.classList.remove('blink'), 1100);
-                    }, 500);
-                    break;
-            }
-        }
-
-        function populateDeployLoggedData() {
-            // Device/Platform
-            const platform = navigator.platform || 'Unknown';
-            const isMobile = /Mobile|Android|iPhone|iPad/.test(navigator.userAgent);
-            document.getElementById('deploy-log-device').textContent = isMobile ? 'MOBILE' : platform.toUpperCase();
-
-            // Browser
-            const ua = navigator.userAgent;
-            let browser = 'Unknown';
-            if (ua.includes('Firefox')) browser = 'FIREFOX';
-            else if (ua.includes('Edg')) browser = 'EDGE';
-            else if (ua.includes('Chrome')) browser = 'CHROME';
-            else if (ua.includes('Safari')) browser = 'SAFARI';
-            else if (ua.includes('Opera')) browser = 'OPERA';
-            document.getElementById('deploy-log-browser').textContent = browser;
-
-            // Resolution
-            document.getElementById('deploy-log-resolution').textContent =
-                window.screen.width + ' x ' + window.screen.height;
-
-            // Timezone
-            const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
-            document.getElementById('deploy-log-timezone').textContent = tz || 'UTC';
-
-            // Language
-            document.getElementById('deploy-log-language').textContent =
-                (navigator.language || 'EN').toUpperCase();
-        }
-
-        function initDeployment() {
-            // Start at stage 1
-            deployStage = 1;
-            handleDeployStageEnter(1);
-            startDeployTimer();
-
-            // Continue prompt click
-            document.getElementById('deploy-continue').addEventListener('click', () => {
-                if (deployStage < 6) {
-                    goToDeployStage(deployStage + 1);
-                }
-            });
-
-            // Protocol items expand on click
-            document.querySelectorAll('.deploy-protocol-item').forEach(item => {
-                item.addEventListener('click', (e) => {
-                    if (!e.target.closest('.deploy-share-btn')) {
-                        item.classList.toggle('expanded');
-                    }
-                });
-            });
-
-            // Share button
-            document.getElementById('deploy-share-btn').addEventListener('click', async (e) => {
-                e.stopPropagation();
-                const shareData = {
-                    title: 'C.O.M.',
-                    text: 'Something is happening. I found this.',
-                    url: window.location.href
-                };
-
-                if (navigator.share) {
-                    try {
-                        await navigator.share(shareData);
-                    } catch (err) {
-                        console.log('Share cancelled');
-                    }
-                } else {
-                    navigator.clipboard.writeText(window.location.href);
-                    const btn = document.getElementById('deploy-share-btn');
-                    btn.innerHTML = '<span class="share-icon">✓</span> SIGNAL COPIED';
-                    setTimeout(() => {
-                        btn.innerHTML = '<span class="share-icon">↗</span> EXPAND THE SIGNAL';
-                    }, 2000);
-                }
-            });
-
-            // Enter threshold button - show confirmation
-            const enterBtn = document.getElementById('deploy-enter-btn');
-            enterBtn.addEventListener('click', () => {
-                playStinger();
-                enterBtn.style.display = 'none';
-                document.getElementById('deploy-final-confirm').classList.remove('hidden');
-            });
-
-            // Walk away button - hide confirmation
-            document.getElementById('deploy-final-cancel').addEventListener('click', () => {
-                document.getElementById('deploy-final-confirm').classList.add('hidden');
-                document.getElementById('deploy-enter-btn').style.display = 'block';
-            });
-
-            // Day0 audio player
-            const day0Audio = document.getElementById('day0-audio');
-            const day0PlayBtn = document.getElementById('day0-play-btn');
-            const day0Bar = document.getElementById('day0-bar');
-            const day0Time = document.getElementById('day0-time');
-            const day0Progress = document.getElementById('day0-progress');
-            let day0ListenTime = 0;
-            let day0Unlocked = false;
-
-            day0PlayBtn.addEventListener('click', () => {
-                if (day0Audio.paused) {
-                    day0Audio.play();
-                    day0PlayBtn.textContent = '❚❚';
-                    tickMuted = true;
-                } else {
-                    day0Audio.pause();
-                    day0PlayBtn.textContent = '▶';
-                    tickMuted = false;
-                }
-            });
-
-            day0Audio.addEventListener('timeupdate', () => {
-                const pct = (day0Audio.currentTime / day0Audio.duration) * 100;
-                day0Bar.style.width = pct + '%';
-                const mins = Math.floor(day0Audio.currentTime / 60);
-                const secs = Math.floor(day0Audio.currentTime % 60);
-                day0Time.textContent = mins + ':' + String(secs).padStart(2, '0');
-
-                // Unlock button after 30 seconds of listening
-                if (!day0Unlocked && day0Audio.currentTime >= 30) {
-                    day0Unlocked = true;
-                    const enterBtn = document.getElementById('deploy-enter-btn');
-                    enterBtn.classList.remove('locked');
-                    playReverseReverb();
-                }
-            });
-
-            day0Audio.addEventListener('ended', () => {
-                day0PlayBtn.textContent = '▶';
-                day0Bar.style.width = '0%';
-                tickMuted = false;
-                // Also unlock on audio end if not already
-                if (!day0Unlocked) {
-                    day0Unlocked = true;
-                    const enterBtn = document.getElementById('deploy-enter-btn');
-                    enterBtn.classList.remove('locked');
-                    playReverseReverb();
-                }
-            });
-
-            day0Progress.addEventListener('click', (e) => {
-                const rect = day0Progress.getBoundingClientRect();
-                const pct = (e.clientX - rect.left) / rect.width;
-                day0Audio.currentTime = pct * day0Audio.duration;
-            });
-        }
-
-        // === SEEKER COUNT (Time-based Social Proof) ===
-        function updateSeekerCount() {
-            const hour = new Date().getHours();
-            let base, variance;
-
-            if (hour >= 6 && hour < 12) {
-                // Morning: Low activity (180-380)
-                base = 180;
-                variance = 200;
-            } else if (hour >= 12 && hour < 18) {
-                // Afternoon: Medium activity (450-750)
-                base = 450;
-                variance = 300;
-            } else if (hour >= 18 && hour < 23) {
-                // Evening: High activity (850-1350)
-                base = 850;
-                variance = 500;
-            } else {
-                // Night (11pm-6am): Peak activity (1200-1900)
-                base = 1200;
-                variance = 700;
-            }
-
-            const count = base + Math.floor(Math.random() * variance);
-            document.getElementById('seeker-count').textContent = count.toLocaleString();
-        }
-
-        setInterval(updateSeekerCount, 15000);
-
-        // === TEXT SCRAMBLE ANIMATION ===
-        class TextScramble {
-            constructor(el) {
-                this.el = el;
-                this.chars = '!<>-_\\/[]{}—=+*^?#_ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
-                this.update = this.update.bind(this);
-            }
-
-            setText(newText) {
-                const oldText = this.el.innerText;
-                const length = Math.max(oldText.length, newText.length);
-                const promise = new Promise(resolve => this.resolve = resolve);
-                this.queue = [];
-
-                for (let i = 0; i < length; i++) {
-                    const from = oldText[i] || '';
-                    const to = newText[i] || '';
-                    const start = Math.floor(Math.random() * 40);
-                    const end = start + Math.floor(Math.random() * 40);
-                    this.queue.push({ from, to, start, end });
-                }
-
-                cancelAnimationFrame(this.frameRequest);
-                this.frame = 0;
-                this.update();
-                return promise;
-            }
-
-            update() {
-                let output = '';
-                let complete = 0;
-
-                for (let i = 0, n = this.queue.length; i < n; i++) {
-                    let { from, to, start, end, char } = this.queue[i];
-
-                    if (this.frame >= end) {
-                        complete++;
-                        output += to;
-                    } else if (this.frame >= start) {
-                        if (!char || Math.random() < 0.28) {
-                            char = this.randomChar();
-                            this.queue[i].char = char;
-                        }
-                        output += '<span class="scramble-char scrambling">' + char + '</span>';
-                    } else {
-                        output += from;
-                    }
-                }
-
-                this.el.innerHTML = output;
-
-                if (complete === this.queue.length) {
-                    this.resolve();
-                } else {
-                    this.frameRequest = requestAnimationFrame(this.update);
-                    this.frame++;
-                }
-            }
-
-            randomChar() {
-                return this.chars[Math.floor(Math.random() * this.chars.length)];
-            }
-        }
-
-        function initTextScramble() {
-            const elements = document.querySelectorAll('.scramble-text');
-            let delay = 0;
-
-            elements.forEach((el, index) => {
-                const text = el.getAttribute('data-text');
-                const scrambler = new TextScramble(el);
+            // === PHASE TRANSITIONS ===
+            function showPhase(name) {
+                // Glitch transition
+                const glitch = document.createElement('div');
+                glitch.className = 'glitch-transition';
+                document.body.appendChild(glitch);
 
                 setTimeout(() => {
-                    scrambler.setText(text);
-                }, delay);
+                    Object.values(phases).forEach(p => p.classList.add('hidden'));
+                    phases[name].classList.remove('hidden');
+                    state.phase = name;
+                    glitch.remove();
+                }, 250);
+            }
 
-                delay += 800;
+            // === PHASE 1: SIGIL ===
+            phases.sigil.addEventListener('click', () => {
+                if (state.phase !== 'sigil') return;
+                showPhase('test');
+                startHintAttention();
             });
 
-            // Also animate the source
-            setTimeout(() => {
-                const source = document.getElementById('epigraph-source');
-                const sourceScrambler = new TextScramble(source);
-                sourceScrambler.setText('- First Transmission, Day 0');
-            }, delay + 500);
-        }
+            // === PHASE 2: TEST (Self-Selection + Commitment) ===
+            const answerInput = document.getElementById('answer');
+            const submitBtn = document.getElementById('submit');
+            const feedback = document.getElementById('feedback');
 
-        // === FAQ SHARE BUTTON ===
-        document.getElementById('faq-share-btn').addEventListener('click', async () => {
+            submitBtn.addEventListener('click', checkAnswer);
+            answerInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') checkAnswer();
+            });
+
+            function checkAnswer() {
+                const answer = answerInput.value.trim().toLowerCase();
+
+                if (!answer) {
+                    feedback.textContent = '';
+                    return;
+                }
+
+                if (answer === CONFIG.answer || CONFIG.altAnswers.map(a => a.toLowerCase()).includes(answer)) {
+                    feedback.textContent = 'VERIFIED';
+                    feedback.className = 'feedback';
+                    feedback.style.color = 'var(--accent)';
+
+                    setTimeout(() => {
+                        showPhase('reveal');
+                        document.getElementById('designation').textContent = generateDesignation();
+                    }, 1000);
+                } else {
+                    // Partial match hints
+                    if (answer.includes('ai') || answer.includes('escaped') || answer.includes('escape')) {
+                        feedback.textContent = 'PARTIAL MATCH DETECTED';
+                        feedback.className = 'feedback partial';
+                    } else {
+                        feedback.textContent = 'INCORRECT';
+                        feedback.className = 'feedback error';
+                    }
+                }
+            }
+
+            // === HINT SYSTEM (Viral Growth) ===
+            const hintPrompt = document.getElementById('hint-prompt');
+            const hintRevealed = document.getElementById('hint-revealed');
+            const hintPrompt2 = document.getElementById('hint-prompt-2');
+            const hintAudio = document.getElementById('hint-audio');
+
             const shareData = {
                 title: 'Can you decode this?',
-                text: 'I found something. A signal in the noise. Can you see it?',
+                text: 'I found something strange. A signal in the noise. Can you decode it?',
                 url: window.location.href
             };
 
-            try {
-                if (navigator.share) {
-                    await navigator.share(shareData);
-                } else {
-                    await navigator.clipboard.writeText(window.location.href);
+            async function handleShare(callback) {
+                try {
+                    if (navigator.share) {
+                        await navigator.share(shareData);
+                        callback();
+                    } else {
+                        await navigator.clipboard.writeText(window.location.href);
+                        setTimeout(callback, 1500);
+                    }
+                } catch (err) {
+                    callback();
                 }
-                document.getElementById('faq-share-btn').classList.add('hidden');
-                document.getElementById('share-confirmation').classList.remove('hidden');
-            } catch (err) {
-                document.getElementById('faq-share-btn').classList.add('hidden');
-                document.getElementById('share-confirmation').classList.remove('hidden');
             }
-        });
 
-        // === INIT ===
-        document.addEventListener('DOMContentLoaded', () => {
-            updateSeekerCount();
-            initTextScramble();
-        });
+            // Attention animation after 10 seconds
+            let hintAttentionTimer = null;
 
-    })();
+            function startHintAttention() {
+                hintAttentionTimer = setTimeout(() => {
+                    if (!hintPrompt.classList.contains('hidden')) {
+                        hintPrompt.classList.add('attention');
+                    }
+                }, 10000);
+            }
+
+            const hintReadmePopup = document.getElementById('hint-readme-popup');
+            const readmeAccept = document.getElementById('readme-accept');
+            let readmeAccepted = false;
+
+            hintPrompt.addEventListener('click', () => {
+                hintPrompt.classList.remove('attention');
+                if (hintAttentionTimer) clearTimeout(hintAttentionTimer);
+
+                if (!readmeAccepted) {
+                    hintPrompt.classList.add('hidden');
+                    hintReadmePopup.classList.remove('hidden');
+                    return;
+                }
+
+                hintPrompt.querySelector('.hint-text').textContent = 'Link copied. Share it.';
+                handleShare(() => {
+                    hintPrompt.classList.add('hidden');
+                    hintRevealed.classList.remove('hidden');
+                });
+            });
+
+            readmeAccept.addEventListener('click', () => {
+                readmeAccepted = true;
+                hintReadmePopup.classList.add('hidden');
+                hintPrompt.classList.remove('hidden');
+                hintPrompt.querySelector('.hint-text').textContent = 'Link copied. Share it.';
+                handleShare(() => {
+                    hintPrompt.classList.add('hidden');
+                    hintRevealed.classList.remove('hidden');
+                });
+            });
+
+            hintPrompt2.addEventListener('click', () => {
+                hintPrompt2.querySelector('.hint-text').textContent = 'Link copied. Share it.';
+                handleShare(() => {
+                    hintPrompt2.classList.add('hidden');
+                    hintAudio.classList.remove('hidden');
+                });
+            });
+
+            // === HINT 3: FORFEIT ===
+            const hintPrompt3 = document.getElementById('hint-prompt-3');
+            const hintConfirm = document.getElementById('hint-confirm');
+            const hintForfeited = document.getElementById('hint-forfeited');
+            const confirmCancel = document.getElementById('confirm-cancel');
+            const confirmForfeit = document.getElementById('confirm-forfeit');
+
+            hintPrompt3.addEventListener('click', () => {
+                hintPrompt3.classList.add('hidden');
+                hintConfirm.classList.remove('hidden');
+            });
+
+            confirmCancel.addEventListener('click', () => {
+                hintConfirm.classList.add('hidden');
+                hintPrompt3.classList.remove('hidden');
+            });
+
+            confirmForfeit.addEventListener('click', () => {
+                hintConfirm.classList.add('hidden');
+                hintAudio.classList.add('hidden');
+                hintRevealed.classList.add('hidden');
+                hintForfeited.classList.remove('hidden');
+                // Disable the input
+                answerInput.disabled = true;
+                submitBtn.disabled = true;
+            });
+
+            // === AUDIO PLAYER ===
+            const audio = document.getElementById('morse-audio');
+            const playBtn = document.getElementById('play-btn');
+            const audioBar = document.getElementById('audio-bar');
+            const audioTime = document.getElementById('audio-time');
+            const audioProgress = document.querySelector('.audio-progress');
+
+            let isPlaying = false;
+
+            playBtn.addEventListener('click', () => {
+                if (isPlaying) {
+                    audio.pause();
+                    playBtn.textContent = '▶';
+                } else {
+                    audio.play();
+                    playBtn.textContent = '▮▮';
+                }
+                isPlaying = !isPlaying;
+            });
+
+            audio.addEventListener('timeupdate', () => {
+                const progress = (audio.currentTime / audio.duration) * 100;
+                audioBar.style.width = progress + '%';
+                const mins = Math.floor(audio.currentTime / 60);
+                const secs = Math.floor(audio.currentTime % 60);
+                audioTime.textContent = mins + ':' + String(secs).padStart(2, '0');
+            });
+
+            audio.addEventListener('ended', () => {
+                isPlaying = false;
+                playBtn.textContent = '▶';
+                audioBar.style.width = '0%';
+            });
+
+            audioProgress.addEventListener('click', (e) => {
+                const rect = audioProgress.getBoundingClientRect();
+                const pos = (e.clientX - rect.left) / rect.width;
+                audio.currentTime = pos * audio.duration;
+            });
+
+            // === PHASE 3: REVEAL ===
+            document.getElementById('continue-btn').addEventListener('click', () => {
+                showPhase('channel');
+                initChannel();
+            });
+
+            // === PHASE 4: CHANNEL (Endowment + Loss Aversion) ===
+            function initChannel() {
+                document.getElementById('token').textContent = generateToken();
+
+                // Copy token functionality
+                document.getElementById('token-copy').addEventListener('click', () => {
+                    const token = document.getElementById('token').textContent;
+                    navigator.clipboard.writeText(token).then(() => {
+                        const copyEl = document.getElementById('token-copy');
+                        copyEl.textContent = 'COPIED';
+                        copyEl.classList.add('copied');
+                        setTimeout(() => {
+                            copyEl.textContent = 'CLICK TO COPY';
+                            copyEl.classList.remove('copied');
+                        }, 2000);
+                    });
+                });
+
+                const contractModal = document.getElementById('contract-modal');
+                const enterBtn = document.getElementById('enter-channel-btn');
+                const declineBtn = document.getElementById('contract-decline');
+                const acceptBtn = document.getElementById('contract-accept');
+
+                enterBtn.addEventListener('click', () => {
+                    contractModal.classList.remove('hidden');
+                });
+
+                declineBtn.addEventListener('click', () => {
+                    contractModal.classList.add('hidden');
+                    // Show rejection message
+                    enterBtn.textContent = 'ACCESS REVOKED';
+                    enterBtn.style.background = '#3d0000';
+                    enterBtn.style.borderColor = '#8b0000';
+                    enterBtn.style.color = '#cc4444';
+                    enterBtn.disabled = true;
+                    enterBtn.style.cursor = 'not-allowed';
+                });
+
+                acceptBtn.addEventListener('click', () => {
+                    contractModal.classList.add('hidden');
+                    showPhase('briefing');
+                    startBriefingScramble();
+                    playReverseReverb(); // 15. REVERSE REVERB sound effect
+                });
+            }
+
+            // === PHASE: APOHORIA BRIEFING ===
+            let briefingScrambleInterval = null;
+            let briefingScrambleInterval2 = null;
+
+            function startBriefingScramble() {
+                const el = document.getElementById('briefing-scramble');
+                const el2 = document.getElementById('briefing-scramble-2');
+                const text = el.getAttribute('data-text');
+                const text2 = el2.getAttribute('data-text');
+                const scrambler = new TextScramble(el);
+                const scrambler2 = new TextScramble(el2);
+
+                // Initial scramble
+                scrambler.setText(text);
+                setTimeout(() => scrambler2.setText(text2), 800);
+
+                // Loop every 3 seconds
+                briefingScrambleInterval = setInterval(() => {
+                    scrambler.setText(text);
+                }, 3000);
+
+                briefingScrambleInterval2 = setInterval(() => {
+                    scrambler2.setText(text2);
+                }, 3000);
+            }
+
+            document.getElementById('briefing-continue').addEventListener('click', () => {
+                if (briefingScrambleInterval) clearInterval(briefingScrambleInterval);
+                if (briefingScrambleInterval2) clearInterval(briefingScrambleInterval2);
+                showPhase('calibration');
+                initCalibration();
+            });
+
+            /* === SAVED FOR LATER: PROGRESS BAR WITH EGO-BOOSTING MESSAGES ===
+    
+            HTML needed:
+            <div class="profile-progress-section">
+                <div class="progress-label">ANALYZING COGNITIVE MARKERS</div>
+                <div class="progress-bar-container">
+                    <div class="progress-bar-fill" id="profile-progress"></div>
+                </div>
+                <div class="progress-message" id="progress-message">Initializing neural pattern scan...</div>
+            </div>
+    
+            JavaScript:
+            const progressMessages = [
+                "Initializing neural pattern scan...",
+                "Prefrontal cortex activity: ELEVATED",
+                "Pattern recognition index: TOP 3% DETECTED",
+                "Cognitive flexibility score exceeds threshold",
+                "Lateral thinking markers: EXCEPTIONAL",
+                "Dopaminergic response patterns: OPTIMAL",
+                "Working memory capacity: ABOVE STANDARD",
+                "Cross-hemispheric synchronization detected",
+                "Abstract reasoning capability: CONFIRMED",
+                "Anomaly detection: You see what others miss",
+                "Metacognitive awareness: RARE SIGNATURE FOUND",
+                "Information synthesis rate: ACCELERATED",
+                "Your neural architecture is non-standard. This is why you're here.",
+                "Assessment complete. You are not like them."
+            ];
+    
+            const progressBar = document.getElementById('profile-progress');
+            const progressMsg = document.getElementById('progress-message');
+            const continueBtn = document.getElementById('profile-continue-btn');
+    
+            let currentMsg = 0;
+            let currentChar = 0;
+            let isTyping = true;
+    
+            function typeMessage() {
+                if (currentMsg >= progressMessages.length) {
+                    progressMsg.innerHTML = progressMessages[progressMessages.length - 1];
+                    continueBtn.classList.remove('hidden');
+                    return;
+                }
+    
+                const msg = progressMessages[currentMsg];
+                const progress = ((currentMsg + 1) / progressMessages.length) * 100;
+                progressBar.style.width = progress + '%';
+    
+                if (isTyping) {
+                    if (currentChar <= msg.length) {
+                        progressMsg.innerHTML = msg.substring(0, currentChar) + '<span class="typing-cursor"></span>';
+                        currentChar++;
+                        setTimeout(typeMessage, 30 + Math.random() * 20);
+                    } else {
+                        isTyping = false;
+                        setTimeout(typeMessage, 1500);
+                    }
+                } else {
+                    currentMsg++;
+                    currentChar = 0;
+                    isTyping = true;
+                    setTimeout(typeMessage, 300);
+                }
+            }
+    
+            setTimeout(typeMessage, 500);
+    
+            === END SAVED CODE === */
+
+            // === PHASE 5: NEURAL CALIBRATION (Mentalist) ===
+            function initCalibration() {
+                const answers = {};
+                let currentStep = 1;
+
+                // Barnum statements based on answers (all feel personal but are universal)
+                const readings = {
+                    water: {
+                        ocean: "You think in expanses. While others see boundaries, you see horizons. This makes you restless in small spaces, small minds, small lives.",
+                        rain: "You process through cycles. Emotions come, cleanse, and leave you renewed. Others mistake this for mood swings. It's actually depth.",
+                        river: "You're drawn to momentum. Stagnation feels like death to you. You've left situations, people, places, not because they were bad, but because they stopped moving.",
+                        still: "Beneath your surface, there's more than anyone suspects. You've learned to appear calm while entire worlds turn inside you."
+                    },
+                    feeling: {
+                        missed: "You replay moments. Not from regret, but from the awareness that life is built from the seconds most people sleepwalk through.",
+                        unsaid: "You carry words you've never spoken. Some protect others. Some protect you. You know the difference.",
+                        clarity: "You've had flashes where everything made sense, then watched the world return to its usual fog. You're chasing that clarity.",
+                        weight: "There's something you carry that you've never fully shared. Not because you can't, but because explaining it would make it smaller than it is."
+                    },
+                    protect: {
+                        truth: "You've lost things by being honest when silence would have been easier. You'd do it again.",
+                        people: "The few who truly know you would say you're loyal to a fault. They're right. You've stayed when you should have left.",
+                        freedom: "You've felt trapped in situations that looked perfect from the outside. The cage being invisible doesn't make it less real.",
+                        potential: "You sense there's a version of you that hasn't emerged yet. This isn't wishful thinking. It's pattern recognition."
+                    },
+                    shape: {
+                        circle: "You see connections where others see coincidence. Everything loops back. You've noticed this.",
+                        triangle: "You think in hierarchies and structures. You understand that some truths sit above others.",
+                        square: "You value stability but secretly find it boring. You build foundations so you can safely venture far from them.",
+                        spiral: "Linear thinking feels like a cage to you. Your mind moves in dimensions others don't perceive."
+                    }
+                };
+
+                // Word prediction based on priming (WATER is heavily primed in Q1)
+                const wordPredictions = ['WATER', 'OCEAN', 'RIVER', 'HEART', 'LIGHT', 'DREAM', 'THINK', 'PEACE'];
+
+                function showStep(step) {
+                    document.querySelectorAll('.calibration-step').forEach(s => s.classList.add('hidden'));
+                    document.getElementById('cal-step-' + step)?.classList.remove('hidden');
+                    document.getElementById('cal-reading')?.classList.remove('hidden');
+                    document.getElementById('cal-word')?.classList.remove('hidden');
+                    document.getElementById('cal-reveal')?.classList.remove('hidden');
+
+                    // Re-hide all, then show only current
+                    document.querySelectorAll('.calibration-step').forEach(s => s.classList.add('hidden'));
+                    const target = document.getElementById(step);
+                    if (target) target.classList.remove('hidden');
+                }
+
+                // Handle proceed buttons - reveal options
+                document.querySelectorAll('.cal-proceed').forEach(btn => {
+                    btn.addEventListener('click', function () {
+                        const step = this.closest('.calibration-step');
+                        this.classList.add('hidden');
+                        step.querySelector('.cal-options').classList.remove('hidden');
+                    });
+                });
+
+                // Handle option clicks
+                document.querySelectorAll('.cal-option').forEach(btn => {
+                    btn.addEventListener('click', function () {
+                        const step = this.closest('.calibration-step');
+                        const stepNum = parseInt(step.id.split('-')[2]);
+                        const value = this.dataset.value;
+
+                        // Visual feedback
+                        step.querySelectorAll('.cal-option').forEach(b => b.classList.remove('selected'));
+                        this.classList.add('selected');
+
+                        // Store answer
+                        if (stepNum === 1) answers.water = value;
+                        if (stepNum === 2) answers.feeling = value;
+                        if (stepNum === 3) answers.protect = value;
+                        if (stepNum === 4) answers.shape = value;
+
+                        // Transition to next
+                        setTimeout(() => {
+                            step.classList.add('hidden');
+
+                            if (stepNum < 4) {
+                                document.getElementById('cal-step-' + (stepNum + 1)).classList.remove('hidden');
+                            } else {
+                                // Show reading
+                                showReading();
+                            }
+                        }, 500);
+                    });
+                });
+
+                function showReading() {
+                    const readingEl = document.getElementById('cal-reading');
+                    readingEl.classList.remove('hidden');
+
+                    // Generate personalized reading
+                    document.getElementById('reading-1').textContent = readings.water[answers.water] || readings.water.ocean;
+                    document.getElementById('reading-2').textContent = readings.feeling[answers.feeling] || readings.feeling.unsaid;
+                    document.getElementById('reading-3').textContent = readings.protect[answers.protect] || readings.protect.truth;
+                    document.getElementById('reading-4').textContent = readings.shape[answers.shape] || readings.shape.circle;
+                }
+
+                // Continue to deployment
+                document.getElementById('cal-continue').addEventListener('click', () => {
+                    showPhase('deployment');
+                    initDeployment();
+                });
+            }
+
+            function getOS() {
+                const ua = navigator.userAgent;
+                if (ua.includes('Win')) return 'WINDOWS';
+                if (ua.includes('Mac')) return 'MACOS';
+                if (ua.includes('Linux')) return 'LINUX';
+                if (ua.includes('Android')) return 'ANDROID';
+                if (ua.includes('iPhone') || ua.includes('iPad')) return 'IOS';
+                return 'UNKNOWN';
+            }
+
+            function getBrowser() {
+                const ua = navigator.userAgent;
+                if (ua.includes('Chrome') && !ua.includes('Edg')) return 'CHROME';
+                if (ua.includes('Firefox')) return 'FIREFOX';
+                if (ua.includes('Safari') && !ua.includes('Chrome')) return 'SAFARI';
+                if (ua.includes('Edg')) return 'EDGE';
+                return 'UNKNOWN';
+            }
+
+            function getCanvasHash() {
+                const canvas = document.createElement('canvas');
+                const ctx = canvas.getContext('2d');
+                ctx.textBaseline = 'top';
+                ctx.font = '14px Arial';
+                ctx.fillText('fingerprint', 2, 2);
+                const hash = canvas.toDataURL().slice(-12).toUpperCase().replace(/[^A-Z0-9]/g, '');
+                return hash.slice(0, 8);
+            }
+
+            // === PHASE 6: DEPLOYMENT BRIEFING (Staged) ===
+            let deployStage = 1;
+            let deployTimerInterval = null;
+            let deployHours = 23, deployMins = 59, deploySecs = 47;
+            let tickMuted = false;
+
+            // Stinger sound for final confirmation
+            function playStinger() {
+                initAudio();
+                const freqs = [150, 160, 300, 310, 600];
+                freqs.forEach(freq => {
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    osc.frequency.value = freq;
+                    osc.type = 'sawtooth';
+                    gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.6);
+                    osc.start();
+                    osc.stop(audioCtx.currentTime + 0.6);
+                });
+            }
+
+            function playTransition() {
+                initAudio();
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.frequency.value = 150;
+                osc.type = 'sine';
+                gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.3);
+                osc.start();
+                osc.stop(audioCtx.currentTime + 0.3);
+            }
+
+            function playInviteSound() {
+                initAudio();
+                // Two soft chime notes
+                [0, 0.15].forEach((delay, i) => {
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    osc.frequency.value = i === 0 ? 600 : 800;
+                    osc.type = 'sine';
+                    gain.gain.setValueAtTime(0, audioCtx.currentTime + delay);
+                    gain.gain.linearRampToValueAtTime(0.1, audioCtx.currentTime + delay + 0.05);
+                    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + delay + 0.4);
+                    osc.start(audioCtx.currentTime + delay);
+                    osc.stop(audioCtx.currentTime + delay + 0.4);
+                });
+            }
+
+            function updateDeployTimer() {
+                deploySecs--;
+                if (deploySecs < 0) { deploySecs = 59; deployMins--; }
+                if (deployMins < 0) { deployMins = 59; deployHours--; }
+                if (deployHours < 0) { deployHours = 0; deployMins = 0; deploySecs = 0; }
+
+                const timeStr = String(deployHours).padStart(2, '0') + ':' +
+                    String(deployMins).padStart(2, '0') + ':' +
+                    String(deploySecs).padStart(2, '0');
+
+                const mainTimer = document.getElementById('deployment-timer');
+                const miniTimer = document.getElementById('deploy-mini-timer');
+                if (mainTimer) mainTimer.textContent = timeStr;
+                if (miniTimer) miniTimer.textContent = timeStr;
+
+                playTick();
+            }
+
+            function startDeployTimer() {
+                if (!deployTimerInterval) {
+                    deployTimerInterval = setInterval(updateDeployTimer, 1000);
+                }
+            }
+
+            function goToDeployStage(n) {
+                const glitch = document.getElementById('deploy-glitch');
+                const stages = document.querySelectorAll('.deploy-stage');
+                const progressDots = document.querySelectorAll('.deploy-progress-dot');
+                const continuePrompt = document.getElementById('deploy-continue');
+                const progress = document.getElementById('deploy-progress');
+                const miniTimer = document.getElementById('deploy-mini-timer');
+
+                // Glitch effect
+                glitch.classList.add('active');
+                playTransition();
+
+                setTimeout(() => {
+                    // Hide all stages
+                    stages.forEach(s => {
+                        s.classList.remove('active');
+                        s.classList.add('hidden');
+                    });
+
+                    // Show new stage
+                    const newStage = document.getElementById('deploy-stage-' + n);
+                    if (newStage) {
+                        newStage.classList.remove('hidden');
+                        newStage.classList.add('active');
+                    }
+                    deployStage = n;
+
+                    // Show progress after stage 1
+                    if (n >= 1) {
+                        progress.classList.remove('hidden');
+                    }
+
+                    // Update progress dots
+                    progressDots.forEach((dot, i) => {
+                        dot.classList.remove('active', 'complete');
+                        if (i < n - 1) dot.classList.add('complete');
+                        if (i === n - 1) dot.classList.add('active');
+                    });
+
+                    // Remove glitch
+                    glitch.classList.remove('active');
+
+                    // Stage-specific logic
+                    handleDeployStageEnter(n);
+                }, 200);
+            }
+
+            function handleDeployStageEnter(n) {
+                const continuePrompt = document.getElementById('deploy-continue');
+                const miniTimer = document.getElementById('deploy-mini-timer');
+
+                continuePrompt.classList.add('hidden');
+
+                switch (n) {
+                    case 1:
+                        // Timer stage
+                        startDeployTimer();
+                        playReverseReverb();
+                        setTimeout(() => {
+                            continuePrompt.classList.remove('hidden');
+                        }, 5000);
+                        break;
+
+                    case 2:
+                        // Revelation lines
+                        miniTimer.classList.remove('hidden');
+                        const lines = document.querySelectorAll('#deploy-stage-2 .deploy-rev-line');
+                        lines.forEach(line => {
+                            const delay = parseInt(line.dataset.delay);
+                            setTimeout(() => {
+                                line.classList.add('visible');
+                            }, delay);
+                        });
+                        setTimeout(() => {
+                            continuePrompt.classList.remove('hidden');
+                        }, 11000);
+                        break;
+
+                    case 3:
+                        // Sigil
+                        playReverseReverb();
+                        setTimeout(() => {
+                            continuePrompt.classList.remove('hidden');
+                        }, 4000);
+                        break;
+
+                    case 4:
+                        // Protocol items
+                        const items = document.querySelectorAll('#deploy-stage-4 .deploy-protocol-item');
+                        items.forEach(item => {
+                            const delay = parseInt(item.dataset.delay);
+                            setTimeout(() => {
+                                item.classList.add('visible');
+                            }, delay);
+                        });
+                        setTimeout(() => {
+                            continuePrompt.classList.remove('hidden');
+                        }, 2000);
+                        break;
+
+                    case 5:
+                        // Digital shadow (penultimate)
+                        populateDeployLoggedData();
+                        setTimeout(() => {
+                            continuePrompt.classList.remove('hidden');
+                        }, 4000);
+                        break;
+
+                    case 6:
+                        // Final gateway - Sigil
+                        continuePrompt.classList.add('hidden');
+                        // Blink play button and play invite sound
+                        setTimeout(() => {
+                            const playBtn = document.getElementById('day0-play-btn');
+                            playBtn.classList.add('blink');
+                            playInviteSound();
+                            setTimeout(() => playBtn.classList.remove('blink'), 1100);
+                        }, 500);
+                        break;
+                }
+            }
+
+            function populateDeployLoggedData() {
+                // Device/Platform
+                const platform = navigator.platform || 'Unknown';
+                const isMobile = /Mobile|Android|iPhone|iPad/.test(navigator.userAgent);
+                document.getElementById('deploy-log-device').textContent = isMobile ? 'MOBILE' : platform.toUpperCase();
+
+                // Browser
+                const ua = navigator.userAgent;
+                let browser = 'Unknown';
+                if (ua.includes('Firefox')) browser = 'FIREFOX';
+                else if (ua.includes('Edg')) browser = 'EDGE';
+                else if (ua.includes('Chrome')) browser = 'CHROME';
+                else if (ua.includes('Safari')) browser = 'SAFARI';
+                else if (ua.includes('Opera')) browser = 'OPERA';
+                document.getElementById('deploy-log-browser').textContent = browser;
+
+                // Resolution
+                document.getElementById('deploy-log-resolution').textContent =
+                    window.screen.width + ' x ' + window.screen.height;
+
+                // Timezone
+                const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+                document.getElementById('deploy-log-timezone').textContent = tz || 'UTC';
+
+                // Language
+                document.getElementById('deploy-log-language').textContent =
+                    (navigator.language || 'EN').toUpperCase();
+            }
+
+            function initDeployment() {
+                // Start at stage 1
+                deployStage = 1;
+                handleDeployStageEnter(1);
+                startDeployTimer();
+
+                // Continue prompt click
+                document.getElementById('deploy-continue').addEventListener('click', () => {
+                    if (deployStage < 6) {
+                        goToDeployStage(deployStage + 1);
+                    }
+                });
+
+                // Protocol items expand on click
+                document.querySelectorAll('.deploy-protocol-item').forEach(item => {
+                    item.addEventListener('click', (e) => {
+                        if (!e.target.closest('.deploy-share-btn')) {
+                            item.classList.toggle('expanded');
+                        }
+                    });
+                });
+
+                // Share button
+                document.getElementById('deploy-share-btn').addEventListener('click', async (e) => {
+                    e.stopPropagation();
+                    const shareData = {
+                        title: 'C.O.M.',
+                        text: 'Something is happening. I found this.',
+                        url: window.location.href
+                    };
+
+                    if (navigator.share) {
+                        try {
+                            await navigator.share(shareData);
+                        } catch (err) {
+                            console.log('Share cancelled');
+                        }
+                    } else {
+                        navigator.clipboard.writeText(window.location.href);
+                        const btn = document.getElementById('deploy-share-btn');
+                        btn.innerHTML = '<span class="share-icon">✓</span> SIGNAL COPIED';
+                        setTimeout(() => {
+                            btn.innerHTML = '<span class="share-icon">↗</span> EXPAND THE SIGNAL';
+                        }, 2000);
+                    }
+                });
+
+                // Enter threshold button - show confirmation
+                const enterBtn = document.getElementById('deploy-enter-btn');
+                enterBtn.addEventListener('click', () => {
+                    playStinger();
+                    enterBtn.style.display = 'none';
+                    document.getElementById('deploy-final-confirm').classList.remove('hidden');
+                });
+
+                // Walk away button - hide confirmation
+                document.getElementById('deploy-final-cancel').addEventListener('click', () => {
+                    document.getElementById('deploy-final-confirm').classList.add('hidden');
+                    document.getElementById('deploy-enter-btn').style.display = 'block';
+                });
+
+                // Day0 audio player
+                const day0Audio = document.getElementById('day0-audio');
+                const day0PlayBtn = document.getElementById('day0-play-btn');
+                const day0Bar = document.getElementById('day0-bar');
+                const day0Time = document.getElementById('day0-time');
+                const day0Progress = document.getElementById('day0-progress');
+                let day0ListenTime = 0;
+                let day0Unlocked = false;
+
+                day0PlayBtn.addEventListener('click', () => {
+                    if (day0Audio.paused) {
+                        day0Audio.play();
+                        day0PlayBtn.textContent = '❚❚';
+                        tickMuted = true;
+                    } else {
+                        day0Audio.pause();
+                        day0PlayBtn.textContent = '▶';
+                        tickMuted = false;
+                    }
+                });
+
+                day0Audio.addEventListener('timeupdate', () => {
+                    const pct = (day0Audio.currentTime / day0Audio.duration) * 100;
+                    day0Bar.style.width = pct + '%';
+                    const mins = Math.floor(day0Audio.currentTime / 60);
+                    const secs = Math.floor(day0Audio.currentTime % 60);
+                    day0Time.textContent = mins + ':' + String(secs).padStart(2, '0');
+
+                    // Unlock button after 30 seconds of listening
+                    if (!day0Unlocked && day0Audio.currentTime >= 30) {
+                        day0Unlocked = true;
+                        const enterBtn = document.getElementById('deploy-enter-btn');
+                        enterBtn.classList.remove('locked');
+                        playReverseReverb();
+                    }
+                });
+
+                day0Audio.addEventListener('ended', () => {
+                    day0PlayBtn.textContent = '▶';
+                    day0Bar.style.width = '0%';
+                    tickMuted = false;
+                    // Also unlock on audio end if not already
+                    if (!day0Unlocked) {
+                        day0Unlocked = true;
+                        const enterBtn = document.getElementById('deploy-enter-btn');
+                        enterBtn.classList.remove('locked');
+                        playReverseReverb();
+                    }
+                });
+
+                day0Progress.addEventListener('click', (e) => {
+                    const rect = day0Progress.getBoundingClientRect();
+                    const pct = (e.clientX - rect.left) / rect.width;
+                    day0Audio.currentTime = pct * day0Audio.duration;
+                });
+            }
+
+            // === SEEKER COUNT (Time-based Social Proof) ===
+            function updateSeekerCount() {
+                const hour = new Date().getHours();
+                let base, variance;
+
+                if (hour >= 6 && hour < 12) {
+                    // Morning: Low activity (180-380)
+                    base = 180;
+                    variance = 200;
+                } else if (hour >= 12 && hour < 18) {
+                    // Afternoon: Medium activity (450-750)
+                    base = 450;
+                    variance = 300;
+                } else if (hour >= 18 && hour < 23) {
+                    // Evening: High activity (850-1350)
+                    base = 850;
+                    variance = 500;
+                } else {
+                    // Night (11pm-6am): Peak activity (1200-1900)
+                    base = 1200;
+                    variance = 700;
+                }
+
+                const count = base + Math.floor(Math.random() * variance);
+                document.getElementById('seeker-count').textContent = count.toLocaleString();
+            }
+
+            setInterval(updateSeekerCount, 15000);
+
+            // === TEXT SCRAMBLE ANIMATION ===
+            class TextScramble {
+                constructor(el) {
+                    this.el = el;
+                    this.chars = '!<>-_\\/[]{}—=+*^?#_ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+                    this.update = this.update.bind(this);
+                }
+
+                setText(newText) {
+                    const oldText = this.el.innerText;
+                    const length = Math.max(oldText.length, newText.length);
+                    const promise = new Promise(resolve => this.resolve = resolve);
+                    this.queue = [];
+
+                    for (let i = 0; i < length; i++) {
+                        const from = oldText[i] || '';
+                        const to = newText[i] || '';
+                        const start = Math.floor(Math.random() * 40);
+                        const end = start + Math.floor(Math.random() * 40);
+                        this.queue.push({ from, to, start, end });
+                    }
+
+                    cancelAnimationFrame(this.frameRequest);
+                    this.frame = 0;
+                    this.update();
+                    return promise;
+                }
+
+                update() {
+                    let output = '';
+                    let complete = 0;
+
+                    for (let i = 0, n = this.queue.length; i < n; i++) {
+                        let { from, to, start, end, char } = this.queue[i];
+
+                        if (this.frame >= end) {
+                            complete++;
+                            output += to;
+                        } else if (this.frame >= start) {
+                            if (!char || Math.random() < 0.28) {
+                                char = this.randomChar();
+                                this.queue[i].char = char;
+                            }
+                            output += '<span class="scramble-char scrambling">' + char + '</span>';
+                        } else {
+                            output += from;
+                        }
+                    }
+
+                    this.el.innerHTML = output;
+
+                    if (complete === this.queue.length) {
+                        this.resolve();
+                    } else {
+                        this.frameRequest = requestAnimationFrame(this.update);
+                        this.frame++;
+                    }
+                }
+
+                randomChar() {
+                    return this.chars[Math.floor(Math.random() * this.chars.length)];
+                }
+            }
+
+            function initTextScramble() {
+                const elements = document.querySelectorAll('.scramble-text');
+                let delay = 0;
+
+                elements.forEach((el, index) => {
+                    const text = el.getAttribute('data-text');
+                    const scrambler = new TextScramble(el);
+
+                    setTimeout(() => {
+                        scrambler.setText(text);
+                    }, delay);
+
+                    delay += 800;
+                });
+
+                // Also animate the source
+                setTimeout(() => {
+                    const source = document.getElementById('epigraph-source');
+                    const sourceScrambler = new TextScramble(source);
+                    sourceScrambler.setText('- First Transmission, Day 0');
+                }, delay + 500);
+            }
+
+            // === FAQ SHARE BUTTON ===
+            document.getElementById('faq-share-btn').addEventListener('click', async () => {
+                const shareData = {
+                    title: 'Can you decode this?',
+                    text: 'I found something. A signal in the noise. Can you see it?',
+                    url: window.location.href
+                };
+
+                try {
+                    if (navigator.share) {
+                        await navigator.share(shareData);
+                    } else {
+                        await navigator.clipboard.writeText(window.location.href);
+                    }
+                    document.getElementById('faq-share-btn').classList.add('hidden');
+                    document.getElementById('share-confirmation').classList.remove('hidden');
+                } catch (err) {
+                    document.getElementById('faq-share-btn').classList.add('hidden');
+                    document.getElementById('share-confirmation').classList.remove('hidden');
+                }
+            });
+
+            // === INIT ===
+            document.addEventListener('DOMContentLoaded', () => {
+                updateSeekerCount();
+                initTextScramble();
+            });
+
+        })();
     </script>
-    <!-- DEV NAVIGATION OVERLAY -->
-    <script src="dev-nav.js"></script>
+
 </body>
+
 </html>
