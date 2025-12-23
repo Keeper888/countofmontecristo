@@ -43,6 +43,8 @@ body {
     background: var(--black);
     color: var(--text);
     min-height: 100vh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 .hidden {
@@ -56,6 +58,8 @@ body {
     align-items: center;
     justify-content: center;
     padding: 40px 20px;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 /* === EXACT CSS FROM LIBRARY (Component Styles) === */
@@ -2702,7 +2706,13 @@ body::before {
 }
 
 @keyframes acceptPulse {
-    0%, 100% { box-shadow: 0 0 5px rgba(212, 175, 55, 0.3); }
-    50% { box-shadow: 0 0 20px rgba(212, 175, 55, 0.6); }
-}
 
+    0%,
+    100% {
+        box-shadow: 0 0 5px rgba(212, 175, 55, 0.3);
+    }
+
+    50% {
+        box-shadow: 0 0 20px rgba(212, 175, 55, 0.6);
+    }
+}
